@@ -1,0 +1,7 @@
+# 测试环境 mysql 数据库
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/coding_online_dev?useUnicode=true&characterEncoding=utf8&useSSL=false
+    username: root
+    password: jc0802

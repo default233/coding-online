@@ -17,5 +17,6 @@
     <packaging>pom</packaging>
 
     <name>coding-online</name>
+    <description>coding online learning system</description>
 
 </project>
