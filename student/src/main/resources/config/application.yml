@@ -1,3 +1,13 @@
 server:
   servlet:
     context-path: /coding-online/student
+  port: 6663
+
+spring:
+  profiles:
+    active: dev
+  security:
+    user:
+      name: admin@qq.com
+      password: 123456
+      roles: admin
