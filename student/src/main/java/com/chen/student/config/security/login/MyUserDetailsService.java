@@ -21,8 +21,8 @@ public class MyUserDetailsService implements UserDetailsService {
     @Autowired
     private SysUserService sysUserService;
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        SysUser sysUser = sysUserService.selectUserByEmail(email);
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        SysUser sysUser = sysUserService.selectUserByName(username);
         if (sysUser == null) {
             throw new UsernameNotFoundException("用户不存在");
         }

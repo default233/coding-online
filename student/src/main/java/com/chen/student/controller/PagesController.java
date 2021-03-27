@@ -1,5 +1,6 @@
 package com.chen.student.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,32 +10,31 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @date 2021/3/16
  */
 @Controller
+@Slf4j
 public class PagesController {
 
     @RequestMapping({"/index", "/index.html"})
     public String index() {
-        System.out.println("=========index=========");
         return "index";
     }
 
-    @GetMapping({"/login.html", "/login"})
+    @GetMapping({"/pages-login.html", "/pages-login"})
     public String toLogin() {
-        System.out.println("=======get login======");
-        return "login";
+        return "pages-login";
     }
 
-    @GetMapping("/register")
+    @GetMapping("/pages-register")
     public String toRegister() {
-        return "register";
+        return "pages-register";
     }
 
-    @GetMapping("/forgot-password")
+    @GetMapping("/pages-recoverpw")
     public String toForgotPassword() {
-        return "forgot-password";
+        return "pages-recoverpw";
     }
-
-    @GetMapping("/recover-password")
-    public String toRecoverPassword() {
-        return "recover-password";
-    }
+//
+//    @GetMapping("/pages-register")
+//    public String toRecoverPassword() {
+//        return "pages-register";
+//    }
 }

@@ -1,6 +1,10 @@
 package com.chen.biz.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.chen.biz.exception.BadArgumentException;
+import com.chen.biz.exception.CustomException;
+import com.chen.biz.exception.UserAlreadyExistException;
 import com.chen.biz.mapper.SysUserMapper;
 import com.chen.biz.pojo.SysUser;
 import com.chen.biz.service.SysUserService;
@@ -72,13 +76,18 @@ public class SysUserServiceImpl implements SysUserService {
      * @throws Exception 用户邮箱重复错误
      */
     @Override
-    public int register(SysUser sysUser) throws Exception {
+    public int register(SysUser sysUser) throws CustomException {
+
+        if (sysUser == null) {
+            throw new BadArgumentException("用户为空！！");
+        }
+
         QueryWrapper<SysUser> queryWrapper = new QueryWrapper<>();
 //        queryWrapper.eq("username", sysUser.getUsername());
         queryWrapper.eq("email", sysUser.getEmail());
         SysUser user = sysUserMapper.selectOne(queryWrapper);
         if (user != null) {
-            throw new Exception("用户已存在");
+            throw new UserAlreadyExistException("用户已存在");
         }
         String password = sysUser.getPassword();
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
@@ -87,5 +96,22 @@ public class SysUserServiceImpl implements SysUserService {
         sysUser.setPassword(encode);
         int insert = sysUserMapper.insert(sysUser);
         return insert;
+    }
+
+    /**
+     * 修改密码
+     * @param sysUser 用户信息
+     * @param newPassword 新密码
+     * @return 是否成功
+     */
+    @Override
+    public int recoverPassword(SysUser sysUser, String newPassword) {
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        String encode = bCryptPasswordEncoder.encode(newPassword);
+        UpdateWrapper<SysUser> updateWrapper = new UpdateWrapper<>();
+        updateWrapper.eq("username", sysUser.getUsername());
+        sysUser.setPassword(encode);
+        int update = sysUserMapper.update(sysUser, updateWrapper);
+        return update;
     }
 }

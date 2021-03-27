@@ -1,5 +1,7 @@
 package com.chen.biz.service;
 
+import com.chen.biz.exception.BadArgumentException;
+import com.chen.biz.exception.CustomException;
 import com.chen.biz.pojo.SysUser;
 
 /**
@@ -42,5 +44,12 @@ public interface SysUserService {
      * @return 是否成功
      * @throws Exception 用户邮箱重复错误
      */
-    int register(SysUser sysUser) throws Exception;
+    int register(SysUser sysUser) throws CustomException;
+
+    /**
+     * 修改密码
+     * @param sysUser 用户信息
+     * @return 是否成功
+     */
+    int recoverPassword(SysUser sysUser, String newPassword) ;
 }
