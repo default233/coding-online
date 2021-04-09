@@ -8,11 +8,16 @@ import com.chen.biz.service.SysUserService;
 import com.chen.student.utils.IMailService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -89,5 +94,15 @@ public class LoginController {
         res.put("verificationCode", verificationCode);
         res.put("sysUser", sysUser);
         return JSON.toJSONString(res);
+    }
+
+    @GetMapping("/getCurrentUser")
+    @ResponseBody
+    public String getCurrentUser(HttpServletRequest request) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUserName = authentication.getName();
+        SysUser sysUser = sysUserService.selectUserByName(currentUserName);
+        request.setAttribute("currentUser", sysUser);
+        return JSON.toJSONString(sysUser);
     }
 }

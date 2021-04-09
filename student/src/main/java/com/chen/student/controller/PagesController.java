@@ -32,6 +32,21 @@ public class PagesController {
     public String toForgotPassword() {
         return "pages-recoverpw";
     }
+
+    @GetMapping("/pages-profile")
+    public String toPagesProfile() {
+        return "pages-profile";
+    }
+
+    @GetMapping("/question-list")
+    public String toQuestionList() {
+        return "question/question-list";
+    }
+
+    @GetMapping("/question")
+    public String toQuestionPage() {
+        return "question/question";
+    }
 //
 //    @GetMapping("/pages-register")
 //    public String toRecoverPassword() {

@@ -16,14 +16,12 @@ $("#login-form").submit(function(){
         data: JSON.stringify(params),
         dataType: "json",
         success: function (res) {
-            alert("成功");
             swal("登陆成功！","提示", "success").then(function () {
                     $(location).attr('href', baseUrl + '/index.html');
                 }
             );
         },
         error: function (res) {
-            alert("失败");
             let data = jQuery.parseJSON(res.responseText);
             swal(data.message, "登录失败", "error");
         }
