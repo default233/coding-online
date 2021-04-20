@@ -10,7 +10,7 @@ $("#login-form").submit(function(){
     params.rememberMe = $('#customCheck1').prop("checked");
 
     $.ajax({
-        url: baseUrl + '/login', //+ '?remember-me='+$('#customCheck1').prop("checked"),
+        url: baseUrl + '/login',
         type: 'POST',
         contentType: 'application/json',
         data: JSON.stringify(params),

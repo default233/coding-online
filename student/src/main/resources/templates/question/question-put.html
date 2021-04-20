@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <title>Coding Online 题目上传</title>
+    <meta content="Responsive admin theme build on top of Bootstrap 4" name="description" />
+    <meta content="Themesdesign" name="author" />
+    <link rel="shortcut icon" th:href="@{/assets/images/favicon.ico}">
+
+    <link th:href="@{/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css}" rel="stylesheet">
+
+    <link th:href="@{/assets/css/bootstrap.min.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/assets/css/metismenu.min.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/assets/css/icons.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/assets/css/style.css}" rel="stylesheet" type="text/css">
+
+    <link th:href="@{/plugins/summernote/summernote-bs4.css}" rel="stylesheet" />
+
+</head>
+
+<body>
+
+    <div th:replace="common/common-section :: common_head"></div>
+    <!-- header-bg -->
+
+    <div class="wrapper">
+        <div class="container-fluid">
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+
+                            <h4 class="mt-0 header-title">上传题目</h4>
+                            <p class="sub-title">请按照需求输入题目信息后上传</p>
+
+                            <div class="form-group row">
+                                <label for="question-title" class="col-sm-2 col-form-label">标题</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control" type="text" placeholder="请输入题目标题" id="question-title">
+                                </div>
+                            </div>
+<!--                            <div class="form-group row">-->
+<!--                                <label for="example-search-input" class="col-sm-2 col-form-label">Search</label>-->
+<!--                                <div class="col-sm-10">-->
+<!--                                    <input class="form-control" type="search" value="How do I shoot web" id="example-search-input">-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="form-group row">-->
+<!--                                <label for="example-email-input" class="col-sm-2 col-form-label">Email</label>-->
+<!--                                <div class="col-sm-10">-->
+<!--                                    <input class="form-control" type="email" value="bootstrap@example.com" id="example-email-input">-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="form-group row">-->
+<!--                                <label for="example-url-input" class="col-sm-2 col-form-label">URL</label>-->
+<!--                                <div class="col-sm-10">-->
+<!--                                    <input class="form-control" type="url" value="https://getbootstrap.com" id="example-url-input">-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="form-group row">-->
+<!--                                <label for="example-tel-input" class="col-sm-2 col-form-label">Telephone</label>-->
+<!--                                <div class="col-sm-10">-->
+<!--                                    <input class="form-control" type="tel" value="1-(555)-555-5555" id="example-tel-input">-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="form-group row">-->
+<!--                                <label for="example-password-input" class="col-sm-2 col-form-label">Password</label>-->
+<!--                                <div class="col-sm-10">-->
+<!--                                    <input class="form-control" type="password" value="hunter2" id="example-password-input">-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="form-group row">-->
+<!--                                <label for="example-number-input" class="col-sm-2 col-form-label">Number</label>-->
+<!--                                <div class="col-sm-10">-->
+<!--                                    <input class="form-control" type="number" value="42" id="example-number-input">-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="form-group row">-->
+<!--                                <label for="example-datetime-local-input" class="col-sm-2 col-form-label">Date and time</label>-->
+<!--                                <div class="col-sm-10">-->
+<!--                                    <input class="form-control" type="datetime-local" value="2011-08-19T13:45:00" id="example-datetime-local-input">-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="form-group row">-->
+<!--                                <label for="example-date-input" class="col-sm-2 col-form-label">Date</label>-->
+<!--                                <div class="col-sm-10">-->
+<!--                                    <input class="form-control" type="date" value="2011-08-19" id="example-date-input">-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="form-group row">-->
+<!--                                <label for="example-month-input" class="col-sm-2 col-form-label">Month</label>-->
+<!--                                <div class="col-sm-10">-->
+<!--                                    <input class="form-control" type="month" value="2011-08" id="example-month-input">-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="form-group row">-->
+<!--                                <label for="example-week-input" class="col-sm-2 col-form-label">Week</label>-->
+<!--                                <div class="col-sm-10">-->
+<!--                                    <input class="form-control" type="week" value="2011-W33" id="example-week-input">-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="form-group row">-->
+<!--                                <label for="example-time-input" class="col-sm-2 col-form-label">Time</label>-->
+<!--                                <div class="col-sm-10">-->
+<!--                                    <input class="form-control" type="time" value="13:45:00" id="example-time-input">-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="form-group row">-->
+<!--                                <label for="example-color-input" class="col-sm-2 col-form-label">Color</label>-->
+<!--                                <div class="col-sm-10">-->
+<!--                                    <input class="form-control" type="color" value="#23cbe0" id="example-color-input">-->
+<!--                                </div>-->
+<!--                            </div>-->
+                            <div class="form-group row">
+                                <label for="question-difficulty" class="col-sm-2 col-form-label">题目难度</label>
+                                <div class="col-sm-10">
+                                    <select class="form-control" id="question-difficulty">
+                                        <option>简单</option>
+                                        <option>中等</option>
+                                        <option>困难</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="question-difficulty" class="col-sm-2 col-form-label">题目种类</label>
+                                <div class="col-sm-10">
+                                    <select class="form-control" id="question-type">
+
+                                    </select>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group row">
+                                <label for="question-description" class="col-sm-2 col-form-label">描述</label>
+                                <div class="col-sm-10">
+                                    <textarea id="question-description" placeholder="请输入题目的详细信息"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="question-input" class="col-sm-2 col-form-label">输入</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control" type="text" placeholder="请输入题目输入参数的详细描述" id="question-input">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="question-output" class="col-sm-2 col-form-label">输出</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control" type="text" placeholder="请输入题目输出的详细描述" id="question-output">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="question-time" class="col-sm-2 col-form-label">时间限制（单位：ms）</label>
+                                <div class="col-sm-6">
+                                    <input class="form-control" type="number" placeholder="请输入题目要求的最大运行时间" id="question-time">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="question-memory" class="col-sm-2 col-form-label">内存限制（单位：kB）</label>
+                                <div class="col-sm-6">
+                                    <input class="form-control" type="number" placeholder="请输入题目要求的最大运行内存" id="question-memory">
+                                </div>
+                            </div>
+
+                            <div id="input-0" class="form-group row input-example">
+                                <label for="question-example-input" class="col-sm-2 col-form-label">样例输入</label>
+                                <div class="col-sm-8">
+                                    <input class="form-control" type="text" placeholder="请输入题目的样例输入，用于判定程序是否正确，注意格式" id="question-example-input">
+                                </div>
+                                <button id="input-add" type="button" class="btn btn-primary waves-effect mb-2 mb-sm-0">
+                                    新增输入样例
+                                </button>
+                            </div>
+
+                            <div id="input-mode" class="form-group row input-example" style="display: none">
+                                <label class="col-sm-2 col-form-label"></label>
+                                <div class="col-sm-8">
+                                    <input class="form-control" type="text" placeholder="请输入题目的样例输入，用于判定程序是否正确，注意格式" id="question-example-input">
+                                </div>
+                                <button type="button" class="btn btn-primary waves-effect mb-2 mb-sm-0" onclick="deleteThis(this)">
+                                    删除
+                                </button>
+                            </div>
+
+                            <div id="output-0" class="form-group row output-example">
+                                <label for="question-example-output" class="col-sm-2 col-form-label">样例输出</label>
+
+                                <div class="col-sm-8">
+                                    <input class="form-control" type="text" placeholder="请输入题目的样例输出，用于判定程序是否正确，注意格式" id="question-example-output">
+                                </div>
+                                <button id="output-add" type="button" class="btn btn-primary waves-effect mb-2 mb-sm-0">
+                                    新增输出样例
+                                </button>
+                            </div>
+
+                            <div id="output-mode" class="form-group row output-example" style="display: none">
+                                <label class="col-sm-2 col-form-label"></label>
+                                <div class="col-sm-8">
+                                    <input class="form-control" type="text" placeholder="请输入题目的样例输出，用于判定程序是否正确，注意格式" id="question-example-input">
+                                </div>
+                                <button type="button" class="btn btn-primary waves-effect mb-2 mb-sm-0" onclick="deleteThis(this)">
+                                    删除
+                                </button>
+                            </div>
+
+                            <div id="submit-div" class="form-group mb-0" style="text-align:center">
+                                <div style="text-align:center">
+                                    <button id="question-submit" type="submit" class="btn btn-primary waves-effect waves-light">
+                                        提交
+                                    </button>
+                                    <button type="reset" class="btn btn-secondary waves-effect m-l-5">
+                                        取消
+                                    </button>
+                                </div>
+                            </div>
+<!--                            <div class="form-group row">-->
+<!--                                <label class="col-sm-2 col-form-label">Custom Select</label>-->
+<!--                                <div class="col-sm-10">-->
+<!--                                    <select class="custom-select">-->
+<!--                                        <option selected>Open this select menu</option>-->
+<!--                                        <option value="1">One</option>-->
+<!--                                        <option value="2">Two</option>-->
+<!--                                        <option value="3">Three</option>-->
+<!--                                    </select>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="form-group row">-->
+<!--                                <label for="example-text-input-lg" class="col-sm-2 col-form-label">Large</label>-->
+<!--                                <div class="col-sm-10">-->
+<!--                                    <input class="form-control form-control-lg" type="text" placeholder=".form-control-lg" id="example-text-input-lg">-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="form-group row">-->
+<!--                                <label for="example-text-input-sm" class="col-sm-2 col-form-label">Small</label>-->
+<!--                                <div class="col-sm-10">-->
+<!--                                    <input class="form-control form-control-sm" type="text" placeholder=".form-control-sm" id="example-text-input-sm">-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="form-group row has-success">-->
+<!--                                <label for="inputHorizontalSuccess" class="col-sm-2 col-form-label">Email</label>-->
+<!--                                <div class="col-sm-10">-->
+<!--                                    <input type="email" class="form-control form-control-success" id="inputHorizontalSuccess" placeholder="name@example.com">-->
+<!--                                    <div class="form-control-feedback">Success! You've done it.</div>-->
+<!--                                    <small class="form-text text-muted">Example help text that remains unchanged.</small>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="form-group row has-warning">-->
+<!--                                <label for="inputHorizontalWarning" class="col-sm-2 col-form-label">Email</label>-->
+<!--                                <div class="col-sm-10">-->
+<!--                                    <input type="email" class="form-control form-control-warning" id="inputHorizontalWarning" placeholder="name@example.com">-->
+<!--                                    <div class="form-control-feedback">Shucks, check the formatting of that and try again.</div>-->
+<!--                                    <small class="form-text text-muted">Example help text that remains unchanged.</small>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="form-group row has-danger">-->
+<!--                                <label for="inputHorizontalDnger" class="col-sm-2 col-form-label">Email</label>-->
+<!--                                <div class="col-sm-10">-->
+<!--                                    <input type="email" class="form-control form-control-danger" id="inputHorizontalDnger" placeholder="name@example.com">-->
+<!--                                    <div class="form-control-feedback">Sorry, that username's taken. Try another?</div>-->
+<!--                                    <small class="form-text text-muted">Example help text that remains unchanged.</small>-->
+<!--                                </div>-->
+<!--                            </div>-->
+                        </div>
+                    </div>
+                </div>
+                <!-- end col -->
+            </div>
+            <!-- end row -->
+
+        </div>
+        <!-- end container-fluid -->
+    </div>
+    <!-- end wrapper -->
+
+    <!-- Footer -->
+    <div th:replace="common/common-section :: common_footer"></div>
+    <!-- End Footer -->
+
+
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script th:src="@{/plugins/summernote/summernote-bs4.min.js}"></script>
+    <script th:src="@{/assets/js/question-put.js}"></script>
+
+</body>
+
+</html>

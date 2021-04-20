@@ -108,7 +108,7 @@
                         <li class="dropdown notification-list list-inline-item">
                             <div class="dropdown notification-list nav-pro-img">
                                 <a class="dropdown-toggle nav-link arrow-none waves-effect nav-user" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                                    <img src="assets/images/users/user-1.jpg" alt="user" class="rounded-circle">
+                                    <img th:src="@{/assets/images/users/user-1.jpg}" alt="user" class="rounded-circle">
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-animated profile-dropdown">
                                     <!-- item-->
@@ -236,17 +236,7 @@
 
                         <li class="has-submenu">
                             <a href="#"><i class="dripicons-briefcase"></i> 题库</a>
-                            <ul class="submenu megamenu">
-                                <li>
-                                    <ul>
-                                        <li><a th:href="@{/question-list}"> 数据结构</a></li>
-                                        <li><a th:href="@{/question-list}">算法</a></li>
-                                        <li><a th:href="@{/question-list}">Java基础</a></li>
-                                        <li><a th:href="@{/question-list}">面试</a></li>
-<!--                                        <li><a href="ui-dropdowns.html">Dropdowns</a></li>-->
-<!--                                        <li><a href="ui-navs.html">Navs</a></li>-->
-                                    </ul>
-                                </li>
+                            <ul class="submenu" id="questionType">
                             </ul>
 <!--                                <li>-->
 <!--                                    <ul>-->
@@ -272,15 +262,7 @@
                         </li>
 
                         <li class="has-submenu">
-                            <a href="#"><i class="dripicons-broadcast"></i> Advanced UI</a>
-                            <ul class="submenu">
-                                <li><a href="advanced-alertify.html">Alertify</a></li>
-                                <li><a href="advanced-rating.html">Rating</a></li>
-                                <li><a href="advanced-nestable.html">Nestable</a></li>
-                                <li><a href="advanced-rangeslider.html">Range Slider</a></li>
-                                <li><a href="advanced-sweet-alert.html">Sweet-Alert</a></li>
-                                <li><a href="advanced-lightbox.html">Lightbox</a></li>
-                            </ul>
+                            <a href="#"><i class="dripicons-help"></i> 帮助</a>
                         </li>
 
                         <li class="has-submenu">
@@ -396,5 +378,54 @@
     </header>
     <!-- End Navigation Bar-->
 
+
+    <!-- jQuery  -->
+    <script th:src="@{/assets/js/jquery.min.js}"></script>
+    <script th:src="@{/assets/js/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{/assets/js/jquery.slimscroll.js}"></script>
+    <script th:src="@{/assets/js/waves.min.js}"></script>
+
+    <!-- End Footer -->
+
+    <script th:src="@{/plugins/apexchart/apexcharts.min.js}"></script>
+    <script th:src="@{/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js}"></script>
+
+    <!-- App js -->
+    <script th:src="@{/assets/js/app.js}"></script>
+
+    <script>
+        const baseUrl = "/coding-online/student";
+
+        $(document).ready(function () {
+            $.ajax({
+                url: baseUrl + '/question-type',
+                type: 'post',
+                contentType: 'application/json',
+                dataType: "json",
+                success: function (res) {
+                    let $questionType = $('#questionType');
+                    for (let i = 0; i < res.length; i++) {
+                        $questionType.append('<li><a href="javascript:void(0)">' + res[i] + '</a></li>');
+                    }
+                },
+                error: function (res) {
+                }
+            });
+
+            $('#questionType').on('click', 'li a', function (){
+                let type = $(this)[0].innerText;
+                $(location).attr('href', baseUrl + '/question-list?type=' + type);
+            });
+        })
+
+
+    </script>
 </div>
 <!-- header-bg -->
+
+
+<!-- Footer -->
+<footer class="footer" th:fragment="common_footer">
+    © 2021 Coding Online <span class="d-none d-sm-inline-block"> - Crafted with <i class="mdi mdi-heart text-danger"></i> by Sufer</span>.
+</footer>
+<!-- End Footer -->

@@ -6,26 +6,26 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 /**
- * 用户 SysUser 实体类
  * @author danger
- * @date 2021/3/9
+ * @date 2021/4/16
  */
-@TableName("sys_user")
+@TableName("input_example")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class SysUser {
-    @TableId(value = "user_id")
-    private Long userId;
-    @TableField("username")
-    private String username;
-    @TableField("email")
-    private String email;
-    @TableField("password")
-    private String password;
+public class InputExample {
+
+    @TableId(value = "input_example_id")
+    private Long inputExampleId;
+
+    @TableField(value = "question_id")
+    private Long questionId;
+
+    @TableField(value = "input_example")
+    private String inputExample;
+
     @TableField(value = "create_time", fill = FieldFill.INSERT)
     private LocalDateTime createTime;
     @TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)
@@ -35,5 +35,4 @@ public class SysUser {
     private Boolean isDelete;
     @TableField("description")
     private String description;
-
 }

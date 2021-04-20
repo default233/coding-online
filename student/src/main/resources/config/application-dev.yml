@@ -19,5 +19,13 @@ spring:
     default-encoding: utf-8
 
 mybatis-plus:
+  global-config:
+    db-config:
+      logic-delete-field: is_delete
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+    banner: false
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    use-generated-keys: true
+
