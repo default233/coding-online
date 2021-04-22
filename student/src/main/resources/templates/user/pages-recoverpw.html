@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <title>Coding Online 忘记密码</title>
+<!--    <meta content="Responsive admin theme build on top of Bootstrap 4" name="description" />-->
+<!--    <meta content="Themesdesign" name="author" />-->
+    <link rel="shortcut icon" th:href="@{/assets/images/favicon.ico}">
+
+    <link th:href="@{/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css}" rel="stylesheet">
+
+    <link th:href="@{/assets/css/bootstrap.min.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/assets/css/metismenu.min.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/assets/css/icons.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/assets/css/style.css}" rel="stylesheet" type="text/css">
+
+</head>
+
+<body>
+    <div class="accountbg"></div>
+
+    <!-- Begin page -->
+    <div class="home-btn d-none d-sm-block">
+        <a th:href="@{/index}" class="text-white"><i class="mdi mdi-home h1"></i></a>
+    </div>
+
+    <div class="wrapper-page">
+
+        <div class="container">
+            <div class="row row justify-content-center">
+                <div class="col-lg-5">
+                    <div class="card card-pages mt-4">
+                        <div class="card-body">
+                            <div class="text-center mt-0 mb-3">
+                                <a th:href="@{/index}" class="logo logo-admin">
+                                    <img th:src="@{/assets/images/logo2.png}" class="mt-3" alt="" height="26"></a>
+                                <p id="notation" class="text-muted mx-auto mb-4 mt-4">请输入邮箱获取验证码用于更改密码</p>
+                            </div>
+
+                            <form id="recoverpw-form" class="form-horizontal mt-4">
+
+<!--                                <div class="col-12">-->
+<!--                                    <div class="alert alert-danger alert-dismissible">-->
+<!--                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>-->
+<!--                                        Enter your <b>Email</b> and instructions will be sent to you!-->
+<!--                                    </div>-->
+<!--                                </div>-->
+
+                                <div class="form-group">
+                                    <div class="col-12">
+                                        <label for="email">邮箱</label>
+                                        <input class="form-control" type="text" required="" id="email" placeholder="请输入你的邮箱！">
+                                    </div>
+                                </div>
+
+                                <div id="send" class="form-group text-center mt-3">
+                                    <div class="col-12">
+                                        <button class="btn btn-primary btn-block waves-effect waves-light" type="submit">发送</button>
+                                    </div>
+                                </div>
+
+                                <div id="verification-code" class="form-group text-center mt-3">
+                                    <div class="col-12">
+                                        <button class="btn btn-primary btn-block waves-effect waves-light" type="button">输入邮件验证码</button>
+                                    </div>
+                                </div>
+
+                                <div class="row mt-4">
+                                    <div class="col-12 text-center">
+                                        <p class="text-muted mb-2"><a th:href="@{/pages-login}" class="ml-1"><b>去登录</b></a></p>
+                                    </div>
+                                    <!-- end col -->
+                                </div>
+
+                            </form>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+            <!-- end row -->
+        </div>
+    </div>
+
+    <!-- jQuery  -->
+    <script th:src="@{/assets/js/jquery.min.js}"></script>
+    <script th:src="@{/assets/js/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{/assets/js/jquery.slimscroll.js}"></script>
+    <script th:src="@{/assets/js/waves.min.js}"></script>
+
+    <script th:src="@{/plugins/apexchart/apexcharts.min.js}"></script>
+    <script th:src="@{/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js}"></script>
+
+    <!-- App js -->
+    <script th:src="@{/assets/js/app.js}"></script>
+    <!-- sweetalert-->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <!-- login js -->
+    <script th:src="@{/assets/js/login.js}"></script>
+
+</body>
+
+</html>

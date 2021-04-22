@@ -52,4 +52,11 @@ public interface SysUserService {
      * @return 是否成功
      */
     int recoverPassword(SysUser sysUser, String newPassword) ;
+
+    int updateUserNameById(Long id, String username);
+
+    int updateEmailById(Long id, String email);
+
+    String checkPassword(String password);
+
 }

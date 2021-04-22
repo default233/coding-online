@@ -7,11 +7,20 @@ import com.chen.biz.exception.CustomException;
 import com.chen.biz.exception.UserAlreadyExistException;
 import com.chen.biz.mapper.SysUserMapper;
 import com.chen.biz.pojo.SysUser;
+import com.chen.biz.pojo.UserInfo;
 import com.chen.biz.service.SysUserService;
+import com.chen.biz.service.UserInfoService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  * SysUser Service 实现类层
@@ -24,7 +33,10 @@ public class SysUserServiceImpl implements SysUserService {
 
     @Autowired
     private SysUserMapper sysUserMapper;
-
+    @Autowired
+    private UserInfoService userInfoService;
+    @Value("${default_img_path}")
+    private String defaultImgPath;
     /**
      * 根据用户 id 查询
      * @param id 用户 id
@@ -76,6 +88,7 @@ public class SysUserServiceImpl implements SysUserService {
      * @throws Exception 用户邮箱重复错误
      */
     @Override
+    @Transactional
     public int register(SysUser sysUser) throws CustomException {
 
         if (sysUser == null) {
@@ -95,6 +108,14 @@ public class SysUserServiceImpl implements SysUserService {
         log.info(encode);
         sysUser.setPassword(encode);
         int insert = sysUserMapper.insert(sysUser);
+        UserInfo userInfo = new UserInfo();
+        userInfo.setUserId(sysUser.getUserId());
+        userInfo.setUsername(sysUser.getUsername());
+        userInfo.setSex("男");
+        userInfo.setEmail(sysUser.getEmail());
+        userInfo.setBirthday(LocalDate.now());
+        userInfo.setImg(defaultImgPath);
+        userInfoService.insertUserInfo(userInfo);
         return insert;
     }
 
@@ -114,4 +135,27 @@ public class SysUserServiceImpl implements SysUserService {
         int update = sysUserMapper.update(sysUser, updateWrapper);
         return update;
     }
+
+    @Override
+    public int updateUserNameById(Long id, String username) {
+        return sysUserMapper.updateUserName(id, username);
+    }
+
+    @Override
+    public int updateEmailById(Long id, String email) {
+        return sysUserMapper.updateEmail(id, email);
+    }
+
+    @Override
+    public String checkPassword(String password) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUserName = authentication.getName();
+        SysUser sysUser = this.selectUserByName(currentUserName);
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+
+        if (bCryptPasswordEncoder.matches(password, sysUser.getPassword()))
+            return "true";
+        throw new CustomException("密码不正确！");
+    }
+
 }

@@ -3,6 +3,7 @@ package com.chen.biz.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.chen.biz.pojo.SysUser;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * SysUser Mapper 层
@@ -11,4 +12,6 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface SysUserMapper extends BaseMapper<SysUser> {
+    int updateUserName(@Param("userId") Long userId,@Param("username") String username);
+    int updateEmail(@Param("userId") Long userId,@Param("email") String email);
 }

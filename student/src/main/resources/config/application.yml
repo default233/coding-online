@@ -11,3 +11,5 @@ spring:
       name: admin@qq.com
       password: 123456
       roles: admin
+
+default_img_path: E:\final\coding-online\student\src\main\resources\static\img\default.jpg

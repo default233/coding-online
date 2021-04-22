@@ -12,10 +12,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.LinkedHashMap;
@@ -51,6 +48,8 @@ public class LoginController {
         String user = JSON.toJSONString(sysUser);
         return user;
     }
+
+
 
     @PostMapping("/recover-password")
     @ResponseBody
@@ -96,13 +95,18 @@ public class LoginController {
         return JSON.toJSONString(res);
     }
 
-    @GetMapping("/getCurrentUser")
+    @PostMapping("/checkPassword")
     @ResponseBody
-    public String getCurrentUser(HttpServletRequest request) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentUserName = authentication.getName();
-        SysUser sysUser = sysUserService.selectUserByName(currentUserName);
-        request.setAttribute("currentUser", sysUser);
-        return JSON.toJSONString(sysUser);
+    public String checkPassword(@RequestBody Map map) throws Exception {
+
+        Object passwordObj = map.get("password");
+        if (passwordObj == null) {
+            throw new UserNotExistException("密码不能为空！");
+        }
+        String password = passwordObj.toString();
+        System.out.println("password = " + password);
+        sysUserService.checkPassword(password);
+        return "true";
     }
+
 }

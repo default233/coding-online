@@ -42,22 +42,22 @@ public class PagesController {
 
     @GetMapping({"/pages-login.html", "/pages-login"})
     public String toLogin() {
-        return "pages-login";
+        return "user/pages-login";
     }
 
     @GetMapping("/pages-register")
     public String toRegister() {
-        return "pages-register";
+        return "user/pages-register";
     }
 
     @GetMapping("/pages-recoverpw")
     public String toForgotPassword() {
-        return "pages-recoverpw";
+        return "user/pages-recoverpw";
     }
 
     @GetMapping("/pages-profile")
     public String toPagesProfile() {
-        return "pages-profile";
+        return "user/pages-profile";
     }
 
     @GetMapping("/question-list")
@@ -84,9 +84,20 @@ public class PagesController {
         model.addAttribute("question", question);
         return "question/question";
     }
-//
-//    @GetMapping("/pages-register")
-//    public String toRecoverPassword() {
-//        return "pages-register";
-//    }
+
+    @GetMapping("/help")
+    public String toHelp() {
+        return "pages/help";
+    }
+
+    @GetMapping("/ranking")
+    public String toRanking() {
+        return "pages/ranking";
+    }
+
+    @GetMapping("/pages-lock")
+    public String toLock() {
+        return "user/pages-lock-screen";
+    }
+
 }

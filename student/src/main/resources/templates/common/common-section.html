@@ -108,14 +108,12 @@
                         <li class="dropdown notification-list list-inline-item">
                             <div class="dropdown notification-list nav-pro-img">
                                 <a class="dropdown-toggle nav-link arrow-none waves-effect nav-user" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                                    <img th:src="@{/assets/images/users/user-1.jpg}" alt="user" class="rounded-circle">
+                                    <img th:src="@{/assets/images/users/user-1.jpg}" alt="user" class="rounded-circle" id="user-img">
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-animated profile-dropdown">
                                     <!-- item-->
                                     <a class="dropdown-item" th:href="@{/pages-profile}"><i class="mdi mdi-account-circle"></i> 我的信息</a>
-                                    <a class="dropdown-item" href="#"><i class="mdi mdi-wallet"></i> My Wallet</a>
-                                    <a class="dropdown-item d-block" href="#"><span class="badge badge-success float-right">11</span><i class="mdi mdi-settings"></i> Settings</a>
-                                    <a class="dropdown-item" href="#"><i class="mdi mdi-lock-open-outline"></i> Lock screen</a>
+                                    <a class="dropdown-item" th:href="@{/pages-lock}"><i class="mdi mdi-lock-open-outline"></i> 锁屏</a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item text-danger" th:href="@{/logout}"><i class="mdi mdi-power text-danger"></i> 注销 </a>
                                 </div>
@@ -261,111 +259,15 @@
 <!--                            </ul>-->
                         </li>
 
+
                         <li class="has-submenu">
-                            <a href="#"><i class="dripicons-help"></i> 帮助</a>
+                            <a th:href="@{/ranking}"><i class="dripicons-graph-bar"></i> 排行榜</a>
                         </li>
 
                         <li class="has-submenu">
-                            <a href="#"><i class="dripicons-view-thumb"></i> Components</a>
-                            <ul class="submenu">
-                                <li class="has-submenu">
-                                    <a href="#">Email</a>
-                                    <ul class="submenu">
-                                        <li><a href="email-inbox.html">Inbox</a></li>
-                                        <li><a href="email-read.html">Email Read</a></li>
-                                        <li><a href="email-compose.html">Email Compose</a></li>
-                                    </ul>
-                                </li>
-
-                                <li class="has-submenu">
-                                    <a href="#">Icons</a>
-                                    <ul class="submenu">
-                                        <li><a href="icons-material.html">Material Design</a></li>
-                                        <li><a href="icons-ion.html">Ion Icons</a></li>
-                                        <li><a href="icons-fontawesome.html">Font Awesome</a></li>
-                                        <li><a href="icons-themify.html">Themify Icons</a></li>
-                                        <li><a href="icons-dripicons.html">Dripicons</a></li>
-                                        <li><a href="icons-typicons.html">Typicons Icons</a></li>
-                                    </ul>
-                                </li>
-
-                                <li>
-                                    <a href="calendar.html">Calendar </a>
-                                </li>
-                                <li class="has-submenu">
-                                    <a href="#">Forms</a>
-                                    <ul class="submenu">
-                                        <li><a href="form-elements.html">Form Elements</a></li>
-                                        <li><a href="form-validation.html">Form Validation</a></li>
-                                        <li><a href="form-advanced.html">Form Advanced</a></li>
-                                        <li><a href="form-editors.html">Form Editors</a></li>
-                                        <li><a href="form-uploads.html">Form File Upload</a></li>
-                                        <li><a href="form-mask.html">Form Mask</a></li>
-                                        <li><a href="form-summernote.html">Summernote</a></li>
-                                        <li><a href="form-xeditable.html">Form Xeditable</a></li>
-                                    </ul>
-                                </li>
-
-                                <li class="has-submenu">
-                                    <a href="#">Tables </a>
-                                    <ul class="submenu">
-                                        <li><a href="tables-basic.html">Basic Tables</a></li>
-                                        <li><a href="tables-datatable.html">Data Table</a></li>
-                                        <li><a href="tables-responsive.html">Responsive Table</a></li>
-                                        <li><a href="tables-editable.html">Editable Table</a></li>
-                                    </ul>
-                                </li>
-
-                                <li class="has-submenu">
-                                    <a href="#">Maps</a>
-                                    <ul class="submenu">
-                                        <li><a href="maps-google.html"> Google Map</a></li>
-                                        <li><a href="maps-vector.html"> Vector Map</a></li>
-                                    </ul>
-                                </li>
-
-                            </ul>
+                            <a th:href="@{/help}"><i class="dripicons-help"></i> 帮助</a>
                         </li>
 
-                        <li class="has-submenu">
-                            <a href="#"><i class="dripicons-graph-bar"></i>Charts </a>
-                            <ul class="submenu">
-                                <li><a href="charts-morris.html">Morris Chart</a></li>
-                                <li><a href="charts-chartist.html">Chartist Chart</a></li>
-                                <li><a href="charts-chartjs.html">Chartjs Chart</a></li>
-                                <li><a href="charts-flot.html">Flot Chart</a></li>
-                                <li><a href="charts-c3.html">C3 Chart</a></li>
-                                <li><a href="charts-other.html">Jquery Knob Chart</a></li>
-                            </ul>
-                        </li>
-
-                        <li class="has-submenu">
-                            <a href="#"><i class="dripicons-to-do"></i> Pages</a>
-                            <ul class="submenu megamenu">
-
-                                <li>
-                                    <ul>
-                                        <li><a href="pages-pricing.html">Pricing</a></li>
-                                        <li><a href="pages-invoice.html">Invoice</a></li>
-                                        <li><a href="pages-timeline.html">Timeline</a></li>
-                                        <li><a href="pages-faqs.html">FAQs</a></li>
-                                        <li><a href="pages-maintenance.html">Maintenance</a></li>
-                                        <li><a href="pages-comingsoon.html">Coming Soon</a></li>
-                                        <li><a href="pages-starter.html">Starter Page</a></li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <ul>
-                                        <li><a href="pages-login.html">Login</a></li>
-                                        <li><a href="pages-register.html">Register</a></li>
-                                        <li><a href="pages-recoverpw.html">Recover Password</a></li>
-                                        <li><a href="pages-lock-screen.html">Lock Screen</a></li>
-                                        <li><a href="pages-404.html">Error 404</a></li>
-                                        <li><a href="pages-500.html">Error 500</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
 
                     </ul>
                     <!-- End navigation menu -->
@@ -395,7 +297,26 @@
 
     <script>
         const baseUrl = "/coding-online/student";
+        var currentUser = {
+            username: ""
+        };
+        $(document).ready(function () {
+            $.ajax({
+                url: baseUrl + '/getCurrentUser',
+                type: 'Get',
+                contentType: 'application/json',
+                dataType: "json",
+                async:false,
+                success: function (res) {
+                    currentUser = res;
+                    $('#current-user-name').val(res.username);
+                    $('#user-img').attr('src',"show-img?filename=" + res.img)
+                },
+                error: function (res) {
 
+                }
+            });
+        });
         $(document).ready(function () {
             $.ajax({
                 url: baseUrl + '/question-type',

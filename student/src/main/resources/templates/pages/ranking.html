@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+  <title>排行榜</title>
+  <meta content="Responsive admin theme build on top of Bootstrap 4" name="description" />
+  <meta content="Themesdesign" name="author" />
+  <link rel="shortcut icon" th:href="@{/assets/images/favicon.ico}">
+
+  <link th:href="@{/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css}" rel="stylesheet">
+
+  <link th:href="@{/assets/css/bootstrap.min.css}" rel="stylesheet" type="text/css">
+  <link th:href="@{/assets/css/metismenu.min.css}" rel="stylesheet" type="text/css">
+  <link th:href="@{/assets/css/icons.css}" rel="stylesheet" type="text/css">
+  <link th:href="@{/assets/css/style.css}" rel="stylesheet" type="text/css">
+
+</head>
+
+<body>
+
+<div th:replace="common/common-section :: common_head"></div>
+<!-- header-bg -->
+
+
+<div class="row">
+  <div class="col-xl-12">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="mt-0 header-title mb-4">Latest Projects</h4>
+        <div class="table-responsive">
+          <table class="table table-hover mb-0">
+            <thead>
+            <tr>
+              <th scope="col">Assigned</th>
+              <th scope="col">Name</th>
+              <th scope="col">Date</th>
+              <th scope="col">Priority</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <!-- start 1 -->
+            <tr>
+              <td>
+                <p class="font-weight-bold">
+                  Zegva Themes
+                </p>
+              </td>
+              <td> <img src="assets/images/users/user-1.jpg" alt="" class="thumb-md rounded-circle mr-2"> Philip Smead</td>
+              <td>April, 25</td>
+              <td><span class="badge badge-primary">High</span></td>
+            </tr>
+            <!-- end 1 -->
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xl-12">
+  <div class="card">
+    <div class="card-body">
+      <h4 class="mt-0 header-title mb-4">Latest Projects</h4>
+      <div class="table-responsive">
+        <table class="table table-hover mb-0">
+          <thead>
+          <tr>
+            <th scope="col">Assigned</th>
+            <th scope="col">Name</th>
+            <th scope="col">Date</th>
+            <th scope="col">Priority</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td>
+              <p class="font-weight-bold">
+                Zegva Themes
+              </p>
+            </td>
+            <td> <img src="assets/images/users/user-5.jpg" alt="" class="thumb-md rounded-circle mr-2"> Enrique Peters</td>
+            <td>July, 15</td>
+            <td><span class="badge badge-danger">Low</span></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+</div>
+</div>
+
+
+<!-- Footer -->
+<div th:replace="common/common-section :: common_footer"></div>
+
+</body>
+
+</html>

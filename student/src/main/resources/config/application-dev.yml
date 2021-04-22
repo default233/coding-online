@@ -6,7 +6,17 @@ spring:
     password: jc0802
     type: com.alibaba.druid.pool.DruidDataSource
 
+  mvc:
+    static-path-pattern: /**
 
+  web:
+    resources:
+      static-locations:
+        - classpath:/META-INF/resources/
+        - classpath:/static/
+        - classpath:/resources/
+        - classpath:/static/img/
+        - file:${upload-path}
   mail:
     host: smtp.qq.com #发送邮件服务器
     username: 1149863397@qq.com #发送邮件的邮箱地址
@@ -19,6 +29,7 @@ spring:
     default-encoding: utf-8
 
 mybatis-plus:
+  mapper-locations: classpath*:mapper/*.xml
   global-config:
     db-config:
       logic-delete-field: is_delete
@@ -29,3 +40,4 @@ mybatis-plus:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     use-generated-keys: true
 
+upload-path: E:/final/coding-online/student/src/main/resources/static/img/

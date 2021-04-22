@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <title> 个人中心 </title>
+    <!--    <meta content="Responsive admin theme build on top of Bootstrap 4" name="description" />-->
+    <!--    <meta content="Themesdesign" name="author" />-->
+    <link rel="shortcut icon" th:href="@{/assets/images/favicon.ico}">
+
+    <link th:href="@{/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css}" rel="stylesheet">
+
+    <link rel="stylesheet" th:href="@{/plugins/morris/morris.css}">
+
+    <!-- Dropzone css -->
+    <link th:href="@{/plugins/dropzone/dist/dropzone.css}" rel="stylesheet" type="text/css">
+
+    <link th:href="@{/assets/css/bootstrap.min.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/assets/css/metismenu.min.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/assets/css/icons.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/assets/css/style.css}" rel="stylesheet" type="text/css">
+
+    <link type="text/css" th:href="@{/plugins/x-editable/css/bootstrap-editable.css}" rel="stylesheet">
+</head>
+
+<body>
+
+<div th:replace="common/common-section :: common_head"></div>
+<!-- header-bg -->
+
+<div class="wrapper">
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+
+                        <h4 class="mt-0 header-title">我的信息</h4>
+<!--                        <p class="sub-title">This library allows you to create editable elements on your page. It can be used with any engine (bootstrap, jquery-ui, jquery only) and includes both popup and inline modes. Please try out demo to see how it works.</p>-->
+
+                        <table class="table table-striped mb-0">
+                            <thead>
+                            <tr>
+                                <th style="width: 50%;">我的</th>
+                                <th>修改</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+<!--                            <tr>-->
+<!--                                <td>用户名</td>-->
+<!--                                <td>-->
+<!--                                    <a href="#" id="inline-username" data-type="text" data-pk="1" data-title="Enter username">superuser</a>-->
+<!--                                </td>-->
+<!--                            </tr>-->
+                            <tr>
+                                <td>用户名</td>
+                                <td>
+                                    <a href="#" id="username" data-type="text" data-pk="1" data-placement="right" data-placeholder="Required" data-title="Enter your firstname"></a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>头像</td>
+                                <td>
+                                    <a id="head-a" href="#"><img id="img-header" class="d-flex mr-3 rounded-circle" src="assets/images/users/user-6.jpg" alt="" height="64"></a>
+                                </td>
+                            </tr>
+
+                            <div class="col-sm-6 col-md-3 mt-5">
+                                <div id="head-modal" class="modal fade bs-example-modal-center" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title mt-0">头像上传</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form th:action="@{/head-img}" method="post" class="dropzone">
+                                                    <div class="fallback">
+                                                        <input name="file" type="file" multiple="multiple">
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" id="submit-img" class="btn btn-primary waves-effect waves-light">上传</button>
+                                                <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">关闭</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <tr>
+                                <td>性别</td>
+                                <td>
+                                    <a href="#" id="sex" data-type="select" data-pk="1" data-value="" data-title="Select sex"></a>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>邮箱</td>
+                                <td>
+                                    <a href="#" id="email" data-type="email" data-pk="1" data-placement="right" data-placeholder="Required" data-title="Enter your firstname"></a>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>生日</td>
+                                <td>
+                                    <a href="#" id="birthday" data-type="combodate" data-format="YYYY-MM-DD" data-viewformat="YYYY/MM/DD" data-template="YYYY/MM/DD" data-pk="1" data-title="Select Date of birth"></a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+            <!-- end col -->
+        </div>
+        <!-- end row -->
+
+    </div>
+    <!-- end container-fluid -->
+</div>
+<!-- end wrapper -->
+
+<!-- Footer -->
+<div th:replace="common/common-section :: common_footer"></div>
+
+<!--Morris Chart-->
+<script th:src="@{/plugins/morris/morris.min.js}"></script>
+<script th:src="@{/plugins/raphael/raphael.min.js}"></script>
+
+<script th:src="@{/assets/pages/dashboard.init.js}"></script>
+
+<!-- XEditable Plugin -->
+<script th:src="@{/plugins/moment/moment.js}"></script>
+<script th:src="@{/plugins/x-editable/js/bootstrap-editable.min.js}"></script>
+
+<!-- Dropzone js -->
+<script th:src="@{/plugins/dropzone/dist/dropzone.js}"></script>
+
+<!-- App js -->
+<script th:src="@{/assets/js/index.js}"></script>
+<script th:src="@{/assets/pages/xeditable.js}"></script>
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+</body>
+
+</html>
+<script type="text/javascript">
+    Dropzone.autoDiscover = false;
+    let dropzone = new Dropzone('.dropzone', {
+        // url: baseUrl + '/head-img',
+        autoProcessQueue: false,
+        acceptedFiles: ".png,.jpg,.gif,.bmp,.jpeg",
+        addRemoveLinks: true,
+        uploadMultiple: false,
+        parallelUploads: 1,
+        dictInvalidFileType: "你不能上传该类型文件,文件类型只能是*.jpg,*.gif,*.png。",
+        dictFallbackMessage:"浏览器不受支持",
+        success: function () {
+            swal("成功！","提示", "success").then(function () {
+                    $(location).attr('href', baseUrl + '/pages-profile');
+                }
+            );
+        }
+    });
+    $('#submit-img').on('click',function(e){
+        e.preventDefault();
+        dropzone.processQueue();
+    });
+</script>
