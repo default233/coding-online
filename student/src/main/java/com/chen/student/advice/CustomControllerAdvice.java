@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.time.LocalDateTime;
 
 /**
@@ -23,7 +24,7 @@ import java.time.LocalDateTime;
 @Slf4j
 public class CustomControllerAdvice {
 
-    @ExceptionHandler({CustomException.class, UsernameNotFoundException.class})
+    @ExceptionHandler({CustomException.class, UsernameNotFoundException.class, IOException.class})
     public HttpEntity customExceptionHandler(Exception e, HttpServletRequest request) {
         ErrorDetails errorDetails = new ErrorDetails();
         errorDetails.setTimestamp(LocalDateTime.now());

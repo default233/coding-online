@@ -40,17 +40,15 @@
                     <div class="card-body">
 
                         <h4 class="mt-0 header-title">题库列表</h4>
-<!--                        <p class="sub-title">DataTables has most features enabled by default, so all you need to do to use it with your own tables is to call the construction function: <code>$().DataTable();</code>.-->
-<!--                        </p>-->
-
                         <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                             <thead>
                             <tr>
                                 <th>序号</th>
                                 <th>标题</th>
                                 <th>难度</th>
+                                <th>提交次数</th>
                                 <th>通过率</th>
-                                <th>热度</th>
+                                <th>评论</th>>
                                 <th>去做题</th>
                             </tr>
                             </thead>
@@ -60,10 +58,13 @@
                                 <td th:text="${question.questionOrder}"></td>
                                 <td th:text="${question.title}"></td>
                                 <td th:text="${question.questionDifficulty}"></td>
-                                <td>61</td>
-                                <td>2011/04/25</td>
+                                <td th:text="${question.questionSubmit}">
+                                <td th:text="${question.questionSubmit == 0}?0: ${question.getPassRate()*100 + '%'}"></td>
                                 <td>
-                                    <button type="button" class="btn btn-outline-success waves-effect waves-light">去做题</button>
+                                    <button id="to-comments" type="button" class="btn btn-outline-success waves-effect waves-light">评论</button>
+                                </td>
+                                <td>
+                                    <button id="to-question" type="button" class="btn btn-outline-success waves-effect waves-light">去做题</button>
                                 </td>
                             </tr>
                             </tbody>

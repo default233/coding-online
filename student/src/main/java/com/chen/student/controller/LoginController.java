@@ -8,13 +8,11 @@ import com.chen.biz.service.SysUserService;
 import com.chen.student.utils.IMailService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -31,20 +29,13 @@ public class LoginController {
     @Autowired
     private IMailService iMailService;
 
-    public static final String SUBJECT = "修改密码";
+    public static final String SUBJECT = "Coding Online";
 
-//    @PostMapping("/login")
-//    public String login(HttpServletRequest request, HttpServletResponse response) {
-//        Object username = request.getAttribute("username");
-//        System.out.println("username = " + username);
-//        System.out.println("=======post login=========");
-//        return "redirect:/index";
-//    }
 
     @PostMapping("/register")
     @ResponseBody
     public String register(@RequestBody SysUser sysUser) throws Exception {
-        sysUserService.register(sysUser);
+        sysUserService.register(sysUser, 0);
         String user = JSON.toJSONString(sysUser);
         return user;
     }
@@ -55,20 +46,21 @@ public class LoginController {
     @ResponseBody
     public String recoverPassword(@RequestBody Map map) throws Exception {
         Object newPasswordObj = map.get("newPassword");
-        Object sysUserObj = map.get("sysUser");
+        Object username = map.get("username");
         if (newPasswordObj == null) {
             throw new BadArgumentException("新密码不能为空！");
         }
-        if (sysUserObj == null) {
+        if (username == null) {
             throw new BadArgumentException("当前用户不存在！");
         }
         String newPassword = newPasswordObj.toString();
-        SysUser sysUser = JSON.parseObject(sysUserObj.toString(), SysUser.class);
-        System.out.println(sysUser);
+        SysUser sysUser = sysUserService.selectUserByName(username.toString());
+
+        if (sysUser == null) {
+            throw new BadArgumentException("当前用户不存在！");
+        }
         int res = sysUserService.recoverPassword(sysUser, newPassword);
-//        sysUserService.register(sysUser);
-//        String user = JSON.toJSONString(sysUser);
-//        return user;
+
         Map<String, Object> result = new LinkedHashMap<>();
         result.put("res", res);
         String resJson = JSON.toJSONString(result);
@@ -88,7 +80,11 @@ public class LoginController {
             throw new UserNotExistException("该邮箱尚未注册！");
         }
         String verificationCode = iMailService.createVerificationCode();
-        iMailService.sendSimpleMail(email, SUBJECT, verificationCode);
+        StringBuilder sb =  new StringBuilder();
+        sb.append("Coding Online 修改密码\n");
+        sb.append("验证码： ");
+        sb.append(verificationCode);
+        iMailService.sendSimpleMail(email, SUBJECT, sb.toString());
         Map<String, Object> res = new LinkedHashMap<>();
         res.put("verificationCode", verificationCode);
         res.put("sysUser", sysUser);

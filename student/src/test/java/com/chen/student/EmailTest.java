@@ -16,19 +16,19 @@ public class EmailTest {
     /**
      * 注入发送邮件的接口
      */
-    @Autowired
-    private IMailService mailService;
-
-    /**
-     * 测试发送文本邮件
-     */
-    @Test
-    public void sendmail() {
-        mailService.sendSimpleMail("522207269@qq.com","主题：你好普通邮件","内容：第一封邮件");
-    }
-
-    @Test
-    public void sendmailHtml(){
-        mailService.sendHtmlMail("smfx1314@163.com","主题：你好html邮件","<h1>内容：第一封html邮件</h1>");
-    }
+//    @Autowired
+//    private IMailService mailService;
+//
+//    /**
+//     * 测试发送文本邮件
+//     */
+//    @Test
+//    public void sendmail() {
+//        mailService.sendSimpleMail("522207269@qq.com","主题：你好普通邮件","内容：第一封邮件");
+//    }
+//
+//    @Test
+//    public void sendmailHtml(){
+//        mailService.sendHtmlMail("smfx1314@163.com","主题：你好html邮件","<h1>内容：第一封html邮件</h1>");
+//    }
 }

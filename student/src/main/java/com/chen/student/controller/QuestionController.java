@@ -8,10 +8,13 @@ import com.chen.student.utils.QuestionUtils;
 import com.chen.student.utils.compiler.CompileUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
@@ -33,6 +36,12 @@ public class QuestionController {
     private JudgeService judgeService;
 
     @Autowired
+    private JudgeTaskService judgeTaskService;
+
+    @Autowired
+    private SysUserService sysUserService;
+
+    @Autowired
     private QuestionTypeService questionTypeService;
 
     @Autowired
@@ -43,28 +52,65 @@ public class QuestionController {
 
     @Autowired
     private OutputExampleService outputExampleService;
+    @Autowired
+    private CommentService commentService;
+    @Autowired
+    private UserInfoService userInfoService;
+    @Autowired
+    private CommentReplyService commentReplyService;
 
     @PostMapping("/code-submit")
     @ResponseBody
     public String codeJudge(@RequestBody Map<String, String> map) {
-        String className = map.get("className");
-        String codeSource = map.get("codeSource");
+        String questionOrder = map.get("questionOrder");
+        String source = map.get("source");
+        String compilerId = map.get("compilerId");
 
-        if (!StringUtils.hasLength(className)) {
-            throw new BadArgumentException("类名不能为空");
+        if (!StringUtils.hasLength(questionOrder)) {
+            throw new BadArgumentException("问题id不能为空");
         }
 
-        if (!StringUtils.hasLength(codeSource)) {
+        if (!StringUtils.hasLength(source)) {
             throw new BadArgumentException("代码不能为空");
         }
 
-//        compileUtils.testInvoke(className, codeSource);
+        if (!StringUtils.hasLength(compilerId)) {
+            throw new BadArgumentException("请选择代码语言");
+        }
+
+        Question question = questionService.getQuestionByOrder(Long.parseLong(questionOrder));
+
+        // 设定 judgeTask 的相关信息
         JudgeTask judgeTask = new JudgeTask();
-//        judgeTask.
+        judgeTask.setQuestionId(question.getQuestionId());
+        // 获取当前登录用户的 id
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUserName = authentication.getName();
+        SysUser sysUser = sysUserService.selectUserByName(currentUserName);
+        Long userId = sysUser.getUserId();
+
+        judgeTask.setUserId(userId);
+        judgeTask.setCompilerId(Integer.parseInt(compilerId));
+        judgeTask.setMemoryLimit(question.getMemoryLimit());
+        judgeTask.setTimeLimit(question.getTimeLimit());
+        judgeTask.setSource(source);
+
+        // 将判题任务插入数据库
+        int insert = judgeTaskService.insert(judgeTask);
+
+        // 调用判题服务进行判断
         JudgeResult judgeResult = judgeService.judge(judgeTask);
+
+        // 日志输出判题结果
+        log.info(judgeResult.toString());
         return JSON.toJSONString(judgeResult);
+
     }
 
+
+//        compileUtils.testInvoke(className, codeSource);
+////        judgeTask.
+    //        return "";
 
     @PostMapping("/question-type")
     @ResponseBody
@@ -73,6 +119,64 @@ public class QuestionController {
         return JSON.toJSONString(allType);
     }
 
+    @RequestMapping("/comment-submit")
+    @ResponseBody
+    public String commentSubmit(@RequestBody Map<String, Object> map) {
+        String title = (String) map.get("title");
+        String description = (String) map.get("description");
+        String questionOrder = (String) map.get("questionOrder");
+        if (!StringUtils.hasLength(title)) {
+            throw new BadArgumentException("标题不能为空！");
+        }
+        if (!StringUtils.hasLength(description)) {
+            throw new BadArgumentException("评论不能为空！");
+        }
+        if (!StringUtils.hasLength(questionOrder)) {
+            throw new BadArgumentException("题目未选中！");
+        }
+        Question question = questionService.getQuestionByOrder(Long.parseLong(questionOrder));
+        Comment comment = new Comment();
+        comment.setTitle(title);
+        comment.setQuestionId(question.getQuestionId());
+        comment.setContent(description);
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUserName = authentication.getName();
+        SysUser sysUser = sysUserService.selectUserByName(currentUserName);
+        UserInfo userInfo = userInfoService.getUserInfoByUserId(sysUser.getUserId());
+        comment.setUserId(sysUser.getUserId());
+        comment.setUsername(userInfo.getUsername());
+        comment.setImg(userInfo.getImg());
+        commentService.insert(comment);
+
+        return JSON.toJSONString(200);
+    }
+
+    @RequestMapping("/reply-submit")
+    @ResponseBody
+    public String replySubmit(@RequestBody Map<String, Object> map) {
+        String content = (String) map.get("content");
+        String commentId = (String) map.get("commentId");
+        if (!StringUtils.hasLength(content)) {
+            throw new BadArgumentException("标题不能为空！");
+        }
+        if (!StringUtils.hasLength(commentId)) {
+            throw new BadArgumentException("评论不能为空！");
+        }
+
+        CommentReply reply = new CommentReply();
+        reply.setCommentId(Long.parseLong(commentId));
+        reply.setContent(content);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUserName = authentication.getName();
+        SysUser sysUser = sysUserService.selectUserByName(currentUserName);
+        UserInfo userInfo = userInfoService.getUserInfoByUserId(sysUser.getUserId());
+        reply.setUserId(userInfo.getUserId());
+        reply.setUsername(userInfo.getUsername());
+        reply.setImg(userInfo.getImg());
+        commentReplyService.insert(reply);
+        return JSON.toJSONString(200);
+    }
 
     @PostMapping("/question-submit")
     @ResponseBody
@@ -160,7 +264,7 @@ public class QuestionController {
             outputExampleList.add(example);
         }
         outputExampleService.insertOutputExampleList(outputExampleList);
-        return "";
+        return "200";
     }
 
 }

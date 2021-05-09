@@ -2,7 +2,6 @@ package com.chen.biz.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.chen.biz.pojo.OutputExample;
-import com.chen.biz.pojo.Question;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

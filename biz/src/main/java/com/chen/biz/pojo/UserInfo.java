@@ -27,10 +27,16 @@ public class UserInfo {
     private String email;
     @TableField("sex")
     private String sex;
+    @TableField("problem_submit")
+    private Integer problemSubmit;
+    @TableField("problem_success")
+    private Integer problemSuccess;
     @TableField("img")
     private String img;
     @TableField(value = "birthday")
     private LocalDate birthday;
+    @TableField("user_type")
+    private Integer userType;
     @TableField(value = "create_time", fill = FieldFill.INSERT)
     private LocalDateTime createTime;
     @TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)

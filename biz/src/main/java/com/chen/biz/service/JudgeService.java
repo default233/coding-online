@@ -9,6 +9,5 @@ import com.chen.biz.pojo.JudgeTask;
  */
 public interface JudgeService {
     JudgeResult judge(JudgeTask task);
-
-    String compile(int compilerId, String path);
+    String compile(int compilerId, String path, Long judgeTaskId);
 }

@@ -1,7 +1,7 @@
 package com.chen.biz.service;
 
-import com.chen.biz.exception.BadArgumentException;
 import com.chen.biz.exception.CustomException;
+import com.chen.biz.mapper.SysUserMapper;
 import com.chen.biz.pojo.SysUser;
 
 /**
@@ -9,7 +9,7 @@ import com.chen.biz.pojo.SysUser;
  * @author danger
  * @date 2021/3/9
  */
-public interface SysUserService {
+public interface SysUserService extends BaseService<SysUser, SysUserMapper>{
     /**
      * 根据用户 id 查询
      * @param id 用户 id
@@ -44,7 +44,7 @@ public interface SysUserService {
      * @return 是否成功
      * @throws Exception 用户邮箱重复错误
      */
-    int register(SysUser sysUser) throws CustomException;
+    int register(SysUser sysUser, Integer userType) throws CustomException;
 
     /**
      * 修改密码

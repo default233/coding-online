@@ -2,7 +2,6 @@ package com.chen.biz.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.chen.biz.mapper.OutputExampleMapper;
-import com.chen.biz.pojo.InputExample;
 import com.chen.biz.pojo.OutputExample;
 import com.chen.biz.service.OutputExampleService;
 import lombok.extern.slf4j.Slf4j;
@@ -17,7 +16,7 @@ import java.util.List;
  */
 @Service
 @Slf4j
-public class OutputExampleServiceImpl implements OutputExampleService {
+public class OutputExampleServiceImpl extends BaseServiceImpl<OutputExample, OutputExampleMapper> implements OutputExampleService {
     @Autowired
     private OutputExampleMapper outputExampleMapper;
 
@@ -41,5 +40,13 @@ public class OutputExampleServiceImpl implements OutputExampleService {
         filter.setQuestionId(questionId);
         QueryWrapper<OutputExample> wrapper = new QueryWrapper<>(filter);
         return outputExampleMapper.selectList(wrapper);
+    }
+
+    @Override
+    public int removeByQuestionId(Long questionId) {
+        OutputExample filter = new OutputExample();
+        filter.setQuestionId(questionId);
+        QueryWrapper<OutputExample> wrapper = new QueryWrapper<>(filter);
+        return outputExampleMapper.delete(wrapper);
     }
 }

@@ -41,3 +41,10 @@ mybatis-plus:
     use-generated-keys: true
 
 upload-path: E:/final/coding-online/student/src/main/resources/static/img/
+default_img_path: default.jpg
+
+
+compile:
+  filepath: E:\final\coding-online\sourceFile\
+  relativePath: \final\coding-online\sourceFile\
+  dangerousKeyWords: fork(),rm,Runtime.getRuntime(),<sys/ptrace.h>,<sys/wait.h>,<sys/time.h>

@@ -16,7 +16,7 @@ import java.util.List;
  */
 @Service
 @Slf4j
-public class InputExampleServiceImpl implements InputExampleService {
+public class InputExampleServiceImpl extends BaseServiceImpl<InputExample, InputExampleMapper> implements InputExampleService {
     @Autowired
     private InputExampleMapper inputExampleMapper;
 
@@ -41,5 +41,13 @@ public class InputExampleServiceImpl implements InputExampleService {
         filter.setQuestionId(questionId);
         QueryWrapper<InputExample> wrapper = new QueryWrapper<>(filter);
         return inputExampleMapper.selectList(wrapper);
+    }
+
+    @Override
+    public int removeByQuestionId(Long questionId) {
+        InputExample filter = new InputExample();
+        filter.setQuestionId(questionId);
+        QueryWrapper<InputExample> wrapper = new QueryWrapper<>(filter);
+        return inputExampleMapper.delete(wrapper);
     }
 }

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chen.biz.mapper.SysUserMapper">
+  <update id="updateUserName">
+    update
+      sys_user
+    set
+      username = #{username}
+    where
+      user_id = #{userId} and is_delete = 0
+  </update>
+
+  <update id="updateEmail">
+    update
+      sys_user
+    set
+      username = #{email}
+    where
+      user_id = #{userId} and is_delete = 0
+  </update>
+</mapper>

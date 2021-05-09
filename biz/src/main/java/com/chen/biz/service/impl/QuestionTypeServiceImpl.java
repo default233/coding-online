@@ -18,7 +18,7 @@ import java.util.List;
  */
 @Service
 @Slf4j
-public class QuestionTypeServiceImpl implements QuestionTypeService {
+public class QuestionTypeServiceImpl extends BaseServiceImpl<QuestionType, QuestionTypeMapper> implements QuestionTypeService {
     @Autowired
     private QuestionTypeMapper questionTypeMapper;
 
@@ -38,6 +38,8 @@ public class QuestionTypeServiceImpl implements QuestionTypeService {
         filter.setQuestionType(type);
         QueryWrapper<QuestionType> typeQueryWrapper = new QueryWrapper<>(filter);
         QuestionType questionType = questionTypeMapper.selectOne(typeQueryWrapper);
-        return questionType.getQuestionTypeId();
+        if (questionType != null)
+            return questionType.getQuestionTypeId();
+        return null;
     }
 }

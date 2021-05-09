@@ -139,8 +139,9 @@ $("#recoverpw-form").on('click', '#recover', function () {
 
     let params = JSON.stringify({
         'newPassword': newPassword,
-        'sysUser': user
+        'username': user.username
     });
+    console.log(user.userId);
     $.ajax({
         url: baseUrl + '/recover-password',
         type: 'POST',
@@ -149,6 +150,7 @@ $("#recoverpw-form").on('click', '#recover', function () {
         contentType: 'application/json',
         success: function (res) {
             swal("修改成功！", "请重新登录", "success");
+            $(location).attr('href', baseUrl + '/pages-login');
         },
         error: function (res) {
             let data = jQuery.parseJSON(res.responseText);

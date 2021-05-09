@@ -5,6 +5,7 @@ import com.chen.biz.exception.UserAlreadyExistException;
 import com.chen.biz.mapper.UserInfoMapper;
 import com.chen.biz.pojo.SysUser;
 import com.chen.biz.pojo.UserInfo;
+import com.chen.biz.pojo.UserRanking;
 import com.chen.biz.service.SysUserService;
 import com.chen.biz.service.UserInfoService;
 import lombok.extern.slf4j.Slf4j;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  * @author danger
@@ -20,7 +22,7 @@ import java.time.LocalDate;
  */
 @Service
 @Slf4j
-public class UserInfoServiceImpl implements UserInfoService {
+public class UserInfoServiceImpl extends BaseServiceImpl<UserInfo, UserInfoMapper> implements UserInfoService {
 
     @Autowired
     private UserInfoMapper userInfoMapper;
@@ -79,5 +81,26 @@ public class UserInfoServiceImpl implements UserInfoService {
         QueryWrapper<UserInfo> wrapper = new QueryWrapper<>(filter);
         UserInfo userInfo = userInfoMapper.selectOne(wrapper);
         return userInfo;
+    }
+
+    @Override
+    public int updateStatus(Long userId, Integer status) {
+        int i;
+        if (status.equals(0)) {
+            i = userInfoMapper.updateStatusSuccessByUserId(userId);
+        } else {
+            i = userInfoMapper.updateStatusFailureByUserId(userId);
+        }
+        return i;
+    }
+
+    @Override
+    public List<UserRanking> getUserRankingByPassQuestion() {
+        return userInfoMapper.getUserRankingByPassQuestion();
+    }
+
+    @Override
+    public List<UserRanking> getUserRankingByPassRate() {
+        return userInfoMapper.getUserRankingByPassRate();
     }
 }

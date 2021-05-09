@@ -16,14 +16,16 @@ import java.time.LocalDateTime;
 public class MyMetaObjectHandler implements MetaObjectHandler {
     @Override
     public void insertFill(MetaObject metaObject) {
-        this.strictInsertFill(metaObject, "createTime", LocalDateTime.class, LocalDateTime.now());
-        this.strictInsertFill(metaObject, "updateTime", LocalDateTime.class, LocalDateTime.now());
+        this.strictInsertFill(metaObject, "createTime",
+                LocalDateTime.class, LocalDateTime.now());
+        this.strictInsertFill(metaObject, "updateTime",
+                LocalDateTime.class, LocalDateTime.now());
         this.setFieldValByName("isDelete", Boolean.FALSE, metaObject);
-//        this.strictInsertFill(metaObject, "isDelete", Integer.class, 0);
     }
 
     @Override
     public void updateFill(MetaObject metaObject) {
-        this.strictInsertFill(metaObject, "updateTime", LocalDateTime.class, LocalDateTime.now());
+        this.strictInsertFill(metaObject, "updateTime", LocalDateTime.class,
+                LocalDateTime.now());
     }
 }

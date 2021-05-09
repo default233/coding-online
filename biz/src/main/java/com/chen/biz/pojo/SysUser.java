@@ -26,6 +26,8 @@ public class SysUser {
     private String email;
     @TableField("password")
     private String password;
+    @TableField("user_type")
+    private Integer userType;
     @TableField(value = "create_time", fill = FieldFill.INSERT)
     private LocalDateTime createTime;
     @TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)
@@ -35,5 +37,4 @@ public class SysUser {
     private Boolean isDelete;
     @TableField("description")
     private String description;
-
 }

@@ -33,10 +33,16 @@ $(document).ready(function() {
         }
     });
 
-    $('#datatable').on('click', 'tbody tr button', function () {
+    $('#datatable').on('click', 'tbody tr #to-question', function () {
         let data = dataTable.row($(this).parent()).data();
         let questionOrder = data[0];
         $(location).attr('href', baseUrl + '/question/' + questionOrder);
+    });
+
+    $('#datatable').on('click', 'tbody tr #to-comments', function () {
+        let data = dataTable.row($(this).parent()).data();
+        let questionOrder = data[0];
+        $(location).attr('href', baseUrl + '/question-comments/' + questionOrder);
     });
 
     //Buttons examples

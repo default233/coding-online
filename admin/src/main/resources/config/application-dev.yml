@@ -1,7 +1,49 @@
-# 测试环境 mysql 数据库
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/coding_online_dev?useUnicode=true&characterEncoding=utf8&useSSL=false
+    url: jdbc:mysql://127.0.0.1:3306/coding_online?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
     username: root
     password: jc0802
+    type: com.alibaba.druid.pool.DruidDataSource
+
+  mvc:
+    static-path-pattern: /**
+
+  web:
+    resources:
+      static-locations:
+        - classpath:/META-INF/resources/
+        - classpath:/static/
+        - classpath:/resources/
+        - classpath:/static/img/
+        - file:${upload-path}
+  mail:
+    host: smtp.qq.com #发送邮件服务器
+    username: 1149863397@qq.com #发送邮件的邮箱地址
+    from: 1149863397@qq.com #发送邮件的邮箱地址
+    password: dzwgtlommvsofgif #客户端授权码，不是邮箱密码，这个在qq邮箱设置里面自动生成的
+    properties.mail.smtp.port: 465 #端口号465或587
+    properties.mail.smtp.starttls.enable: true
+    properties.mail.smtp.starttls.required: true
+    properties.mail.smtp.ssl.enable: true
+    default-encoding: utf-8
+
+mybatis-plus:
+  mapper-locations: classpath*:mapper/*.xml
+  global-config:
+    db-config:
+      logic-delete-field: is_delete
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+    banner: false
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    use-generated-keys: true
+
+upload-path: E:/final/coding-online/admin/src/main/resources/static/img/
+default_img_path: default.jpg
+
+compile:
+  filepath: E:\final\coding-online\sourceFile\
+  relativePath: \final\coding-online\sourceFile\
+  dangerousKeyWords: fork(),rm,Runtime.getRuntime(),<sys/ptrace.h>,<sys/wait.h>,<sys/time.h>

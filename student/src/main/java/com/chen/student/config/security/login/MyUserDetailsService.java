@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -35,7 +36,9 @@ public class MyUserDetailsService implements UserDetailsService {
                 return "role";
             }
         };
-        user.setAuthorities(Set.of(authority));
+        Set<GrantedAuthority> authorities = new HashSet<>();
+        authorities.add(authority);
+        user.setAuthorities(authorities);
         return user;
     }
 }

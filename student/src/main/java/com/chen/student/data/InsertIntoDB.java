@@ -6,7 +6,6 @@ import com.chen.biz.pojo.Question;
 import com.chen.student.utils.QuestionUtils;
 
 import java.util.List;
-import java.util.Random;
 
 /**
  * @author danger

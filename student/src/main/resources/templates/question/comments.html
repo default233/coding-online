@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <title>评论</title>
+    <meta content="Responsive admin theme build on top of Bootstrap 4" name="description" />
+    <meta content="Themesdesign" name="author" />
+    <link rel="shortcut icon" th:href="@{/assets/images/favicon.ico}">
+
+    <link th:href="@{/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css}" rel="stylesheet">
+
+    <link th:href="@{/assets/css/bootstrap.min.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/assets/css/metismenu.min.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/assets/css/icons.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/assets/css/style.css}" rel="stylesheet" type="text/css">
+
+</head>
+
+<body>
+
+<div th:replace="common/common-section :: common_head"></div>
+<!-- header-bg -->
+
+<div class="wrapper">
+    <div class="container-fluid">
+        <div class="card">
+
+            <div class="row p-3">
+                <div class="col-lg-4">
+                    <form role="search" class="email-inbox">
+                        <div class="form-group mb-0">
+                            <input type="text" class="form-control rounded" placeholder="查找">
+                            <button type="submit"><i class="fa fa-search"></i></button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="col-lg-8">
+                    <div class="btn-toolbar float-lg-right" role="toolbar">
+                        <div class="btn-group mb-2 mb-sm-0">
+                            <button id="add-comment" type="button" class="btn btn-primary waves-light waves-effect"><i class="ion ion-md-add-circle"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <ul th:each="comment:${comments}" class="message-list">
+
+                <!-- start 1 -->
+                <li class="col-lg-12">
+                    <div class="col-mail col-mail-1">
+                        <a class="title">
+                            <img class="mr-3 rounded-circle float-left mt-2" th:src="@{'/coding-online/student/show-img?filename='+${comment.img}}" alt="" height="40">
+                            <h6 class="mb-0 font-15 mt-3 pt-1">[[${comment.username}]] </h6>
+                        </a>
+                        <span class="star-toggle far fa-star text-primary"></span>
+                    </div>
+                    <div class="col-mail col-mail-2">
+                        <a id="comment-title-a" href="#" class="subject">
+
+                            <p class="mb-0 font-15"> [[${comment.title}]]
+<!--                                <span class="text-muted mt-1 mb-0 pl-1"> Hello – <span class="teaser">Trip home from Colombo has been arranged,-->
+<!--                                                                                                        then Jenna will come get me from Stockholm. :)</span>-->
+<!--                                                </span>-->
+                            </p>
+                        </a>
+                        <input hidden="hidden" th:value="${comment.commentId}">
+                        <div class="date">
+                            [[${#temporals.format(comment.createTime, 'MM-dd')}]]
+                        </div>
+                    </div>
+
+                </li>
+                <!-- end 1 -->
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+<!-- Footer -->
+<div th:replace="common/common-section :: common_footer"></div>
+
+</body>
+<script>
+    $('#add-comment').click(function () {
+        let base = $(location).attr('href');
+        if (base.indexOf('#') != -1) {
+            base = base.substring(0, base.lastIndexOf('#'));
+        }
+        $(location).attr('href', base + "/add");
+    })
+    $(document).ready(function () {
+        $('#comment-title-a').click(function () {
+            let id = $(this).next().val();
+            $(location).attr('href', baseUrl + "/reply?id="+id);
+        })
+    })
+</script>
+</html>
+

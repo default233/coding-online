@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <title>Coding Online</title>
+    <!--    <meta content="Responsive admin theme build on top of Bootstrap 4" name="description" />-->
+    <!--    <meta content="Themesdesign" name="author" />-->
+    <link rel="shortcut icon" th:href="@{/assets/images/favicon.ico}">
+
+    <link th:href="@{/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css}" rel="stylesheet">
+
+    <!-- DataTables -->
+    <link th:href="@{/plugins/datatables/dataTables.bootstrap4.min.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/plugins/datatables/buttons.bootstrap4.min.css}" rel="stylesheet" type="text/css" />
+
+    <!-- Responsive datatable examples -->
+    <link th:href="@{/plugins/datatables/responsive.bootstrap4.min.css}" rel="stylesheet" type="text/css" />
+
+    <link th:href="@{/assets/css/bootstrap.min.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/assets/css/metismenu.min.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/assets/css/icons.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/assets/css/style.css}" rel="stylesheet" type="text/css">
+
+    <link th:href="@{/plugins/codemirror/theme/monokai.css}" rel="stylesheet">
+    <link th:href="@{/plugins/codemirror/theme/3024-day.css}" rel="stylesheet">
+    <link th:href="@{/plugins/codemirror/theme/3024-night.css}" rel="stylesheet">
+    <link th:href="@{/plugins/codemirror/theme/abcdef.css}" rel="stylesheet">
+    <link th:href="@{/plugins/codemirror/theme/ambiance.css}" rel="stylesheet">
+    <link th:href="@{/plugins/codemirror/theme/ambiance-mobile.css}" rel="stylesheet">
+    <link th:href="@{/plugins/codemirror/theme/ayu-dark.css}" rel="stylesheet">
+
+    <!-- Summernote css -->
+    <link th:href="@{/plugins/summernote/summernote-bs4.css}" rel="stylesheet" />
+
+    <link th:href="@{/plugins/codemirror/codemirror.css}" rel="stylesheet">
+    <link th:href="@{/plugins/codemirror/addon/hint/show-hint.css}" rel="stylesheet">
+
+    <style>
+        .card-footer .button-items .btn {
+            float: right;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div th:replace="common/common-section :: common_head"></div>
+    <div class="wrapper">
+        <div class="container-fluid">
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+
+                            <p> <h4 class="mt-0 header-title">[[${question.title}]]</h4> </p>
+<!--                            <p class="sub-title">Super simple wysiwyg editor on bootstrap</p>-->
+                            <input type="hidden" th:value="${question.questionDescription}" id="description"/>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="card card-outline card-info">
+                                        <div class="card card-body" id="question">
+                                        </div>
+                                        <div class="row col-10">
+                                            <div class="card card-body col-6">
+                                                <h4 class="card-title font-16 mt-0 font-weight-bolder">输入格式</h4>
+                                                <p class="card-text" th:text="${question.inputDescription}">
+                                                </p>
+                                            </div>
+
+                                            <div class="card card-body col-6">
+                                                <h4 class="card-title font-16 mt-0 font-weight-bolder">输出格式</h4>
+                                                <p class="card-text" th:text="${question.outputDescription}">
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                        <div class="row col-10">
+                                            <div class="card card-body col-6">
+                                                <h4 class="card-title font-16 mt-0 font-weight-bolder">输入示例</h4>
+                                                <p class="card-text" th:each="inputExample : ${inputExamples}">
+                                                    <code th:text="${inputExample.inputExample}"></code> </br>
+                                                </p>
+                                            </div>
+
+                                            <div class="card card-body col-6">
+                                                <h4 class="card-title font-16 mt-0 font-weight-bolder">输出示例</h4>
+                                                <p class="card-text" th:each="outputExample : ${outputExamples}">
+                                                    <code th:text="${outputExample.outputExample}"></code> </br>
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                        <div class="row col-10">
+                                            <div class="card card-body col-6">
+                                                <h4 class="card-title font-16 mt-0 font-weight-bolder">时间限制</h4>
+                                                <p class="card-text" th:text="${question.timeLimit} + 'ms'">
+                                                </p>
+                                            </div>
+
+                                            <div class="card card-body col-6">
+                                                <h4 class="card-title font-16 mt-0 font-weight-bolder">内存限制</h4>
+                                                <p class="card-text" th:text="${question.memoryLimit} + 'mB'">
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card card-outline card-info">
+                                        <div class="card-header">
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div class="dropdown mb-2 mb-sm-0">
+                                                        <div class="btn-group mb-2 mb-sm-0">
+                                                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown-theme-button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                主题
+                                                            </button>
+                                                            <div id="theme-dropdown" class="dropdown-menu" aria-labelledby="dropdown-theme-button">
+                                                                <a class="dropdown-item">monokai</a>
+                                                                <a class="dropdown-item">3024-day</a>
+                                                                <a class="dropdown-item">3024-night</a>
+                                                                <a class="dropdown-item">abcdef</a>
+                                                                <a class="dropdown-item">ambiance</a>
+                                                                <a class="dropdown-item">ambiance-mobile</a>
+                                                                <a class="dropdown-item">ayu-dark</a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="btn-group mb-2 mb-sm-0">
+                                                            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdown-language-button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                语言
+                                                            </button>
+                                                            <div id="language-dropdown" class="dropdown-menu" aria-labelledby="dropdown-language-button">
+                                                                <a class="dropdown-item">c++</a>
+                                                                <a class="dropdown-item">c</a>
+                                                                <a class="dropdown-item">java</a>
+                                                                <a class="dropdown-item">python</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+<!--                                        &lt;!&ndash;          按钮                              &ndash;&gt;-->
+<!--                                        <div class="col-xl-12">-->
+<!--                                            <div class="card">-->
+<!--                                                <div class="card-body">-->
+
+<!--&lt;!&ndash;                                                    <h4 class="mt-0 header-title">Outline buttons</h4>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                    <p class="sub-title">In need of a button, but not the hefty background colors they bring? Replace the default modifier classes with the <code class="highlighter-rouge">.btn-outline-*</code> ones to remove all background images and colors on any button.</p>&ndash;&gt;-->
+
+<!--                                                    -->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+                                        <!-- /.card-header -->
+                                        <div class="card-body p-0">
+                                            <textarea id="codeMirrorDemo"></textarea>
+                                        </div>
+                                        <div class="card-footer">
+
+                                            <div class="button-items">
+<!--                                                <button type="button" class="btn btn-outline-primary waves-effect waves-light">Primary</button>-->
+<!--                                                <button type="button" class="btn btn-outline-secondary waves-effect">Secondary</button>-->
+                                                <button id="code-submit" type="button" class="btn btn-outline-success waves-effect waves-light">提交</button>
+                                                <button id="code-carry" type="button" class="btn btn-outline-info waves-effect waves-light">执行代码</button>
+                                                <!-- <button type="button" class="btn btn-outline-warning waves-effect waves-light">Warning</button>-->
+<!--                                                 <button type="button" class="btn btn-outline-danger waves-effect waves-light">Danger</button>-->
+<!--                                                 <button type="button" class="btn btn-outline-dark waves-effect waves-light">Dark</button>-->
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /.col-->
+                            </div>
+<!--                            <div id="coding-area" class="summernote"></div>-->
+
+                        </div>
+                    </div>
+                </div>
+                <!-- end col -->
+            </div>
+            <!-- end row -->
+
+        </div>
+        <!-- end container-fluid -->
+    </div>
+    <!-- end wrapper -->
+
+    <div th:replace="common/common-section :: common_footer"></div>
+
+
+    <!--Summernote js-->
+    <script th:src="@{/plugins/summernote/summernote-bs4.min.js}"></script>
+
+
+    <script th:src="@{/plugins/codemirror/codemirror.js}"></script>
+    <script th:src="@{/plugins/codemirror/mode/clike/clike.js}"></script>
+    <script th:src="@{/plugins/codemirror/mode/python/python.js}"></script>
+    <script th:src="@{/plugins/codemirror/addon/hint/show-hint.js}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <script th:src="@{/assets/js/code.js}"></script>
+</body>
+</html>

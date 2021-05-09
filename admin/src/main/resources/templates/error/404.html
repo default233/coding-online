@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <title>页面没有找到</title>
+    <meta content="Responsive admin theme build on top of Bootstrap 4" name="description" />
+    <meta content="Themesdesign" name="author" />
+    <link rel="shortcut icon" th:href="@{/assets/images/favicon.ico}">
+
+    <link th:href="@{/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css}" rel="stylesheet">
+
+    <link th:href="@{/assets/css/bootstrap.min.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/assets/css/metismenu.min.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/assets/css/icons.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/assets/css/style.css}" rel="stylesheet" type="text/css">
+
+</head>
+
+<body>
+    <div class="error-bg"></div>
+
+    <!-- Begin page -->
+    <div class="home-btn d-none d-sm-block">
+        <a th:href="@{/index}" class="text-white"><i class="mdi mdi-home h1"></i></a>
+    </div>
+
+    <div class="wrapper-page">
+
+        <div class="container">
+            <div class="row align-items-center justify-content-center">
+                <div class="col-lg-5">
+                    <div class="card card-pages shadow-none mt-4">
+
+                        <div class="text-center p-3">
+
+                            <div class="img">
+                                <img th:src="@{/assets/images/error.png}" class="img-fluid" alt="">
+                            </div>
+
+                            <h1 class="error-page mt-5"><span>404!</span></h1>
+                            <h4 class="mb-4 mt-5">对不起，页面不存在</h4>
+<!--                            <p class="mb-4 w-75 mx-auto">It will be as simple as Occidental in fact, it will Occidental to an English person</p>-->
+                            <a class="btn btn-primary mb-4 waves-effect waves-light" th:href="@{/index}"><i class="mdi mdi-home"></i> 返回主页 </a>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+            <!-- end row -->
+        </div>
+    </div>
+
+    <!-- jQuery  -->
+    <script th:src="@{/assets/js/jquery.min.js}"></script>
+    <script th:src="@{/assets/js/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{/assets/js/jquery.slimscroll.js}"></script>
+    <script th:src="@{/assets/js/waves.min.js}"></script>
+
+    <script th:src="@{/../plugins/apexchart/apexcharts.min.js}"></script>
+    <script th:src="@{/../plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js}"></script>
+
+    <!-- App js -->
+    <script th:src="@{/assets/js/app.js}"></script>
+
+</body>
+
+</html>

@@ -20,7 +20,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 /**
  * SysUser Service 实现类层
@@ -29,7 +28,7 @@ import java.time.LocalDateTime;
  */
 @Service
 @Slf4j
-public class SysUserServiceImpl implements SysUserService {
+public class SysUserServiceImpl extends BaseServiceImpl<SysUser, SysUserMapper> implements SysUserService {
 
     @Autowired
     private SysUserMapper sysUserMapper;
@@ -85,29 +84,32 @@ public class SysUserServiceImpl implements SysUserService {
      * 注册用户
      * @param sysUser 用户信息
      * @return 是否成功
-     * @throws Exception 用户邮箱重复错误
+     * @throws Exception 用户重复错误
      */
     @Override
     @Transactional
-    public int register(SysUser sysUser) throws CustomException {
+    public int register(SysUser sysUser, Integer userType) throws CustomException {
 
         if (sysUser == null) {
             throw new BadArgumentException("用户为空！！");
         }
 
         QueryWrapper<SysUser> queryWrapper = new QueryWrapper<>();
-//        queryWrapper.eq("username", sysUser.getUsername());
         queryWrapper.eq("email", sysUser.getEmail());
         SysUser user = sysUserMapper.selectOne(queryWrapper);
         if (user != null) {
             throw new UserAlreadyExistException("用户已存在");
         }
         String password = sysUser.getPassword();
+        // 密码加密
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         String encode = bCryptPasswordEncoder.encode(password);
-        log.info(encode);
         sysUser.setPassword(encode);
+        sysUser.setUserType(userType);
+        // 向用户表中插入数据
         int insert = sysUserMapper.insert(sysUser);
+
+        // 向用户信息表中插入数据
         UserInfo userInfo = new UserInfo();
         userInfo.setUserId(sysUser.getUserId());
         userInfo.setUsername(sysUser.getUsername());
@@ -115,6 +117,9 @@ public class SysUserServiceImpl implements SysUserService {
         userInfo.setEmail(sysUser.getEmail());
         userInfo.setBirthday(LocalDate.now());
         userInfo.setImg(defaultImgPath);
+        userInfo.setProblemSubmit(0);
+        userInfo.setProblemSuccess(0);
+        userInfo.setUserType(userType);
         userInfoService.insertUserInfo(userInfo);
         return insert;
     }

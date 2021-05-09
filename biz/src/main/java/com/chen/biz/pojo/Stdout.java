@@ -9,13 +9,12 @@ import lombok.NoArgsConstructor;
  * @author danger
  * @date 2021/4/15
  */
-@TableName("judge_task")
+@TableName("judge_stdout")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class Stdout {
-
     private Integer status;
-    private Long max_memory;
-    private Long max_time;
+    private Long maxMemory;
+    private Long maxTime;
 }

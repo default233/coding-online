@@ -1,0 +1,45 @@
+
+
+
+ .faq-box-content{
+
+    .card-header{
+        border-bottom: 1px solid $light;
+    }
+     .accordion {
+        &.accordion[data-toggle=collapse] {
+            color: $primary;
+            transition: all 0.5s;
+            position: relative;
+            &:before {
+                content: '\F15A';
+                display: block;
+                font-family: 'Material Design Icons';
+                font-size: 20px;
+                color: $primary;
+                position: absolute;
+                right: 20px;
+                top: 50%;
+                transform: translateY(-50%);
+
+            }
+            &.collapsed {
+                background-color: $white;
+                color: $dark;
+                transition: all 0.5s;
+                &:before {
+                    content: '\FB0C';
+                    color: $dark;
+                    transition: all 0.5s;
+                }
+            }
+            &.text-white {
+                &:before, &.collapsed {
+                    color:$white;
+                }
+            }
+        }
+    }
+ }
+
+

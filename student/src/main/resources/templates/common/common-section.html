@@ -169,8 +169,8 @@
                     <div class="col-sm-6 col-xl-3">
                         <div class="row align-items-center p-1">
                             <div class="col-lg-6">
-                                <h5 class="font-16 text-white">Total Expenses</h5>
-                                <h4 class="text-info pt-1 mb-0">$67,670</h4>
+                                <h5 class="font-16 text-white">已完成题目数</h5>
+                                <h4 id="question-passed" class="text-info pt-1 mb-0">4</h4>
                             </div>
                             <div class="col-lg-6">
                                 <div id="chart1"></div>
@@ -181,8 +181,8 @@
                     <div class="col-sm-6 col-xl-3">
                         <div class="row align-items-center p-1">
                             <div class="col-lg-6">
-                                <h5 class="font-16 text-white">Total Invoice</h5>
-                                <h4 class="text-warning pt-1 mb-0">$7,360</h4>
+                                <h5 class="font-16 text-white">提交总次数</h5>
+                                <h4 id="submit-num" class="text-warning pt-1 mb-0">20</h4>
                             </div>
                             <div class="col-lg-6">
                                 <div id="chart2"></div>
@@ -193,8 +193,8 @@
                     <div class="col-sm-6 col-xl-3">
                         <div class="row align-items-center p-1">
                             <div class="col-lg-6">
-                                <h5 class="font-16 text-white">Amount Due</h5>
-                                <h4 class="text-primary pt-1 mb-0">$5000</h4>
+                                <h5 class="font-16 text-white">通过次数</h5>
+                                <h4 id="pass-num" class="text-primary pt-1 mb-0">6</h4>
                             </div>
                             <div class="col-lg-6">
                                 <div id="chart3"></div>
@@ -206,8 +206,8 @@
 
                         <div class="row align-items-center p-1">
                             <div class="col-lg-6">
-                                <h5 class="font-16 text-white">Unpaid Invoices</h5>
-                                <h4 class="text-danger pt-1 mb-0">$2,480</h4>
+                                <h5 class="font-16 text-white">通过率排名</h5>
+                                <h4 id="pass-rate-order" class="text-danger pt-1 mb-0">1</h4>
                             </div>
                             <div class="col-lg-6">
                                 <div id="chart4"></div>
@@ -308,9 +308,14 @@
                 dataType: "json",
                 async:false,
                 success: function (res) {
-                    currentUser = res;
-                    $('#current-user-name').val(res.username);
-                    $('#user-img').attr('src',"show-img?filename=" + res.img)
+                    currentUser = res.userInfo;
+                    questionPassed = res.questionPassed;
+                    $('#current-user-name').val(currentUser.username);
+                    $('#question-passed').text(questionPassed);
+                    $('#submit-num').text(currentUser.problemSubmit);
+                    $('#pass-num').text(currentUser.problemSuccess);
+                    $('#pass-rate-order').text(res.passOrder);
+                    $('#user-img').attr('src',baseUrl + "/show-img?filename=" + currentUser.img)
                 },
                 error: function (res) {
 

@@ -1,16 +1,18 @@
 package com.chen.student.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.chen.biz.exception.CustomException;
 import com.chen.biz.pojo.SysUser;
 import com.chen.biz.pojo.UserInfo;
+import com.chen.biz.pojo.UserPass;
+import com.chen.biz.pojo.UserRanking;
 import com.chen.biz.service.SysUserService;
 import com.chen.biz.service.UserInfoService;
+import com.chen.biz.service.UserPassService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.ResourceLoader;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -25,6 +27,8 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -40,6 +44,8 @@ public class UserController {
     private SysUserService sysUserService;
     @Autowired
     private UserInfoService userInfoService;
+    @Autowired
+    private UserPassService userPassService;
     @Value("${upload-path}")
     private String path;
 
@@ -98,8 +104,25 @@ public class UserController {
         SysUser sysUser = sysUserService.selectUserByName(currentUserName);
         Long userId = sysUser.getUserId();
         UserInfo userInfo = userInfoService.getUserInfoByUserId(userId);
-        request.setAttribute("currentUser", sysUser);
-        return JSON.toJSONString(userInfo);
+        request.setAttribute("currentUser", userInfo);
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("userInfo", userInfo);
+        Integer passOrder = null;
+        List<UserRanking> userRankingByPassRate = userInfoService.getUserRankingByPassRate();
+        for (UserRanking userRanking : userRankingByPassRate) {
+            if (currentUserName.equals(userRanking.getUsername())) {
+                passOrder = userRanking.getPassOrder();
+                break;
+            }
+        }
+        result.put("passOrder", passOrder);
+        UserPass filter = new UserPass();
+        filter.setUserId(userId);
+        filter.setIsPassed(true);
+        QueryWrapper<UserPass> wrapper = new QueryWrapper<>(filter);
+        List<UserPass> userPasses = userPassService.selectList(wrapper);
+        result.put("questionPassed",userPasses.size());
+        return JSON.toJSONString(result);
     }
 
     @PostMapping("/head-img")
@@ -137,11 +160,11 @@ public class UserController {
         }
     }
 
-    @GetMapping("/show-img")
+    @GetMapping({"/show-img","/**/show-img"})
     @ResponseBody
     public void getImage(@RequestParam("filename") String imageUrl, HttpServletResponse response) {
         if (imageUrl != null) {
-            log.info("请求的图片URL：" + imageUrl);
+            log.info("请求的图片URL：" + path + imageUrl);
             FileInputStream in = null;
             OutputStream out = null;
             try {
@@ -163,8 +186,12 @@ public class UserController {
                 throw new CustomException("网络错误");
             } finally {
                 try {
-                    in.close();
-                    out.close();
+                    if (in != null) {
+                        in.close();
+                    }
+                    if (out != null) {
+                        out.close();
+                    }
                 } catch (IOException e) {
                     throw new CustomException("网络错误");
                 }

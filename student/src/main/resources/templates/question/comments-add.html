@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+  <title>评论</title>
+  <meta content="Responsive admin theme build on top of Bootstrap 4" name="description" />
+  <meta content="Themesdesign" name="author" />
+  <link rel="shortcut icon" th:href="@{/assets/images/favicon.ico}">
+
+  <link th:href="@{/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css}" rel="stylesheet">
+
+  <link th:href="@{/assets/css/bootstrap.min.css}" rel="stylesheet" type="text/css">
+  <link th:href="@{/assets/css/metismenu.min.css}" rel="stylesheet" type="text/css">
+  <link th:href="@{/assets/css/icons.css}" rel="stylesheet" type="text/css">
+  <link th:href="@{/assets/css/style.css}" rel="stylesheet" type="text/css">
+
+  <link th:href="@{/plugins/summernote/summernote-bs4.css}" rel="stylesheet" />
+
+</head>
+
+<body>
+
+<div th:replace="common/common-section :: common_head"></div>
+<!-- header-bg -->
+
+<div class="wrapper">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-body">
+
+            <h4 class="mt-0 header-title">添加评论</h4>
+            <p class="sub-title">请按照需求输入题目信息后上传</p>
+
+            <div class="form-group row">
+              <label for="comments-title" class="col-sm-2 col-form-label">标题</label>
+              <div class="col-sm-10">
+                <input class="form-control" type="text" placeholder="请输入题目标题" id="comments-title">
+              </div>
+            </div>
+
+            <input hidden class="form-control" type="text" th:value="${order}" id="comments-question-order">
+            <div class="form-group row">
+              <label for="comments-description" class="col-sm-2 col-form-label">评论</label>
+              <div class="col-sm-10">
+                <textarea id="comments-description" placeholder=""></textarea>
+              </div>
+            </div>
+
+            <div class="form-group mb-0" style="text-align:center">
+              <div style="text-align:center">
+                <button id="comments-submit" type="submit" class="btn btn-primary waves-effect waves-light">
+                  回复
+                </button>
+                <button type="reset" class="btn btn-secondary waves-effect m-l-5">
+                  取消
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- end col -->
+    </div>
+    <!-- end row -->
+  </div>
+</div>
+
+
+<!-- Footer -->
+<div th:replace="common/common-section :: common_footer"></div>
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script th:src="@{/plugins/summernote/summernote-bs4.min.js}"></script>
+
+</body>
+<script>
+  $('#comments-description').summernote({
+    height: 150
+  });
+
+  var comments = {};
+
+  $('#comments-submit').click(function () {
+    comments.title = $('#comments-title').val();
+    comments.description = $('#comments-description').val();
+    comments.questionOrder = $('#comments-question-order').val();
+    let params = JSON.stringify(comments);
+    $.ajax({
+      url: baseUrl + '/comment-submit',
+      type: 'post',
+      data: params,
+      contentType: 'application/json',
+      dataType: "json",
+      success: function (res) {
+        swal("回复成功！","提示", "success").then(function () {
+          $(location).attr('href', baseUrl + '/question-comments/' + comments.questionOrder);
+        });
+      },
+      error: function (res) {
+        let data = jQuery.parseJSON(res.responseText);
+        swal(data.message, "回复失败", "error");
+      }
+    })
+  })
+
+</script>
+</html>
+
