@@ -2,8 +2,14 @@
  Template Name: Zegva - Responsive Bootstrap 4 Admin Dashboard
  Author: Themesdesign
  Website: www.themesdesign.in
- File: Chart js 
+ File: Chart js
  */
+var chartDate = {
+    "pieData": [],
+    "lineData": [],
+    "barData": [],
+    "radarData": []
+};
 
 !function($) {
     "use strict";
@@ -27,9 +33,6 @@
                 case 'Line':
                     new Chart(ctx, {type: 'line', data: data, options: options});
                     break;
-                case 'Doughnut':
-                    new Chart(ctx, {type: 'doughnut', data: data, options: options});
-                    break;
                 case 'Pie':
                     new Chart(ctx, {type: 'pie', data: data, options: options});
                     break;
@@ -39,9 +42,6 @@
                 case 'Radar':
                     new Chart(ctx, {type: 'radar', data: data, options: options});
                     break;
-                case 'PolarArea':
-                    new Chart(ctx, {data: data, type: 'polarArea', options: options});
-                    break;
             }
             // Initiate new chart or Redraw
 
@@ -50,13 +50,13 @@
         generateChart();
     },
     //init
-    ChartJs.prototype.init = function() {
+    ChartJs.prototype.init = function(chartData) {
         //creating lineChart
         var lineChart = {
-            labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September","October"],
+            labels: ["周一", "周二", "周三", "周四", "周五", "周六", "周日"],
             datasets: [
                 {
-                    label: "Sales Analytics",
+                    label: "题目热度",
                     fill: true,
                     lineTension: 0.5,
                     backgroundColor: "rgba(35, 203, 224, 0.2)",
@@ -74,28 +74,7 @@
                     pointHoverBorderWidth: 2,
                     pointRadius: 1,
                     pointHitRadius: 10,
-                    data: [30, 59, 80, 81, 56, 55, 40, 55, 30, 80]
-                },
-                {
-                    label: "Monthly Earnings",
-                    fill: true,
-                    lineTension: 0.5,
-                    backgroundColor: "rgba(240, 244, 247, 0.2)",
-                    borderColor: "#f0f4f7",
-                    borderCapStyle: 'butt',
-                    borderDash: [],
-                    borderDashOffset: 0.0,
-                    borderJoinStyle: 'miter',
-                    pointBorderColor: "#f0f4f7",
-                    pointBackgroundColor: "#fff",
-                    pointBorderWidth: 1,
-                    pointHoverRadius: 5,
-                    pointHoverBackgroundColor: "#f0f4f7",
-                    pointHoverBorderColor: "#eef0f2",
-                    pointHoverBorderWidth: 2,
-                    pointRadius: 1,
-                    pointHitRadius: 10,
-                    data: [30, 23, 56, 65, 23, 35, 85, 25, 92, 36]
+                    data: [30, 59, 80, 81, 56, 55, 40]
                 }
             ]
         };
@@ -114,38 +93,16 @@
 
         this.respChart($("#lineChart"),'Line',lineChart, lineOpts);
 
-        //donut chart
-        var donutChart = {
-            labels: [
-                "Desktops",
-                "Tablets"
-            ],
-            datasets: [
-                {
-                    data: [250, 60],
-                    backgroundColor: [
-                        "#23cbe0",
-                        "#f0f4f7"
-                    ],
-                    hoverBackgroundColor: [
-                        "#23cbe0",
-                        "#f0f4f7"
-                    ],
-                    hoverBorderColor: "#fff"
-                }]
-        };
-        this.respChart($("#doughnut"),'Doughnut',donutChart);
-
 
         //Pie chart
         var pieChart = {
             labels: [
-                "Desktops",
-                "Tablets"
+                "通过次数",
+                "未通过次数"
             ],
             datasets: [
                 {
-                    data: [350, 200],
+                    data: chartData.pieData,
                     backgroundColor: [
                         "#0e86e7",
                         "#f0f4f7"
@@ -162,83 +119,121 @@
 
         //barchart
         var barChart = {
-            labels: ["January", "February", "March", "April", "May", "June", "July"],
+            labels: ["计算机班", "电子商务班", "信息管理班"],
             datasets: [
                 {
-                    label: "Sales Analytics",
+                    label: "通过人数",
                     backgroundColor: "rgba(14, 134, 231, 0.4)",
                     borderColor: "#0e86e7",
                     borderWidth: 1,
                     hoverBackgroundColor: "rgba(14, 134, 231, 0.5)",
                     hoverBorderColor: "#0e86e7",
-                    data: [50, 65, 60, 65, 55, 70, 60,40]
+                    data: [10, 20, 40]
+                },
+                {
+                    label: "提交人数",
+                    backgroundColor: "rgba(168,250,110,0.4)",
+                    borderColor: "#0e86e7",
+                    borderWidth: 1,
+                    hoverBackgroundColor: "rgba(168,250,110,0.5)",
+                    hoverBorderColor: "#0e86e7",
+                    data: [30, 35, 45]
                 }
             ]
         };
-        this.respChart($("#bar"),'Bar',barChart);
+        var barOpts = {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        max: 50,
+                        min: 0,
+                        stepSize: 10
+                    }
+                }]
+            }
+        };
+        this.respChart($("#bar"),'Bar',barChart, barOpts);
 
 
         //radar chart
         var radarChart = {
-            labels: ["Eating", "Drinking", "Sleeping", "Designing", "Coding", "Cycling", "Running"],
+            labels: ["答案正确", "内存限制满足", "时间限制满足", "运行正确", "编译正确"],
             datasets: [
                 {
-                    label: "Desktops",
+                    label: "正确性",
                     backgroundColor: "rgba(14, 134, 231, 0.2)",
                     borderColor: "#0e86e7",
                     pointBackgroundColor: "#0e86e7",
                     pointBorderColor: "#fff",
                     pointHoverBackgroundColor: "#fff",
                     pointHoverBorderColor: "#0e86e7",
-                    data: [65, 59, 90, 81, 56, 55, 40]
-                },
-                {
-                    label: "Tablets",
-                    backgroundColor: "rgba(35, 203, 224, 0.4)",
-                    borderColor: "#23cbe0",
-                    pointBackgroundColor: "#23cbe0",
-                    pointBorderColor: "#fff",
-                    pointHoverBackgroundColor: "#fff",
-                    pointHoverBorderColor: "#23cbe0",
-                    data: [28, 48, 40, 19, 96, 27, 100]
+                    data: chartDate.radarData
                 }
             ]
         };
         this.respChart($("#radar"),'Radar',radarChart);
 
-        //Polar area  chart
-        var polarChart = {
-            datasets: [{
-                data: [
-                    8,
-                    3,
-                    5,
-                    6
-                ],
-                backgroundColor: [
-                    "#23cbe0",
-                    "#20d4b6",
-                    "#0e86e7",
-                    "#745af1"
-                ],
-                label: 'My dataset', // for legend
-                hoverBorderColor: "#fff"
-            }],
-            labels: [
-                "Series 1",
-                "Series 2",
-                "Series 3",
-                "Series 4"
-            ]
-        };
-        this.respChart($("#polarArea"),'PolarArea',polarChart);
     },
     $.ChartJs = new ChartJs, $.ChartJs.Constructor = ChartJs
 
 }(window.jQuery),
 
 //initializing
-function($) {
+$(document).ready(function () {
+    var url = window.location.href;
+    let order = url.substring(url.lastIndexOf('?'));
+    // 获取饼图题目提交次数数据
+    $.ajax({
+        url: baseUrl + '/question-chart-pie'+order,
+        type: 'post',
+        contentType: 'application/json',
+        async: false,
+        success: function (res) {
+            let pieData = JSON.parse(res)
+            chartDate.pieData = pieData;
+            $("#submit-num").text(pieData[0] + pieData[1]);
+            $("#success-num").text(pieData[0]);
+            $("#failure-num").text(pieData[1]);
+        }
+    })
+    // 获取雷达图数据
+    $.ajax({
+        url: baseUrl + '/question-chart-radar'+order,
+        type: 'post',
+        contentType: 'application/json',
+        async: false,
+        success: function (res) {
+            let resData = JSON.parse(res);
+            let radarData = resData.doubles;
+            chartDate.radarData = radarData;
+            let errorData = resData.errorArr;
+            $("#compile-error").text(errorData[4]);
+            $("#runtime-error").text(errorData[3]);
+            $("#error-answer").text(errorData[0]);
+        }
+    })
+    // 获取条形图数据
+    $.ajax({
+        url: baseUrl + '/question-chart-bar'+order,
+        type: 'post',
+        contentType: 'application/json',
+        async: false,
+        success: function (res) {
+            let resData = JSON.parse(res)
+            let classInfo = resData.allClass;
+            for (const classInfoElement of classInfo) {
+                if (classInfoElement.className == "计算机班") {
+                    $("#computer-num").text(classInfoElement.studentNums);
+                } else if (classInfoElement.className == "电子商务班") {
+                    $("#e-business-num").text(classInfoElement.studentNums);
+                } else if (classInfoElement.className == "信息管理班") {
+                    $("#info-management-num").text(classInfoElement.studentNums);
+                }
+            }
+        }
+    })
+
     "use strict";
-    $.ChartJs.init()
-}(window.jQuery);
+    $.ChartJs.init(chartDate)
+})
+

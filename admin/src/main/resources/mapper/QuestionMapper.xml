@@ -6,5 +6,5 @@
     <select id="getMaxOrder" resultType="long">
         select max(question_order)
         from coding_online.question
-  </select>
+    </select>
 </mapper>

@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <title>Coding Online 题库</title>
+<!--    <meta content="Responsive admin theme build on top of Bootstrap 4" name="description" />-->
+<!--    <meta content="Themesdesign" name="author" />-->
+    <link rel="shortcut icon" th:href="@{/assets/images/favicon.ico}">
+
+    <link th:href="@{/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css}" rel="stylesheet">
+
+    <!-- DataTables -->
+    <link th:href="@{/plugins/datatables/dataTables.bootstrap4.min.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/plugins/datatables/buttons.bootstrap4.min.css}" rel="stylesheet" type="text/css" />
+
+    <!-- Responsive datatable examples -->
+    <link th:href="@{/plugins/datatables/responsive.bootstrap4.min.css}" rel="stylesheet" type="text/css" />
+
+    <link th:href="@{/assets/css/bootstrap.min.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/assets/css/metismenu.min.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/assets/css/icons.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/assets/css/style.css}" rel="stylesheet" type="text/css">
+
+    <!-- Sweet Alert -->
+    <link th:href="@{/plugins/sweet-alert2/sweetalert2.css}" rel="stylesheet" type="text/css">
+
+
+</head>
+
+<body>
+
+<div th:replace="common/common-section :: common_head"></div>
+<!-- header-bg -->
+
+<div class="wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+
+                    <div class="card-header">
+                        <button type="button" class="btn btn-info waves-effect waves-light" data-toggle="modal" data-target="#add-modal">添加班级</button>
+                        <div class="modal fade bs-example-modal-center" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="add-modal">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title mt-0">添加班级</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <input class="form-control" required type="text" placeholder="请输入添加班级名称" id="class-input">
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" id="class-button" class="btn btn-primary waves-effect waves-light">添加</button>
+                                        <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">取消</button>
+                                    </div>
+                                </div>
+                                <!-- /.modal-content -->
+                            </div>
+                            <!-- /.modal-dialog -->
+
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+
+                        <h4 class="mt-0 header-title">班级列表</h4>
+                        <p class="sub-title">
+                            以下是所有的班级
+                        </p>
+
+                        <div class="table-responsive">
+                            <table class="table table-striped mb-0">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>班级名称</th>
+                                    <th>班级总人数</th>
+                                    <th>编辑</th>
+                                    <th>删除</th>
+                                </tr>
+                                </thead>
+                                <div class="modal fade edit-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title mt-0">编辑班级</h5>
+                                                <input type="text" hidden class="edit-input">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <input class="form-control" required type="text" placeholder="请输入修改的班级名称" id="class-edit-input">
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-primary waves-effect waves-light edit">确定</button>
+                                                <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">取消</button>
+                                            </div>
+                                        </div>
+                                        <!-- /.modal-content -->
+                                    </div>
+                                    <!-- /.modal-dialog -->
+                                </div>
+
+                                <div class="modal fade delete-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title mt-0">删除班级</h5>
+                                                <input type="text" hidden class="delete-input">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>确定删除吗？删除班级时会将该班级的学生全部撤销认证</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-primary waves-effect waves-light">删除</button>
+                                                <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">取消</button>
+                                            </div>
+                                        </div>
+                                        <!-- /.modal-content -->
+                                    </div>
+                                    <!-- /.modal-dialog -->
+                                </div>
+
+                                <tbody>
+                                <tr th:each="information : ${classInformation}">
+                                    <th scope="row" th:text="${informationStat.index+1}"></th>
+                                    <td th:text="${information.className}"></td>
+                                    <td th:text="${information.studentNums}"></td>
+                                    <td>
+                                        <button type="button" class="btn btn-dark btn-sm waves-effect waves-light" data-toggle="modal" data-target=".edit-modal">编辑</button>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-danger btn-sm waves-effect waves-light" data-toggle="modal" data-target=".delete-modal">删除</button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- end col -->
+        </div>
+        <!-- end row -->
+
+    </div>
+    <!-- end container-fluid -->
+</div>
+<!-- end wrapper -->
+
+<!-- Footer -->
+<div th:replace="common/common-section :: common_footer"></div>
+<!-- End Footer -->
+
+<!-- Required datatable js -->
+<script th:src="@{/plugins/datatables/jquery.dataTables.min.js}"></script>
+<script th:src="@{/plugins/datatables/dataTables.bootstrap4.min.js}"></script>
+<!-- Buttons examples -->
+<script th:src="@{/plugins/datatables/dataTables.buttons.min.js}"></script>
+<script th:src="@{/plugins/datatables/buttons.bootstrap4.min.js}"></script>
+<script th:src="@{/plugins/datatables/jszip.min.js}"></script>
+<script th:src="@{/plugins/datatables/pdfmake.min.js}"></script>
+<script th:src="@{/plugins/datatables/vfs_fonts.js}"></script>
+<script th:src="@{/plugins/datatables/buttons.html5.min.js}"></script>
+<script th:src="@{/plugins/datatables/buttons.print.min.js}"></script>
+<script th:src="@{/plugins/datatables/buttons.colVis.min.js}"></script>
+<!-- Responsive examples -->
+<script th:src="@{/plugins/datatables/dataTables.responsive.min.js}"></script>
+<script th:src="@{/plugins/datatables/responsive.bootstrap4.min.js}"></script>
+
+<!-- Datatable init js -->
+<script th:src="@{/assets/pages/datatables.init.js}"></script>
+
+<!-- Sweet-Alert  -->
+<script th:src="@{/plugins/sweet-alert2/sweetalert2.min.js}"></script>
+<script th:src="@{/assets/pages/sweet-alert.init.js}"></script>
+
+
+<script>
+    // 用于新班级的添加
+    $('#class-button').click(function () {
+        let className = $('#class-input').val();
+        let params = {
+            "className" : className
+        };
+        $.ajax({
+            url: baseUrl + '/class-put',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(params),
+            dataType: "json",
+            success: function (res) {
+                swal("添加成功！","提示", "success").then(function () {
+                        window.location.reload()
+                    }
+                );
+            },
+            error: function (res) {
+                let data = jQuery.parseJSON(res.responseText);
+                swal(data.message, "添加失败", "error");
+            }
+        });
+    })
+
+
+    $('.btn-dark').click(function () {
+        let oldClass = $(this).parent().parent().children().eq(1).text();
+        // $('.delete-input').val(oldType)
+        $('.edit-input').val(oldClass)
+    })
+    $('.btn-danger').click(function () {
+        let oldClass = $(this).parent().parent().children().eq(1).text();
+        // $('.delete-input').val(oldType)
+        $('.delete-input').val(oldClass)
+    })
+
+
+
+    //用于修改班级
+    $('.edit-modal .btn-primary').click(function () {
+        let oldClass =  $('.edit-input').val();
+        let newClass = $('#class-edit-input').val();
+        if (oldClass == newClass) {
+            swal('班级名称与更改前相同', '提示', 'warning')
+            return;
+        }
+        $.ajax({
+            url: baseUrl + '/class-edit?oldClass=' + oldClass + '&newClass=' + newClass,
+            type: 'get',
+            contentType: 'application/json',
+            success: function (res) {
+                swal(
+                    '修改成功!',
+                    '该班级已成功修改',
+                    'success'
+                ).then(function () {
+                    window.location.reload();
+                })
+            },
+            error: function (res) {
+                let data = jQuery.parseJSON(res.responseText);
+                swal(data.message, "修改失败", "error").then(function () {
+                    window.location.reload()
+                });
+            }
+        })
+
+    })
+
+
+    // 用于删除课程
+    $('.delete-modal .btn-primary').click(function () {
+        let classRemove = $('.delete-input').val();
+        $.ajax({
+            url: baseUrl + '/class-delete?class=' + classRemove,
+            type: 'get',
+            contentType: 'application/json',
+            success: function (res) {
+                swal(
+                    '已删除!',
+                    '该班级已成功删除',
+                    'success'
+                ).then(function () {
+                    window.location.reload();
+                })
+            },
+            error: function (res) {
+                let data = jQuery.parseJSON(res.responseText);
+                swal(data.message, "删除失败", "error").then(function () {
+                    window.location.reload()
+                });
+            }
+        })
+
+    })
+</script>
+</body>
+
+</html>

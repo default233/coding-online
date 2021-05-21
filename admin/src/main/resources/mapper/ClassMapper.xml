@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chen.biz.mapper.ClassMapper">
+    <select id="getAllClass" resultType="com.chen.biz.vo.ClassInformation">
+        SELECT class.class_id, class.class_name, IFNULL(student_nums, 0) AS student_nums
+        FROM class
+                 LEFT JOIN (SELECT user_class.class_id ,COUNT(user_class_id) AS student_nums
+                            FROM user_class
+                            WHERE is_delete = 0
+                            GROUP BY class_id
+        ) t
+                           ON class.class_id = t.class_id
+        WHERE class.is_delete = 0
+    </select>
+
+    <update id="updateClassByName">
+        update
+            class
+        set
+            class_name = #{newClass}
+        where
+            class_name = #{oldClass} and is_delete = 0
+    </update>
+
+</mapper>

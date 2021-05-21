@@ -40,7 +40,6 @@ jQuery(document).ready(function() {
             'compilerId': mode1,
 
         };
-        console.log(JSON.stringify(params));
         $.ajax({
             url: baseUrl + '/code-submit',
             type: 'post',
@@ -93,7 +92,8 @@ jQuery(document).ready(function() {
                 }
             },
             error: function (res) {
-                alert("error!!!");
+                let data = jQuery.parseJSON(res.responseText);
+                swal(data.message, "错误", "error");
             }
 
         })

@@ -53,8 +53,8 @@ public class PagesController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentUserName = authentication.getName();
         SysUser sysUser = sysUserService.selectUserByName(currentUserName);
-
         UserPass filter = new UserPass();
+        filter.setUserId(sysUser.getUserId());
         QueryWrapper<UserPass> wrapper = new QueryWrapper<>(filter);
         List<UserPass> passes = userPassService.selectList(wrapper);
         List<Question> res = new ArrayList<>();
@@ -82,7 +82,13 @@ public class PagesController {
     }
 
     @GetMapping("/pages-profile")
-    public String toPagesProfile() {
+    public String toPagesProfile(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String name = authentication.getName();
+        UserInfo filter = new UserInfo();
+        filter.setUsername(name);
+        QueryWrapper<UserInfo> wrapper = new QueryWrapper<>(filter);
+        userInfoService.selectOne(wrapper);
         return "user/pages-profile";
     }
 

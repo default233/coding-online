@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chen.biz.mapper.JudgeResultMapper">
+  <select id="getErrorTypeByQuestionId" resultType="java.lang.Integer">
+    SELECT IFNULL(nums, 0) AS num
+    FROM `status` LEFT JOIN
+         (SELECT  judge_result.`status`, COUNT(judge_result_id) AS nums
+          FROM judge_result, judge_task
+          WHERE judge_result.judge_task_id = judge_task.judge_task_id
+            AND question_id = #{questionId} AND judge_task.is_delete = 0 AND judge_task.is_delete = 0
+          GROUP BY judge_result.`status`
+         ) t
+         ON `status`.status_id = t.`status`
+    ORDER BY `status_id`
+  </select>
+
+
+    <select id="getErrorTypeByUserId" resultType="java.lang.Integer">
+        SELECT IFNULL(nums, 0) AS num
+        FROM `status` LEFT JOIN
+             (SELECT  judge_result.`status`, COUNT(judge_result_id) AS nums
+              FROM judge_result, judge_task
+              WHERE judge_result.judge_task_id = judge_task.judge_task_id
+                AND judge_result.user_id = #{userId} AND judge_task.is_delete = 0 AND judge_task.is_delete = 0
+              GROUP BY judge_result.`status`
+             ) t
+             ON `status`.status_id = t.`status`
+        ORDER BY `status_id`
+    </select>
+
+    <select id="getSubTimesByQuestionId" resultType="java.lang.Integer">
+        SELECT IFNULL(count(judge_result_id), 0) AS sub_times
+        FROM judge_task, judge_result
+        where judge_result.judge_task_id = judge_task.judge_task_id and judge_result.is_delete = 0
+          and judge_task.question_id = #{questionId}
+    </select>
+
+    <select id="getSubTimesByUserId" resultType="java.lang.Integer">
+        SELECT IFNULL(count(judge_result_id), 0) AS sub_times
+        FROM judge_task, judge_result
+        where judge_result.judge_task_id = judge_task.judge_task_id and judge_result.is_delete = 0
+          and judge_task.user_id = #{userId}
+    </select>
+</mapper>

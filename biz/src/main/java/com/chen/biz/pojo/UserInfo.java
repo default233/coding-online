@@ -37,6 +37,8 @@ public class UserInfo {
     private LocalDate birthday;
     @TableField("user_type")
     private Integer userType;
+    @TableField(value = "is_authenticate")
+    private Boolean isAuthenticate;
     @TableField(value = "create_time", fill = FieldFill.INSERT)
     private LocalDateTime createTime;
     @TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)

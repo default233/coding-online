@@ -9,6 +9,10 @@ spring:
   mvc:
     static-path-pattern: /**
 
+  servlet:
+    multipart:
+      max-file-size: 50MB
+
   web:
     resources:
       static-locations:

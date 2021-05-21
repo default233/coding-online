@@ -10,6 +10,11 @@ import com.chen.biz.service.SysUserService;
 import com.chen.biz.service.UserInfoService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -72,6 +77,16 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfo, UserInfoMappe
     @Override
     public int updateImg(SysUser user, String path) {
         return userInfoMapper.updateImg(user.getUserId(), path);
+    }
+
+    @Override
+    public int updateAuth(Long userId) {
+        return userInfoMapper.updateAuth(userId);
+    }
+
+    @Override
+    public int deleteAuth(Long userId) {
+        return userInfoMapper.deleteAuth(userId);
     }
 
     @Override

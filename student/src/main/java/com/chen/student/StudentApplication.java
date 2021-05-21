@@ -11,9 +11,7 @@ import java.util.Map;
 @SpringBootApplication(scanBasePackages = {"com.chen.biz", "com.chen.student"})
 @MapperScan(basePackages = {"com.chen.biz.mapper"})
 public class StudentApplication {
-
     public static void main(String[] args) {
         SpringApplication.run(StudentApplication.class, args);
     }
-
 }

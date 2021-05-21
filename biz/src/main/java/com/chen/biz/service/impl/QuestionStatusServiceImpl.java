@@ -45,4 +45,12 @@ public class QuestionStatusServiceImpl extends BaseServiceImpl<QuestionStatus, Q
         QueryWrapper<QuestionStatus> wrapper = new QueryWrapper<>(filter);
         return questionStatusMapper.delete(wrapper);
     }
+
+    @Override
+    public QuestionStatus getByOrder(Long questionOrder) {
+        QuestionStatus filter = new QuestionStatus();
+        filter.setQuestionOrder(questionOrder);
+        QueryWrapper<QuestionStatus> wrapper = new QueryWrapper<>(filter);
+        return questionStatusMapper.selectOne(wrapper);
+    }
 }

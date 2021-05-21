@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <title>Coding Online</title>
+    <!--    <meta content="Responsive admin theme build on top of Bootstrap 4" name="description" />-->
+    <!--    <meta content="Themesdesign" name="author" />-->
+    <link rel="shortcut icon" th:href="@{/assets/images/favicon.ico}">
+
+    <link th:href="@{/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css}" rel="stylesheet">
+
+    <!-- DataTables -->
+    <link th:href="@{/plugins/datatables/dataTables.bootstrap4.min.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/plugins/datatables/buttons.bootstrap4.min.css}" rel="stylesheet" type="text/css" />
+
+    <!-- Responsive datatable examples -->
+    <link th:href="@{/plugins/datatables/responsive.bootstrap4.min.css}" rel="stylesheet" type="text/css" />
+
+    <link th:href="@{/assets/css/bootstrap.min.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/assets/css/metismenu.min.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/assets/css/icons.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/assets/css/style.css}" rel="stylesheet" type="text/css">
+
+</head>
+
+<body>
+<div th:replace="common/common-section :: common_head"></div>
+<div class="wrapper">
+    <div class="container-fluid">
+
+
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="mt-0 header-title mb-4">已完成的题目</h4>
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0">
+                                <thead>
+                                <tr>
+                                    <th scope="col">题目编号</th>
+                                    <th scope="col">题目标题</th>
+                                    <th scope="col">难易程度</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                <!-- start 1 -->
+                                <tr th:each="question : ${questions}">
+                                    <td th:text="${question.questionOrder}">
+                                    </td>
+                                    <td th:text="${question.title}"> </td>
+                                    <td th:text="${question.getQuestionDifficulty()}"></td>
+                                </tr>
+                                <!-- end 1 -->
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-xl-6">
+                <div class="card">
+                    <div class="card-body">
+
+                        <h4 class="mt-0 header-title">题目做题情况</h4>
+                        <p class="sub-title d-inline-block text-truncate w-100">
+                            下图展示当前题目的做题情况
+                        </p>
+
+                        <ul class="list-inline widget-chart mt-4 mb-3 text-center">
+                            <li class="list-inline-item">
+                                <h5 id="submit-num">3654</h5>
+                                <p class="text-muted">提交次数</p>
+                            </li>
+                            <li class="list-inline-item">
+                                <h5 id="success-num">954</h5>
+                                <p class="text-muted">通过次数</p>
+                            </li>
+                            <li class="list-inline-item">
+                                <h5 id="failure-num">8462</h5>
+                                <p class="text-muted">未通过次数</p>
+                            </li>
+                        </ul>
+
+                        <canvas id="pie" height="300"></canvas>
+
+                    </div>
+                </div>
+            </div>
+            <!-- end col -->
+
+            <div class="col-xl-6">
+                <div class="card">
+                    <div class="card-body">
+
+                        <h4 class="mt-0 header-title">错误类型统计</h4>
+                        <p class="sub-title d-inline-block text-truncate w-100">下图统计了当前题目提交未通过时各错误类型</p>
+
+                        <ul class="list-inline widget-chart mt-4 mb-3 text-center">
+                            <li class="list-inline-item">
+                                <h5 id="compile-error">3654</h5>
+                                <p class="text-muted">编译错误</p>
+                            </li>
+                            <li class="list-inline-item">
+                                <h5 id="runtime-error">954</h5>
+                                <p class="text-muted">运行时错误</p>
+                            </li>
+                            <li class="list-inline-item">
+                                <h5 id="error-answer">8462</h5>
+                                <p class="text-muted">错误答案</p>
+                            </li>
+                        </ul>
+
+                        <canvas id="radar" height="300"></canvas>
+
+                    </div>
+                </div>
+            </div>
+            <!-- end col -->
+        </div>
+        <!-- end row -->
+
+
+
+    </div>
+</div>
+<!-- end wrapper -->
+<div th:replace="common/common-section :: common_footer"></div>
+
+
+<script th:src="@{/plugins/chartjs/chart.min.js}"></script>
+
+<script th:src="@{/assets/pages/chartjs2.init.js}"></script>
+
+</body>
+</html>

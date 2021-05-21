@@ -5,6 +5,7 @@ import com.chen.biz.mapper.QuestionTypeMapper;
 import com.chen.biz.mapper.SysUserMapper;
 import com.chen.biz.pojo.QuestionType;
 import com.chen.biz.service.QuestionTypeService;
+import com.chen.biz.vo.TypeInformation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,5 +42,15 @@ public class QuestionTypeServiceImpl extends BaseServiceImpl<QuestionType, Quest
         if (questionType != null)
             return questionType.getQuestionTypeId();
         return null;
+    }
+
+    @Override
+    public List<TypeInformation> getTypeInformation() {
+        return questionTypeMapper.getTypeInformation();
+    }
+
+    @Override
+    public int updateQuestionTypeByName(String oldType, String newType) {
+        return questionTypeMapper.updateQuestionTypeByName(oldType, newType);
     }
 }

@@ -10,10 +10,14 @@ import com.chen.biz.pojo.UserRanking;
 import com.chen.biz.service.SysUserService;
 import com.chen.biz.service.UserInfoService;
 import com.chen.biz.service.UserPassService;
+import com.chen.student.config.security.login.ManageUser;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -27,10 +31,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * @author danger
@@ -58,6 +59,21 @@ public class UserController {
         String currentUserName = authentication.getName();
         SysUser currentUser = sysUserService.selectUserByName(currentUserName);
         userInfoService.updateUsername(currentUser, value.toString());
+        ManageUser user = new ManageUser();
+        user.setUsername(value.toString());
+        user.setPassword(currentUser.getPassword());
+        GrantedAuthority authority = new GrantedAuthority() {
+            @Override
+            public String getAuthority() {
+                return "role";
+            }
+        };
+        Set<GrantedAuthority> authorities = new HashSet<>();
+        authorities.add(authority);
+        user.setAuthorities(authorities);
+        SecurityContext context = SecurityContextHolder.getContext();
+        context.setAuthentication(
+                new UsernamePasswordAuthenticationToken(user, user.getPassword(), user.getAuthorities()));
     }
 
     @RequestMapping("/sex")

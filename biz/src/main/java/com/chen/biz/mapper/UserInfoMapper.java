@@ -24,4 +24,6 @@ public interface UserInfoMapper extends BaseMapper<UserInfo> {
     int updateStatusFailureByUserId(Long userId);
     List<UserRanking> getUserRankingByPassQuestion();
     List<UserRanking> getUserRankingByPassRate();
+    int updateAuth(Long userId);
+    int deleteAuth(Long userId);
 }

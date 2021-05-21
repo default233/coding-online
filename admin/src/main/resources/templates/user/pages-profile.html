@@ -80,9 +80,9 @@
                                             </div>
                                             <div class="modal-body">
                                                 <form th:action="@{/head-img}" method="post" class="dropzone">
-                                                    <div class="fallback">
-                                                        <input name="file" type="file" multiple="multiple">
-                                                    </div>
+<!--                                                    <div class="fallback">-->
+<!--                                                        <input name="file" type="file" multiple="multiple">-->
+<!--                                                    </div>-->
                                                 </form>
                                             </div>
                                             <div class="modal-footer">
@@ -139,6 +139,8 @@
 
 <!-- XEditable Plugin -->
 <script th:src="@{/plugins/moment/moment.js}"></script>
+<script th:src="@{/plugins/apexchart/apexcharts.min.js}"></script>
+<script th:src="@{/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js}"></script>
 <script th:src="@{/plugins/x-editable/js/bootstrap-editable.min.js}"></script>
 
 <!-- Dropzone js -->
@@ -169,6 +171,9 @@
                     $(location).attr('href', baseUrl + '/pages-profile');
                 }
             );
+        },
+        error: function () {
+            swal("失败！","提示", "error");
         }
     });
     $('#submit-img').on('click',function(e){

@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <title>Coding Online 题库</title>
+<!--    <meta content="Responsive admin theme build on top of Bootstrap 4" name="description" />-->
+<!--    <meta content="Themesdesign" name="author" />-->
+    <link rel="shortcut icon" th:href="@{/assets/images/favicon.ico}">
+
+    <link th:href="@{/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css}" rel="stylesheet">
+
+    <!-- DataTables -->
+    <link th:href="@{/plugins/datatables/dataTables.bootstrap4.min.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/plugins/datatables/buttons.bootstrap4.min.css}" rel="stylesheet" type="text/css" />
+
+    <!-- Responsive datatable examples -->
+    <link th:href="@{/plugins/datatables/responsive.bootstrap4.min.css}" rel="stylesheet" type="text/css" />
+
+    <link th:href="@{/assets/css/bootstrap.min.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/assets/css/metismenu.min.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/assets/css/icons.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/assets/css/style.css}" rel="stylesheet" type="text/css">
+
+    <!-- Sweet Alert -->
+    <link th:href="@{/plugins/sweet-alert2/sweetalert2.css}" rel="stylesheet" type="text/css">
+
+
+</head>
+
+<body>
+
+<div th:replace="common/common-section :: common_head"></div>
+<!-- header-bg -->
+
+<div class="wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+
+                    <div class="card-header">
+                        <button class="btn btn-info dropdown-toggle" type="button" id="class-button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            班级
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+
+                        <h4 class="mt-0 header-title">用户列表</h4>
+                        <p class="sub-title">
+                            以下是所有的用户
+                        </p>
+
+                        <div class="table-responsive">
+                            <table class="table table-striped mb-0">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>用户名</th>
+                                    <th>学生姓名</th>
+                                    <th>学号</th>
+                                    <th>编辑</th>
+                                    <th>删除</th>
+                                </tr>
+                                </thead>
+                                <div class="modal fade edit-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title mt-0">编辑用户信息</h5>
+                                                <input type="text" hidden class="edit-input">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="form-group row">
+                                                    <label for="student-name" class="col-sm-4 col-form-label">姓名:</label>
+                                                    <div class="col-sm-8">
+                                                        <input class="form-control" required type="text" placeholder="请输入学生的姓名" id="student-name"/>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row">
+                                                    <label for="student-id" class="col-sm-4 col-form-label">学号:</label>
+                                                    <div class="col-sm-8">
+                                                        <input class="form-control" required type="text" placeholder="请输入学生的学号" id="student-id"/>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label for="student-class" class="col-sm-4 col-form-label">请选择学生的班级:</label>
+                                                    <div class="col-sm-8">
+                                                        <select class="form-control" id="student-class"> </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-primary waves-effect waves-light update">确定</button>
+                                                <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">取消</button>
+                                            </div>
+                                        </div>
+                                        <!-- /.modal-content -->
+                                    </div>
+                                    <!-- /.modal-dialog -->
+                                </div>
+
+                                <div class="modal fade delete-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title mt-0">删除用户</h5>
+                                                <input type="text" hidden class="delete-input">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>确定删除吗？删除用户会将其认证身份删除，但仍可登录并重新认证</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-primary waves-effect waves-light">删除</button>
+                                                <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">取消</button>
+                                            </div>
+                                        </div>
+                                        <!-- /.modal-content -->
+                                    </div>
+                                    <!-- /.modal-dialog -->
+                                </div>
+
+                                <tbody>
+                                <tr th:each="user : ${userList}">
+                                    <th scope="row" th:text="${userStat.index+1}"></th>
+                                    <td><a th:href="@{'/user-detail?userId='+${user.userId}}" th:text="${user.username}"></a></td>
+                                    <td th:text="${user.realName}"></td>
+                                    <td th:text="${user.studentId}"></td>
+                                    <td>
+                                        <button type="button" class="btn btn-dark btn-sm waves-effect waves-light" data-toggle="modal" data-target=".edit-modal">编辑</button>
+                                    </td>
+
+                                    <td>
+                                        <button type="button" class="btn btn-danger btn-sm waves-effect waves-light" data-toggle="modal" data-target=".delete-modal">删除</button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- end col -->
+        </div>
+        <!-- end row -->
+
+    </div>
+    <!-- end container-fluid -->
+</div>
+<!-- end wrapper -->
+
+<!-- Footer -->
+<div th:replace="common/common-section :: common_footer"></div>
+<!-- End Footer -->
+
+<!-- Required datatable js -->
+<script th:src="@{/plugins/datatables/jquery.dataTables.min.js}"></script>
+<script th:src="@{/plugins/datatables/dataTables.bootstrap4.min.js}"></script>
+<!-- Buttons examples -->
+<script th:src="@{/plugins/datatables/dataTables.buttons.min.js}"></script>
+<script th:src="@{/plugins/datatables/buttons.bootstrap4.min.js}"></script>
+<script th:src="@{/plugins/datatables/jszip.min.js}"></script>
+<script th:src="@{/plugins/datatables/pdfmake.min.js}"></script>
+<script th:src="@{/plugins/datatables/vfs_fonts.js}"></script>
+<script th:src="@{/plugins/datatables/buttons.html5.min.js}"></script>
+<script th:src="@{/plugins/datatables/buttons.print.min.js}"></script>
+<script th:src="@{/plugins/datatables/buttons.colVis.min.js}"></script>
+<!-- Responsive examples -->
+<script th:src="@{/plugins/datatables/dataTables.responsive.min.js}"></script>
+<script th:src="@{/plugins/datatables/responsive.bootstrap4.min.js}"></script>
+
+<!-- Datatable init js -->
+<script th:src="@{/assets/pages/datatables.init.js}"></script>
+
+<!-- Sweet-Alert  -->
+<script th:src="@{/plugins/sweet-alert2/sweetalert2.min.js}"></script>
+<script th:src="@{/assets/pages/sweet-alert.init.js}"></script>
+
+
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            url: baseUrl + '/getClass',
+            type: 'post',
+            contentType: 'application/json',
+            dataType: "json",
+            success: function (res) {
+                $('.dropdown-menu').append('<a class="dropdown-item" href="javascript:void(0)">全部</a>');
+                for (let i = 0; i < res.length; i++) {
+                    $('.dropdown-menu').append('<a class="dropdown-item" href="javascript:void(0)">' + res[i] + '</a>');
+                }
+                let classSelect = $('#student-class');
+                for (let i = 0; i < res.length; i++) {
+                    classSelect.append('<option>' + res[i] + '</option>');
+                }
+            },
+            error: function (res) {
+            }
+        });
+
+        $('.dropdown-menu').on('click', '.dropdown-item', function (){
+            let clazz = $(this).text();
+            $(location).attr('href', baseUrl + '/user-list?clazz=' + clazz);
+        });
+    })
+
+
+    // 用于更改用户
+    $('.update').click(function () {
+        let studentName = $('#student-name').val();
+        let studentId = $('#student-id').val();
+        let studentClass = $('#student-class').val();
+        let oldName =  $('.edit-input').val();
+        let params = {
+            "oldName": oldName,
+            "studentName": studentName,
+            "studentId": studentId,
+            "studentClass": studentClass
+        }
+        $.ajax({
+            url: baseUrl + '/user-update',
+            type: 'post',
+            data: JSON.stringify(params),
+            contentType: 'application/json',
+            dataType: "json",
+            success: function (res) {
+                swal("修改成功！","提示", "success").then(function () {
+                        window.location.reload()
+                    }
+                );
+            },
+            error: function (res) {
+                let data = jQuery.parseJSON(res.responseText);
+                swal(data.message, "修改失败", "error");
+            }
+        });
+    })
+
+
+    $('.btn-dark').click(function () {
+        let studentName = $(this).parent().parent().children().eq(2).text();
+        // $('.delete-input').val(oldType)
+        $('.edit-input').val(studentName)
+    })
+    $('.btn-danger').click(function () {
+        let studentName = $(this).parent().parent().children().eq(2).text();
+        // $('.delete-input').val(oldType)
+        $('.delete-input').val(studentName)
+    })
+
+    // 用于删除用户
+    $('.delete-modal .btn-primary').click(function () {
+        let userRemove = $('.delete-input').val();
+        $.ajax({
+            url: baseUrl + '/user-delete?studentName=' + userRemove,
+            type: 'get',
+            contentType: 'application/json',
+            success: function (res) {
+                swal(
+                    '已删除!',
+                    '该用户已成功删除',
+                    'success'
+                ).then(function () {
+                    window.location.reload();
+                })
+            },
+            error: function (res) {
+                let data = jQuery.parseJSON(res.responseText);
+                swal(data.message, "删除失败", "error").then(function () {
+                    window.location.reload()
+                });
+            }
+        })
+
+    })
+
+</script>
+</body>
+
+</html>

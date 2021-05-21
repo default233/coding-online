@@ -3,11 +3,15 @@ spring:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://127.0.0.1:3306/coding_online?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
     username: root
-    password: jc0802
+    password: flzx3Qc^jc
     type: com.alibaba.druid.pool.DruidDataSource
 
   mvc:
     static-path-pattern: /**
+
+  servlet:
+    multipart:
+      max-file-size: 50MB
 
   web:
     resources:
@@ -41,4 +45,10 @@ mybatis-plus:
     use-generated-keys: true
 
 upload-path: /usr/app/static/img/
-default_img_path: /usr/app/static/img/default.jpg
+default_img_path: default.jpg
+
+compile:
+  filepath: /usr/app/sourceFile/
+  relativePath: /usr/app/sourceFile
+  dangerousKeyWords: fork(),rm,Runtime.getRuntime(),<sys/ptrace.h>,<sys/wait.h>,<sys/time.h>
+

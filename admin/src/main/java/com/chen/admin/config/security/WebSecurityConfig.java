@@ -136,7 +136,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 httpServletResponse.setStatus(500);
                 PrintWriter writer = httpServletResponse.getWriter();
                 Map<String, Object> map = new LinkedHashMap<>();
-                map.put("message", "用户名或密码不正确");
+                if ("Bad credentials".equals(e.getMessage())) {
+                    map.put("message", "用户名或密码不正确");
+                }
+                else {
+                    map.put("message", e.getMessage());
+                }
                 writer.write(JSON.toJSONString(map));
                 writer.flush();
                 writer.close();

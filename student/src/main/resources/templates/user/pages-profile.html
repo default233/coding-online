@@ -36,11 +36,53 @@
         <div class="row">
             <div class="col-12">
                 <div class="card">
+
+                    <div class="card-header">
+                        <div class="modal fade auth-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title mt-0">实名认证</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="form-group row">
+                                            <label for="student-name" class="col-sm-4 col-form-label">姓名:</label>
+                                            <div class="col-sm-8">
+                                                <input class="form-control" required type="text" placeholder="请输入您的姓名" id="student-name"/>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-group row">
+                                            <label for="student-id" class="col-sm-4 col-form-label">学号:</label>
+                                            <div class="col-sm-8">
+                                                <input class="form-control" required type="text" placeholder="请输入您的学号" id="student-id"/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="student-class" class="col-sm-4 col-form-label">请选择您的班级:</label>
+                                            <div class="col-sm-8">
+                                                <select class="form-control" id="student-class"> </select>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-primary waves-effect waves-light auth">确定</button>
+                                        <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">取消</button>
+                                    </div>
+                                </div>
+                                <!-- /.modal-content -->
+                            </div>
+                            <!-- /.modal-dialog -->
+                        </div>
+                    </div>
                     <div class="card-body">
-
                         <h4 class="mt-0 header-title">我的信息</h4>
-<!--                        <p class="sub-title">This library allows you to create editable elements on your page. It can be used with any engine (bootstrap, jquery-ui, jquery only) and includes both popup and inline modes. Please try out demo to see how it works.</p>-->
-
                         <table class="table table-striped mb-0">
                             <thead>
                             <tr>
@@ -115,8 +157,8 @@
                             </tr>
                             </tbody>
                         </table>
-
                     </div>
+
                 </div>
             </div>
             <!-- end col -->
@@ -154,7 +196,62 @@
 
 </html>
 <script type="text/javascript">
+
+    $(function () {
+        if (currentUser.isAuthenticate) {
+            $('.card-header').append("<button class=\"btn btn-success waves-effect waves-light pull-right\" type=\"button\" disabled >已认证</button>")
+        } else {
+            $('.card-header').append("<button class=\"btn btn-success waves-effect waves-light pull-right\" data-toggle=\"modal\" data-target=\".auth-modal\" type=\"button\">实名认证</button>")
+        }
+    })
+
+    $('.auth').click(function () {
+        let studentName = $('#student-name').val();
+        let studentId = $('#student-id').val();
+        let studentClass = $('#student-class').val();
+
+        let params = {
+            "studentName": studentName,
+            "studentId": studentId,
+            "studentClass": studentClass
+        }
+        $.ajax({
+            url: baseUrl + '/authenticate',
+            type: 'post',
+            data: JSON.stringify(params),
+            contentType: 'application/json',
+            dataType: "json",
+            success: function (res) {
+                swal("认证成功！","提示", "success").then(function () {
+                        window.location.reload()
+                    }
+                );
+            },
+            error: function (res) {
+                let data = jQuery.parseJSON(res.responseText);
+                swal(data.message, "认证失败", "error");
+            }
+        });
+    })
+
+    $(document).ready(function () {
+        $.ajax({
+            url: baseUrl + '/getClasses',
+            type: 'post',
+            contentType: 'application/json',
+            dataType: "json",
+            success: function (res) {
+                let classSelect = $('#student-class');
+                for (let i = 0; i < res.length; i++) {
+                    classSelect.append('<option>' + res[i].className + '</option>');
+                }
+            }
+        });
+    })
+
     Dropzone.autoDiscover = false;
+
+
     let dropzone = new Dropzone('.dropzone', {
         // url: baseUrl + '/head-img',
         autoProcessQueue: false,

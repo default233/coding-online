@@ -109,6 +109,7 @@ $(function () {
     $('#birthday').editable({
         value: currentUser.birthday,
         mode: 'inline',
+        type: 'data',
         datepicker: {
             language: 'zh-CN',//中文支持
         },
@@ -120,7 +121,7 @@ $(function () {
             return JSON.stringify(params);
         },
         url: baseUrl + "/birthday",
-        inputclass: 'form-control-sm'
+        inputclass: 'form-control-sm datepicker'
     });
 
 });

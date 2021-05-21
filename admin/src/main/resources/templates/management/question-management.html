@@ -37,80 +37,20 @@
 
 <div class="wrapper">
     <div class="container-fluid">
-
-
         <div class="row">
             <div class="col-12">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="button-items">
-                            <button type="button" id="question-put-button" class="btn btn-info btn-lg waves-effect waves-light">添加题目</button>
-
-<!--                            <button type="button" id="type-put-button" class="btn btn-secondary btn-lg waves-effect waves-light">添加课程</button>-->
-                            <button type="button" class="btn btn-secondary btn-lg waves-effect waves-light" data-toggle="modal" data-target="#add-modal">添加课程</button>
-
-                            <div class="modal fade bs-example-modal-center" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="add-modal">
-                                <div class="modal-dialog modal-dialog-centered">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title mt-0">添加课程</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <input class="form-control" required type="text" placeholder="请输入添加课程名称" id="question-type-input">
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" id="question-type-button" class="btn btn-primary waves-effect waves-light">添加</button>
-                                            <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">取消</button>
-                                        </div>
-                                    </div>
-                                    <!-- /.modal-content -->
-                                </div>
-                                    <!-- /.modal-dialog -->
-
-                            </div>
-
-                            <button type="button" class="btn btn-secondary btn-lg waves-effect waves-light" data-toggle="modal" data-target="#delete-modal">删除课程</button>
-
-                            <div class="modal fade bs-example-modal-center" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="delete-modal">
-                                <div class="modal-dialog modal-dialog-centered">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title mt-0">删除课程</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <select class="custom-select" id="delete-select">
-                                                <option selected>请选择课程</option>
-                                            </select>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" id="question-delete-type-button" class="btn btn-primary waves-effect waves-light">删除</button>
-                                            <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">取消</button>
-                                        </div>
-                                    </div>
-                                    <!-- /.modal-content -->
-                                </div>
-                                <!-- /.modal-dialog -->
-
-                            </div>
-
+                <div class="card bg-white">
+                    <div class="card-header">
+                        <button type="button" id="question-put-button" class="btn btn-info waves-effect waves-light">添加题目</button>
+                        <button class="btn btn-info dropdown-toggle" type="button" id="type-button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            题目类型
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         </div>
                     </div>
-                </div>
-            </div>
-            <!-- end col -->
-        </div>
 
-
-        <div class="row">
-            <div class="col-12">
-                <div class="card">
                     <div class="card-body">
+
 
                         <h4 class="mt-0 header-title">题库列表</h4>
 <!--                        <p class="sub-title">DataTables has most features enabled by default, so all you need to do to use it with your own tables is to call the construction function: <code>$().DataTable();</code>.-->
@@ -131,18 +71,19 @@
                             <tbody>
                             <tr th:each="question : ${questionList}">
                                 <td th:text="${question.questionOrder}"></td>
-                                <td th:text="${question.title}"></td>
+                                <td><a th:href="@{'/question-detail?order='+${question.questionOrder}}" th:text="${question.title}"></a></td>
                                 <td th:text="${question.questionDifficulty}"></td>
                                 <td th:text="${question.questionSubmit}">
                                 <td th:text="${question.questionSubmit == 0}?0: ${question.getPassRate()*100 + '%'}"></td>
                                 <td>
-                                    <button type="button" class="btn btn-primary waves-effect waves-light" id="sa-warning">删除</button>
+                                    <button type="button" class="btn btn-danger waves-effect waves-light" id="sa-warning">删除</button>
                                 </td>
                             </tr>
                             </tbody>
                         </table>
 
                     </div>
+
                 </div>
             </div>
             <!-- end col -->
@@ -191,13 +132,18 @@
             contentType: 'application/json',
             dataType: "json",
             success: function (res) {
-                let $questionType = $('#delete-select');
+                $('.dropdown-menu').append('<a class="dropdown-item" href="javascript:void(0)">全部</a>');
                 for (let i = 0; i < res.length; i++) {
-                    $questionType.append('<option>' + res[i] + '</option>>');
+                    $('.dropdown-menu').append('<a class="dropdown-item" href="javascript:void(0)">' + res[i] + '</a>');
                 }
             },
             error: function (res) {
             }
+        });
+
+        $('.dropdown-menu').on('click', '.dropdown-item', function (){
+            let type = $(this).text();
+            $(location).attr('href', baseUrl + '/question-list?type=' + type);
         });
 
         $('#question-delete-type-button').click(function () {
@@ -236,33 +182,11 @@
         })
 
     });
+
     $('#question-put-button').click(function () {
         $(location).attr('href', baseUrl + '/question-put');
     })
 
-    $('#question-type-button').click(function () {
-        let questionType = $('#question-type-input').val();
-        let params = {
-            "questionType" : questionType
-        };
-        $.ajax({
-            url: baseUrl + '/type-put',
-            type: 'POST',
-            contentType: 'application/json',
-            data: JSON.stringify(params),
-            dataType: "json",
-            success: function (res) {
-                swal("添加成功！","提示", "success").then(function () {
-                        window.location.reload()
-                    }
-                );
-            },
-            error: function (res) {
-                let data = jQuery.parseJSON(res.responseText);
-                swal(data.message, "添加失败", "error");
-            }
-        });
-    })
 </script>
 </body>
 

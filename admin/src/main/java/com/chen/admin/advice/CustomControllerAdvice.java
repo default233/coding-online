@@ -23,7 +23,7 @@ import java.time.LocalDateTime;
 @Slf4j
 public class CustomControllerAdvice {
 
-    @ExceptionHandler({CustomException.class, UsernameNotFoundException.class})
+    @ExceptionHandler({CustomException.class, UsernameNotFoundException.class, BadCredentialsException.class})
     public HttpEntity customExceptionHandler(Exception e, HttpServletRequest request) {
         ErrorDetails errorDetails = new ErrorDetails();
         errorDetails.setTimestamp(LocalDateTime.now());
@@ -51,18 +51,18 @@ public class CustomControllerAdvice {
                 .body(errorDetails);
     }
 
-    @ExceptionHandler({BadCredentialsException.class})
-    public HttpEntity exceptionHandler(Exception e, HttpServletRequest request) {
-        ErrorDetails errorDetails = new ErrorDetails();
-        errorDetails.setTimestamp(LocalDateTime.now());
-        errorDetails.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
-        e.printStackTrace();
-        errorDetails.setError(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase());
-        errorDetails.setMessage("用户名或密码不正确！");
-        e.printStackTrace();
-        errorDetails.setPath(request.getServletPath());
-        return ResponseEntity
-                .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(errorDetails);
-    }
+//    @ExceptionHandler({BadCredentialsException.class})
+//    public HttpEntity exceptionHandler(Exception e, HttpServletRequest request) {
+//        ErrorDetails errorDetails = new ErrorDetails();
+//        errorDetails.setTimestamp(LocalDateTime.now());
+//        errorDetails.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+//        e.printStackTrace();
+//        errorDetails.setError(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase());
+//        errorDetails.setMessage("用户名或密码不正确！");
+//        e.printStackTrace();
+//        errorDetails.setPath(request.getServletPath());
+//        return ResponseEntity
+//                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+//                .body(errorDetails);
+//    }
 }

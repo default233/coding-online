@@ -1,19 +1,17 @@
 package com.chen.admin.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.chen.admin.utils.compiler.CompileUtils;
 import com.chen.biz.exception.BadArgumentException;
 import com.chen.biz.exception.CustomException;
 import com.chen.biz.pojo.*;
 import com.chen.biz.service.*;
-import com.chen.admin.utils.QuestionUtils;
-import com.chen.admin.utils.compiler.CompileUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -117,6 +115,8 @@ public class QuestionController {
         return JSON.toJSONString(insert);
     }
 
+
+
     @PostMapping("/question-type")
     @ResponseBody
     public String getQuestionType() {
@@ -124,11 +124,38 @@ public class QuestionController {
         return JSON.toJSONString(allType);
     }
 
+//    @PostMapping("/type-information")
+//    @ResponseBody
+//    public String getTypeInformation(Model model) {
+//        List<TypeInformation> typeInformation = questionTypeService.getTypeInformation();
+//        model.addAttribute("typeInformation", typeInformation);
+//        return JSON.toJSONString(typeInformation);
+//    }
+
+
+    @RequestMapping("/type-edit")
+    @ResponseBody
+    @Transactional
+    public String typeEdit(@RequestParam("oldType") String oldType, @RequestParam("newType") String newType) {
+
+        if (!StringUtils.hasLength(newType)) {
+            throw new CustomException("课程名称不能为空！");
+        }
+        Long id = questionTypeService.selectIdByTypeName(newType.trim());
+        if (id != null) {
+            throw new CustomException("课程名称已存在");
+        } else {
+            questionTypeService.updateQuestionTypeByName(oldType, newType);
+        }
+        return JSON.toJSONString(200);
+    }
+
+
     @RequestMapping("/type-delete")
     @ResponseBody
     @Transactional
     public String typeDelete(@RequestParam("type") String type) {
-        System.out.println("type = " + type);
+
         if (!StringUtils.hasLength(type)) {
             throw new CustomException("选择为空！");
         }
@@ -222,7 +249,7 @@ public class QuestionController {
         question.setTimeLimit(timeLimit);
         question.setMemoryLimit(memoryLimit);
         Long maxOrder = questionService.getMaxOrder();
-        question.setQuestionOrder(maxOrder);
+        question.setQuestionOrder(maxOrder+1);
         question.setQuestionTypeId(typeId);
 
         questionService.insertQuestion(question);

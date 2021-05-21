@@ -88,4 +88,22 @@
         where
             user_id = #{userId} and is_delete = 0
     </update>
+
+    <update id="updateAuth">
+        update
+            user_info
+        set
+            is_authenticate = true
+        where
+            user_id = #{userId} and is_delete = 0
+    </update>
+
+    <update id="deleteAuth">
+        update
+            user_info
+        set
+            is_authenticate = false
+        where
+            user_id = #{userId} and is_delete = 0
+    </update>
 </mapper>

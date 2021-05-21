@@ -11,4 +11,5 @@ public interface QuestionStatusService extends BaseService<QuestionStatus, Quest
     int updateStatus(Long questionId, Integer status);
     int removeStatusByQuestionId(Long questionId);
     int removeStatusByTypeId(Long typeId);
+    QuestionStatus getByOrder(Long questionOrder);
 }

@@ -3,6 +3,8 @@ package com.chen.student.config.security.login;
 import com.chen.biz.pojo.SysUser;
 import com.chen.biz.service.SysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -22,10 +24,10 @@ public class MyUserDetailsService implements UserDetailsService {
     @Autowired
     private SysUserService sysUserService;
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String username) throws AuthenticationException {
         SysUser sysUser = sysUserService.selectUserByName(username);
         if (sysUser == null) {
-            throw new UsernameNotFoundException("用户不存在");
+            throw new BadCredentialsException("用户不存在");
         }
         ManageUser user = new ManageUser();
         user.setUsername(sysUser.getUsername());

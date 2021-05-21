@@ -27,24 +27,6 @@ import java.util.List;
 @Service
 public class JudgeServiceImpl implements JudgeService {
 
-//    @Value("${workspace}")
-//    private String workspace;
-//
-//    @Value("${judge_data}")
-//    private String judgeData;
-//
-//    @Value("${judge_script}")
-//    private String judgeScript;
-//
-//    @Value("${dangerousKeys}")
-//    private String dangerousKeys;
-//    @Value("${gccAddition}")
-//    private String gccAddition;
-//    @Value("${g++Addition}")
-//    private String gAddition;
-//    @Value("${python_cacheName}")
-//    private String pythonCacheName;
-
     @Value("${compile.filepath}")
     private String CompileFilePath;
     @Value("${compile.relativePath}")
@@ -96,7 +78,8 @@ public class JudgeServiceImpl implements JudgeService {
             result.setStatus(8);
             result.setErrorMessage("创建文件失败！");
             // 出现错误时，删除文件
-            ExecutorUtil.exec(CmdStrings.REMOVE_FILE_WINDOWS + path);
+//windows            ExecutorUtil.exec(CmdStrings.REMOVE_FILE_WINDOWS + path);
+            ExecutorUtil.exec(CmdStrings.REMOVE_FILE_LINUX + path);
             // 将判题结果插入
             judgeResultService.insert(result);
             // 更新题目状态及个人状态
@@ -108,7 +91,8 @@ public class JudgeServiceImpl implements JudgeService {
         if (!verify(task.getSource())) {
             result.setStatus(7);
             result.setErrorMessage("使用了不安全的函数");
-            ExecutorUtil.exec(CmdStrings.REMOVE_FILE_WINDOWS + path);
+//windows            ExecutorUtil.exec(CmdStrings.REMOVE_FILE_WINDOWS + path);
+            ExecutorUtil.exec(CmdStrings.REMOVE_FILE_LINUX + path);
             // 将判题结果插入
             judgeResultService.insert(result);
             // 更新题目状态及个人状态
@@ -123,7 +107,8 @@ public class JudgeServiceImpl implements JudgeService {
         if (message != null && task.getCompilerId() != 4) {
             result.setStatus(6);
             result.setErrorMessage("编译错误：\n" + message);
-            ExecutorUtil.exec(CmdStrings.REMOVE_FILE_WINDOWS + path);
+//windows            ExecutorUtil.exec(CmdStrings.REMOVE_FILE_WINDOWS + path);
+            ExecutorUtil.exec(CmdStrings.REMOVE_FILE_LINUX + path);
             // 将判题结果插入
             judgeResultService.insert(result);
             // 更新题目状态及个人状态
@@ -139,7 +124,8 @@ public class JudgeServiceImpl implements JudgeService {
         // 执行可执行文件
         parseToResult(process, result, task);
         // 删除源文件
-        ExecutorUtil.exec(CmdStrings.REMOVE_FILE_WINDOWS + path);
+//windows        ExecutorUtil.exec(CmdStrings.REMOVE_FILE_WINDOWS + path);
+        ExecutorUtil.exec(CmdStrings.REMOVE_FILE_LINUX + path);
         // 将判题结果插入
         judgeResultService.insert(result);
         // 更新题目状态及个人状态
@@ -215,18 +201,33 @@ public class JudgeServiceImpl implements JudgeService {
     @Override
     public String compile(int compilerId, String path, Long judgeTaskId) {
         String cmd = "";
+//        switch (compilerId) {
+//            case 1:
+//                cmd = "cmd /c gcc " + path + "\\main.c -o " + path + "\\main -Wall -lm -O2 -std=c99 --static -DONLINE_JUDGE";
+//                break;
+//            case 2:
+//                cmd = "cmd /c g++ " + path + "\\main.cpp -O2 -Wall -lm --static -DONLINE_JUDGE -o " +path +"\\main";
+//                break;
+//            case 3:
+//                cmd = "cmd /c set CLASSPATH="+ path +" && javac "+ path + "\\Main.java";
+//                break;
+//            case 4:
+//                cmd = "cmd /c python -m py_compile "+ path +"\\main.py";
+//                break;
+//        }
+
         switch (compilerId) {
             case 1:
-                cmd = "cmd /c gcc " + path + "\\main.c -o " + path + "\\main -Wall -lm -O2 -std=c99 --static -DONLINE_JUDGE";
+                cmd = "gcc " + path + "/main.c -o " + path + "/main -Wall -lm -O2 -std=c99 --static -DONLINE_JUDGE";
                 break;
             case 2:
-                cmd = "cmd /c g++ " + path + "\\main.cpp -O2 -Wall -lm --static -DONLINE_JUDGE -o " +path +"\\main";
+                cmd = "g++ " + path + "/main.cpp -O2 -Wall -lm --static -DONLINE_JUDGE -o " +path +"/main";
                 break;
             case 3:
-                cmd = "cmd /c set CLASSPATH="+ path +" && javac "+ path + "\\Main.java";
+                cmd = "javac "+ path + "/Main.java";
                 break;
             case 4:
-                cmd = "cmd /c python -m py_compile "+ path +"\\main.py";
+                cmd = "python -m py_compile "+ path +"/main.py";
                 break;
         }
 
@@ -239,7 +240,7 @@ public class JudgeServiceImpl implements JudgeService {
 
 //
     private String process(int compileId, String path) {
-        switch (compileId) {
+/*        switch (compileId) {
             case 1:
                 return "cmd /c " + path + "\\main";
             case 2:
@@ -248,6 +249,17 @@ public class JudgeServiceImpl implements JudgeService {
                 return "cmd /c set CLASSPATH="+ path + " && java Main";
             case 4:
                 return "python " + path + "\\main.py";
+        }*/
+
+        switch (compileId) {
+            case 1:
+                return path + "/main";
+            case 2:
+                return path + "/main";
+            case 3:
+                return "java -cp "+ path +" Main";
+            case 4:
+                return "python " + path + "/main.py";
         }
         return null;
     }

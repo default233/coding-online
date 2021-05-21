@@ -9,6 +9,10 @@ spring:
   mvc:
     static-path-pattern: /**
 
+  servlet:
+    multipart:
+      max-file-size: 50MB
+
   web:
     resources:
       static-locations:
@@ -40,7 +44,7 @@ mybatis-plus:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     use-generated-keys: true
 
-upload-path: E:/final/coding-online/admin/src/main/resources/static/img/
+upload-path: E:/final/coding-online/student/src/main/resources/static/img/
 default_img_path: default.jpg
 
 compile:

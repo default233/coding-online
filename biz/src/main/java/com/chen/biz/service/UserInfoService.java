@@ -19,6 +19,8 @@ public interface UserInfoService extends BaseService<UserInfo, UserInfoMapper> {
     int updateEmail(SysUser user, String email);
     int updateBirthday(SysUser user, LocalDate birthday);
     int updateImg(SysUser user, String path);
+    int updateAuth(Long userId);
+    int deleteAuth(Long userId);
     UserInfo getUserInfoByUserId(Long userId);
     int updateStatus(Long userId, Integer status);
     List<UserRanking> getUserRankingByPassQuestion();
