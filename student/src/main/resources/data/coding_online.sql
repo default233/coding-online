@@ -11,20 +11,109 @@
  Target Server Version : 50625
  File Encoding         : 65001
 
- Date: 23/04/2021 22:57:40
+ Date: 15/05/2021 11:35:37
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
 -- ----------------------------
+-- Table structure for class
+-- ----------------------------
+DROP TABLE IF EXISTS `class`;
+CREATE TABLE `class`  (
+  `class_id` bigint(20) NOT NULL COMMENT '主键',
+  `class_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '班级名称',
+  `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '修改时间',
+  `is_delete` tinyint(1) NULL DEFAULT 0 COMMENT '是否删除，0为未删除，1为删除',
+  `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
+  PRIMARY KEY (`class_id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of class
+-- ----------------------------
+INSERT INTO `class` VALUES (1392781599531102210, '计算机班', '2021-05-13 17:59:45', '2021-05-13 17:59:45', 1, NULL);
+INSERT INTO `class` VALUES (1392784493198200834, '电子商务班', '2021-05-13 18:11:15', '2021-05-13 18:11:15', 0, NULL);
+INSERT INTO `class` VALUES (1392784549095690241, '信息管理班', '2021-05-13 18:11:28', '2021-05-13 18:11:28', 0, NULL);
+INSERT INTO `class` VALUES (1392842152685355010, '计算机班', '2021-05-13 22:00:22', '2021-05-13 22:00:22', 0, NULL);
+
+-- ----------------------------
+-- Table structure for comment
+-- ----------------------------
+DROP TABLE IF EXISTS `comment`;
+CREATE TABLE `comment`  (
+  `comment_id` bigint(20) NOT NULL COMMENT '主键',
+  `question_id` bigint(20) NULL DEFAULT NULL COMMENT '问题id',
+  `user_id` bigint(20) NULL DEFAULT NULL COMMENT '用户id',
+  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '标题',
+  `content` varchar(9999) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '评论',
+  `username` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '用户名',
+  `img` varchar(2500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '头像地址',
+  `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '修改时间',
+  `is_delete` tinyint(1) NULL DEFAULT 0 COMMENT '是否删除，0为未删除，1为删除',
+  `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
+  PRIMARY KEY (`comment_id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of comment
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for comment_reply
+-- ----------------------------
+DROP TABLE IF EXISTS `comment_reply`;
+CREATE TABLE `comment_reply`  (
+  `comment_reply_id` bigint(20) NOT NULL COMMENT '主键',
+  `user_id` bigint(20) NULL DEFAULT NULL COMMENT '用户id',
+  `comment_id` bigint(20) NULL DEFAULT NULL COMMENT '评论id',
+  `content` varchar(9999) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '评论',
+  `username` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '用户名',
+  `img` varchar(2500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '头像地址',
+  `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '修改时间',
+  `is_delete` tinyint(1) NULL DEFAULT 0 COMMENT '是否删除，0为未删除，1为删除',
+  `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
+  PRIMARY KEY (`comment_reply_id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of comment_reply
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for compiler_type
+-- ----------------------------
+DROP TABLE IF EXISTS `compiler_type`;
+CREATE TABLE `compiler_type`  (
+  `compiler_id` bigint(20) NOT NULL COMMENT '主键',
+  `compiler_type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '编译器类型',
+  `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '修改时间',
+  `is_delete` tinyint(1) NULL DEFAULT 0 COMMENT '是否删除，0为未删除，1为删除',
+  `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
+  PRIMARY KEY (`compiler_id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of compiler_type
+-- ----------------------------
+INSERT INTO `compiler_type` VALUES (1, 'gcc', '2021-04-19 00:21:05', '2021-04-19 00:21:05', 0, NULL);
+INSERT INTO `compiler_type` VALUES (2, 'g++', '2021-04-19 00:21:05', '2021-04-19 00:21:05', 0, NULL);
+INSERT INTO `compiler_type` VALUES (3, 'java', '2021-04-19 00:21:05', '2021-04-19 00:21:05', 0, NULL);
+INSERT INTO `compiler_type` VALUES (4, 'python', '2021-04-19 00:21:05', '2021-04-19 00:21:05', 0, NULL);
+
+-- ----------------------------
 -- Table structure for input_example
 -- ----------------------------
 DROP TABLE IF EXISTS `input_example`;
 CREATE TABLE `input_example`  (
-  `input_example_id` bigint(20) NOT NULL,
-  `question_id` bigint(20) NULL DEFAULT NULL,
-  `input_example` varchar(1280) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `input_example_id` bigint(20) NOT NULL COMMENT '主键',
+  `question_id` bigint(20) NULL DEFAULT NULL COMMENT '问题id',
+  `input_example` varchar(1280) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '输入示例',
   `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '修改时间',
   `is_delete` tinyint(1) NULL DEFAULT 0 COMMENT '是否删除，0为未删除，1为删除',
@@ -82,7 +171,7 @@ INSERT INTO `input_example` VALUES (1383817873260036098, 1383813205175914497, 'r
 INSERT INTO `input_example` VALUES (1383817873285201922, 1383813205192691713, '3\n85 90 95', '2021-04-19 00:21:06', '2021-04-19 00:21:06', 0, NULL);
 INSERT INTO `input_example` VALUES (1383817873318756354, 1383813205209468929, 'thisistrueurtsisiht', '2021-04-19 00:21:06', '2021-04-19 00:21:06', 0, NULL);
 INSERT INTO `input_example` VALUES (1383817873348116482, 1383813205226246146, 'aZ&*?\n093 Az', '2021-04-19 00:21:06', '2021-04-19 00:21:06', 0, NULL);
-INSERT INTO `input_example` VALUES (1383817873373282306, 1383813205243023361, '11:59:40\n30', '2021-04-19 00:21:06', '2021-04-19 00:21:06', 0, NULL);
+INSERT INTO `input_example` VALUES (1383817873373282306, 1383813205243023361, '11:59:40\n30', '2021-04-19 00:21:06', '2021-04-19 00:21:06', 1, NULL);
 INSERT INTO `input_example` VALUES (1383817873406836738, 1383813205251411970, '3.5 -2.7 -13.9 8.7', '2021-04-19 00:21:06', '2021-04-19 00:21:06', 0, NULL);
 INSERT INTO `input_example` VALUES (1383817873436196865, 1383813205268189186, '3\nProgramming in C\n21.5\nProgramming in VB\n18.5\nProgramming in Delphi\n25.0', '2021-04-19 00:21:06', '2021-04-19 00:21:06', 0, NULL);
 INSERT INTO `input_example` VALUES (1383817873469751298, 1383813205284966401, '3\nzhang 19850403 13912345678\nwang 19821020 +86-0571-88018448\nqian 19840619 13609876543', '2021-04-19 00:21:06', '2021-04-19 00:21:06', 0, NULL);
@@ -280,6 +369,7 @@ INSERT INTO `input_example` VALUES (1383829927656280066, 1383829927639502849, '3
 INSERT INTO `input_example` VALUES (1383829927689834497, 1383829927673057281, '5 3\n1001 992 0 233 6\n8 0 2018 0 2008\n36 18 0 1024 4', '2021-04-19 01:09:00', '2021-04-19 01:09:00', 0, NULL);
 INSERT INTO `input_example` VALUES (1383829927723388929, 1383829927706611713, 'This is a sample test\nto show you_How it works', '2021-04-19 01:09:00', '2021-04-19 01:09:00', 0, NULL);
 INSERT INTO `input_example` VALUES (1383829927769526274, 1383829927752749057, '8 4\nB123180908127 99\nB102180908003 86\nA112180318002 98\nT107150310127 62\nA107180908108 100\nT123180908010 78\nB112160918035 88\nA107180908021 98\n1 A\n2 107\n3 180908\n2 999', '2021-04-19 01:09:00', '2021-04-19 01:09:00', 0, NULL);
+INSERT INTO `input_example` VALUES (1391952028078469122, 1391952028053303297, '5 8', '2021-05-11 11:03:19', '2021-05-11 11:03:19', 1, NULL);
 
 -- ----------------------------
 -- Table structure for judge_result
@@ -288,6 +378,7 @@ DROP TABLE IF EXISTS `judge_result`;
 CREATE TABLE `judge_result`  (
   `judge_result_id` bigint(20) NOT NULL COMMENT '主键',
   `judge_task_id` bigint(20) NULL DEFAULT NULL COMMENT '判题任务id',
+  `user_id` bigint(20) NULL DEFAULT NULL COMMENT '用户id',
   `status` int(8) NULL DEFAULT NULL COMMENT '执行状态',
   `time_used` int(8) NULL DEFAULT NULL COMMENT '消耗时间',
   `memory_used` int(8) NULL DEFAULT NULL COMMENT '消耗内存',
@@ -302,6 +393,17 @@ CREATE TABLE `judge_result`  (
 -- ----------------------------
 -- Records of judge_result
 -- ----------------------------
+INSERT INTO `judge_result` VALUES (1393159791831945218, 1393159786471624706, 1392810435593379842, 1, 303, 0, '错误答案!', '2021-05-14 19:02:33', '2021-05-14 19:02:33', 0, NULL);
+INSERT INTO `judge_result` VALUES (1393159837826682882, 1393159832764157953, 1392810435593379842, 1, 293, 0, '错误答案!', '2021-05-14 19:02:44', '2021-05-14 19:02:44', 0, NULL);
+INSERT INTO `judge_result` VALUES (1393159922845224962, 1393159917753339905, 1392810435593379842, 0, 296, 0, '正确!', '2021-05-14 19:03:04', '2021-05-14 19:03:04', 0, NULL);
+INSERT INTO `judge_result` VALUES (1393159984354693121, 1393159980651122689, 1392810435593379842, 6, NULL, NULL, '编译错误：\nE:\\final\\coding-online\\sourceFile\\1393159980651122689\\Main.java:6: 错误: 找不到符号\n       ints a = scan.nextInt();\n       ^\n  符号:   类 ints\n  位置: 类 Main\n1 个错误\n', '2021-05-14 19:03:19', '2021-05-14 19:03:19', 0, NULL);
+INSERT INTO `judge_result` VALUES (1393160000737644545, 1393159997059239938, 1392810435593379842, 6, NULL, NULL, '编译错误：\nE:\\final\\coding-online\\sourceFile\\1393159997059239938\\Main.java:6: 错误: 找不到符号\n       ints a = scan.nextInt();\n       ^\n  符号:   类 ints\n  位置: 类 Main\n1 个错误\n', '2021-05-14 19:03:22', '2021-05-14 19:03:22', 0, NULL);
+INSERT INTO `judge_result` VALUES (1393162379776323585, 1393162374571192321, 1392810435593379842, 3, 300, 0, '正确!', '2021-05-14 19:12:50', '2021-05-14 19:12:50', 0, NULL);
+INSERT INTO `judge_result` VALUES (1393162416430346242, 1393162411241992193, 1392810435593379842, 5, 313, 0, '正确!', '2021-05-14 19:12:58', '2021-05-14 19:12:58', 0, NULL);
+INSERT INTO `judge_result` VALUES (1393162448877481986, 1393162443722682370, 1392810435593379842, 5, 300, 0, '正确!', '2021-05-14 19:13:06', '2021-05-14 19:13:06', 0, NULL);
+INSERT INTO `judge_result` VALUES (1393162619661152258, 1393162614447632386, 1392810435593379842, 4, 301, 0, '正确!', '2021-05-14 19:13:47', '2021-05-14 19:13:47', 0, NULL);
+INSERT INTO `judge_result` VALUES (1393162650090827778, 1393162644696952833, 1392810435593379842, 4, 325, 0, '正确!', '2021-05-14 19:13:54', '2021-05-14 19:13:54', 0, NULL);
+INSERT INTO `judge_result` VALUES (1393162686237339650, 1393162669141356546, 1392810435593379842, 4, 3191, 0, '正确!', '2021-05-14 19:14:03', '2021-05-14 19:14:03', 0, NULL);
 
 -- ----------------------------
 -- Table structure for judge_task
@@ -311,6 +413,7 @@ CREATE TABLE `judge_task`  (
   `judge_task_id` bigint(20) NOT NULL COMMENT '主键',
   `question_id` bigint(20) NULL DEFAULT NULL COMMENT '问题id',
   `compiler_id` int(10) NULL DEFAULT NULL COMMENT '编译器类型：\'1\': \'gcc\',\'g++\', \'3\': \'java\', \'4\':\'python\'',
+  `user_id` bigint(20) NULL DEFAULT NULL COMMENT '用户id',
   `source` varchar(5000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '源码',
   `time_limit` int(8) UNSIGNED NULL DEFAULT NULL COMMENT '时间限制',
   `memory_limit` int(8) NULL DEFAULT NULL COMMENT '内存限制',
@@ -324,19 +427,26 @@ CREATE TABLE `judge_task`  (
 -- ----------------------------
 -- Records of judge_task
 -- ----------------------------
-INSERT INTO `judge_task` VALUES (1385493722329829378, 1383813203741462530, 3, 'public class Main {\n\n    public static void main(String[] args) {\n        System.out.println(\"hello, world\");\n    }\n\n}', 400, 65536, '2021-04-23 15:20:19', '2021-04-23 15:20:19', 0, NULL);
-INSERT INTO `judge_task` VALUES (1385493896330530818, 1383813203741462530, 3, 'public class Main {\n\n    public static void main(String[] args) {\n        System.out.println(\"hello, world\");\n    }\n\n}', 400, 65536, '2021-04-23 15:21:01', '2021-04-23 15:21:01', 0, NULL);
-INSERT INTO `judge_task` VALUES (1385494537450921986, 1383813203741462530, 3, 'public class Main {\n\n    public static void main(String[] args) {\n        System.out.println(\"hello, world\");\n    }\n\n}', 400, 65536, '2021-04-23 15:23:34', '2021-04-23 15:23:34', 0, NULL);
-INSERT INTO `judge_task` VALUES (1385495162121142273, 1383813203741462530, 3, 'public class Main {\n	public static void main() {\n    	System.out.println(\"Hello, world\");\n    }\n}', 400, 65536, '2021-04-23 15:26:03', '2021-04-23 15:26:03', 0, NULL);
+INSERT INTO `judge_task` VALUES (1393159786471624706, 1383271604087263234, 3, 1392810435593379842, 'import java.util.*;\n\npublic class Main {\n public static void main(String[] args) {\n     Scanner scan = new Scanner(System.in);\n       int a = scan.nextInt();\n       int b = scan.nextInt();\n       int max = 0;\n       if(a > b) {\n         max = a;\n        } else\n           max = b;\n       System.out.println(\"max = \" + max);\n       scan.close();\n    }\n}', 400, 64000, '2021-05-14 19:02:31', '2021-05-14 19:02:31', 0, NULL);
+INSERT INTO `judge_task` VALUES (1393159832764157953, 1383271604087263234, 3, 1392810435593379842, 'import java.util.*;\n\npublic class Main {\n public static void main(String[] args) {\n     Scanner scan = new Scanner(System.in);\n       int a = scan.nextInt();\n       int b = scan.nextInt();\n       int max = 0;\n       if(a > b) {\n         max = a;\n        } else\n           max = b;\n       System.out.println(max);\n       scan.close();\n    }\n}', 400, 64000, '2021-05-14 19:02:42', '2021-05-14 19:02:42', 0, NULL);
+INSERT INTO `judge_task` VALUES (1393159917753339905, 1383271604087263234, 3, 1392810435593379842, 'import java.util.*;\n\npublic class Main {\n public static void main(String[] args) {\n     Scanner scan = new Scanner(System.in);\n       int a = scan.nextInt();\n       int b = scan.nextInt();\n       int max = 0;\n       if(a > b) {\n         max = a;\n        } else\n           max = b;\n       System.out.println(\"max=\" + max);\n       scan.close();\n    }\n}', 400, 64000, '2021-05-14 19:03:03', '2021-05-14 19:03:03', 0, NULL);
+INSERT INTO `judge_task` VALUES (1393159980651122689, 1383271604087263234, 3, 1392810435593379842, 'import java.util.*;\n\npublic class Main {\n public static void main(String[] args) {\n     Scanner scan = new Scanner(System.in);\n       ints a = scan.nextInt();\n       int b = scan.nextInt();\n       int max = 0;\n       if(a > b) {\n         max = a;\n        } else\n           max = b;\n       System.out.println(\"max=\" + max);\n       scan.close();\n    }\n}', 400, 64000, '2021-05-14 19:03:18', '2021-05-14 19:03:18', 0, NULL);
+INSERT INTO `judge_task` VALUES (1393159997059239938, 1383271604087263234, 3, 1392810435593379842, 'import java.util.*;\n\npublic class Main {\n public static void main(String[] args) {\n     Scanner scan = new Scanner(System.in);\n       ints a = scan.nextInt();\n       int b = scan.nextInt();\n       int max = 0;\n       if(a > b) {\n         max = a;\n        } else\n           max = b;\n       System.out.println(\"max=\" + max);\n       scan.close();\n    }\n}', 400, 64000, '2021-05-14 19:03:22', '2021-05-14 19:03:22', 0, NULL);
+INSERT INTO `judge_task` VALUES (1393162374571192321, 1383271604087263234, 3, 1392810435593379842, 'import java.util.*;\n\npublic class Main {\n	public static void main(String[] args) {\n		Scanner scan = new Scanner(System.in);\n		int a = scan.nextInt();\n		int b = scan.nextInt();\n 		int max = 0;\n      	for(int i = 0; i < 1000; i++) {\n        	for(int j = 0; j < 1000; j++) {\n            	int m = i+j;\n            }\n        }\n		if(a > b) {\n			max = a;\n 		} else\n			max = b;\n		System.out.println(\"max=\" + max);\n		scan.close();\n	}\n}', 400, 64000, '2021-05-14 19:12:48', '2021-05-14 19:12:48', 0, NULL);
+INSERT INTO `judge_task` VALUES (1393162411241992193, 1383271604087263234, 3, 1392810435593379842, 'import java.util.*;\n\npublic class Main {\n	public static void main(String[] args) {\n		Scanner scan = new Scanner(System.in);\n		int a = scan.nextInt();\n		int b = scan.nextInt();\n 		int max = 0;\n      	for(int i = 0; i < 10000; i++) {\n        	for(int j = 0; j < 10000; j++) {\n            	int m = i+j;\n            }\n        }\n		if(a > b) {\n			max = a;\n 		} else\n			max = b;\n		System.out.println(\"max=\" + max);\n		scan.close();\n	}\n}', 400, 64000, '2021-05-14 19:12:57', '2021-05-14 19:12:57', 0, NULL);
+INSERT INTO `judge_task` VALUES (1393162443722682370, 1383271604087263234, 3, 1392810435593379842, 'import java.util.*;\n\npublic class Main {\n	public static void main(String[] args) {\n		Scanner scan = new Scanner(System.in);\n		int a = scan.nextInt();\n		int b = scan.nextInt();\n 		int max = 0;\n      	for(int i = 0; i < 100000; i++) {\n        	for(int j = 0; j < 100000; j++) {\n            	int m = i+j;\n            }\n        }\n		if(a > b) {\n			max = a;\n 		} else\n			max = b;\n		System.out.println(\"max=\" + max);\n		scan.close();\n	}\n}', 400, 64000, '2021-05-14 19:13:05', '2021-05-14 19:13:05', 0, NULL);
+INSERT INTO `judge_task` VALUES (1393162614447632386, 1383271604087263234, 3, 1392810435593379842, 'import java.util.*;\n\npublic class Main {\n	public static void main(String[] args) {\n		Scanner scan = new Scanner(System.in);\n		int a = scan.nextInt();\n		int b = scan.nextInt();\n 		int max = 0;\n      	for(int i = 0; i < 1000; i++) {\n        	for(int j = 0; j < 1000; j++) {\n            	for(int k = 0; k < 1000; k++) {\n            		int m = i+j+k;\n            	}\n            }\n        }\n		if(a > b) {\n			max = a;\n 		} else\n			max = b;\n		System.out.println(\"max=\" + max);\n		scan.close();\n	}\n}', 400, 64000, '2021-05-14 19:13:46', '2021-05-14 19:13:46', 0, NULL);
+INSERT INTO `judge_task` VALUES (1393162644696952833, 1383271604087263234, 3, 1392810435593379842, 'import java.util.*;\n\npublic class Main {\n	public static void main(String[] args) {\n		Scanner scan = new Scanner(System.in);\n		int a = scan.nextInt();\n		int b = scan.nextInt();\n 		int max = 0;\n      	for(int i = 0; i < 10000; i++) {\n        	for(int j = 0; j < 10000; j++) {\n            	for(int k = 0; k < 10000; k++) {\n            		int m = i+j+k;\n            	}\n            }\n        }\n		if(a > b) {\n			max = a;\n 		} else\n			max = b;\n		System.out.println(\"max=\" + max);\n		scan.close();\n	}\n}', 400, 64000, '2021-05-14 19:13:53', '2021-05-14 19:13:53', 0, NULL);
+INSERT INTO `judge_task` VALUES (1393162669141356546, 1383271604087263234, 3, 1392810435593379842, 'import java.util.*;\n\npublic class Main {\n	public static void main(String[] args) {\n		Scanner scan = new Scanner(System.in);\n		int a = scan.nextInt();\n		int b = scan.nextInt();\n 		int max = 0;\n      	for(int i = 0; i < 100000; i++) {\n        	for(int j = 0; j < 100000; j++) {\n            	for(int k = 0; k < 100000; k++) {\n            		int m = i+j+k;\n            	}\n            }\n        }\n		if(a > b) {\n			max = a;\n 		} else\n			max = b;\n		System.out.println(\"max=\" + max);\n		scan.close();\n	}\n}', 400, 64000, '2021-05-14 19:13:59', '2021-05-14 19:13:59', 0, NULL);
 
 -- ----------------------------
 -- Table structure for output_example
 -- ----------------------------
 DROP TABLE IF EXISTS `output_example`;
 CREATE TABLE `output_example`  (
-  `output_example_id` bigint(20) NOT NULL,
-  `question_id` bigint(20) NULL DEFAULT NULL,
-  `output_example` varchar(1280) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `output_example_id` bigint(20) NOT NULL COMMENT '主键',
+  `question_id` bigint(20) NULL DEFAULT NULL COMMENT '问题id',
+  `output_example` varchar(1280) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '输出示例',
   `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '修改时间',
   `is_delete` tinyint(1) NULL DEFAULT 0 COMMENT '是否删除，0为未删除，1为删除',
@@ -394,7 +504,7 @@ INSERT INTO `output_example` VALUES (1383817873268424706, 1383813205175914497, '
 INSERT INTO `output_example` VALUES (1383817873301979138, 1383813205192691713, 'average = 90.00\nmax = 95.00\nmin = 85.00', '2021-04-19 00:21:06', '2021-04-19 00:21:06', 0, NULL);
 INSERT INTO `output_example` VALUES (1383817873327144961, 1383813205209468929, 'No\nthisisnottrue', '2021-04-19 00:21:06', '2021-04-19 00:21:06', 0, NULL);
 INSERT INTO `output_example` VALUES (1383817873356505090, 1383813205226246146, '2 2 1 3 4', '2021-04-19 00:21:06', '2021-04-19 00:21:06', 0, NULL);
-INSERT INTO `output_example` VALUES (1383817873390059521, 1383813205243023361, '12:00:10', '2021-04-19 00:21:06', '2021-04-19 00:21:06', 0, NULL);
+INSERT INTO `output_example` VALUES (1383817873390059521, 1383813205243023361, '12:00:10', '2021-04-19 00:21:06', '2021-04-19 00:21:06', 1, NULL);
 INSERT INTO `output_example` VALUES (1383817873415225346, 1383813205251411970, '(-10.4, 6.0)', '2021-04-19 00:21:06', '2021-04-19 00:21:06', 0, NULL);
 INSERT INTO `output_example` VALUES (1383817873452974082, 1383813205268189186, '25.00, Programming in Delphi\n18.50, Programming in VB', '2021-04-19 00:21:06', '2021-04-19 00:21:06', 0, NULL);
 INSERT INTO `output_example` VALUES (1383817873478139906, 1383813205284966401, 'wang 19821020 +86-0571-88018448\nqian 19840619 13609876543\nzhang 19850403 13912345678', '2021-04-19 00:21:06', '2021-04-19 00:21:06', 0, NULL);
@@ -592,37 +702,25 @@ INSERT INTO `output_example` VALUES (1383829927664668673, 1383829927639502849, '
 INSERT INTO `output_example` VALUES (1383829927698223106, 1383829927673057281, '2018\n3 5', '2021-04-19 01:09:00', '2021-04-19 01:09:00', 0, NULL);
 INSERT INTO `output_example` VALUES (1383829927731777537, 1383829927706611713, 'This ampletowyu_Hrk', '2021-04-19 01:09:00', '2021-04-19 01:09:00', 0, NULL);
 INSERT INTO `output_example` VALUES (1383829927777914882, 1383829927752749057, 'Case 1: 1 A\nA107180908108 100\nA107180908021 98\nA112180318002 98\nCase 2: 2 107\n3 260\nCase 3: 3 180908\n107 2\n123 2\n102 1\nCase 4: 2 999\nNA', '2021-04-19 01:09:00', '2021-04-19 01:09:00', 0, NULL);
+INSERT INTO `output_example` VALUES (1391952028086857729, 1391952028053303297, '-3', '2021-05-11 11:03:19', '2021-05-11 11:03:19', 1, NULL);
 
 -- ----------------------------
 -- Table structure for persistent_logins
 -- ----------------------------
 DROP TABLE IF EXISTS `persistent_logins`;
 CREATE TABLE `persistent_logins`  (
-  `username` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `series` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `token` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `last_used` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) ON UPDATE CURRENT_TIMESTAMP(0),
+  `username` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '用户名',
+  `series` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '主键',
+  `token` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT 'token',
+  `last_used` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '上次使用时间',
   PRIMARY KEY (`series`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of persistent_logins
 -- ----------------------------
-INSERT INTO `persistent_logins` VALUES ('admin', 'abehUF2Wh5cNt82tfP2Ycw==', 'hUOdZcyMLyZyzwTJsBEwyw==', '2021-03-24 20:03:56');
-INSERT INTO `persistent_logins` VALUES ('admin', 'AFTiHpEZ+7y/ctj1l1zdpg==', 'VzjGmtZABd1MkkE2ZzfDQw==', '2021-03-24 22:03:40');
-INSERT INTO `persistent_logins` VALUES ('admin', 'BudMZVlfhy6FzE8MuRyJKQ==', 'N543QCjKaf5TRHF2uZA7ow==', '2021-03-24 22:04:19');
-INSERT INTO `persistent_logins` VALUES ('admin', 'C7r1yqCy5U7N++01wFbuZQ==', 'udq/m+K5aycwkHo4AUbvYA==', '2021-03-24 20:01:08');
-INSERT INTO `persistent_logins` VALUES ('admin', 'cwq6EYGTPfg08reS5a5wAw==', 'Chk4XV8+FnSizv9/h1zP9A==', '2021-03-24 19:21:24');
-INSERT INTO `persistent_logins` VALUES ('admin', 'IrWHIuqiZE9rGcKxwzzmXQ==', 'janaaSavJuhcOQyaeSar9Q==', '2021-03-24 21:00:54');
-INSERT INTO `persistent_logins` VALUES ('admin', 'nRrSwUao5j9EZDMaiKuokw==', 'CkUwGSUe7a0fDBF6TE0REg==', '2021-03-24 19:32:49');
-INSERT INTO `persistent_logins` VALUES ('admin', 'o16D9WZmcfbNpDv9xe8Qdg==', 'ufJe1aR3hqM0H+ckwdeWYw==', '2021-03-25 14:51:19');
-INSERT INTO `persistent_logins` VALUES ('admin', 'p2X1U0HCa3Ilsk5f6y3X4w==', '1Jp1/iU6g9wruzKyo/3WUg==', '2021-03-24 19:24:55');
-INSERT INTO `persistent_logins` VALUES ('往后余生', 'PP+rzrA815cEmFjyqpEADA==', 'mbAIDkkj0vccGKVQcPTgiQ==', '2021-04-23 16:36:26');
-INSERT INTO `persistent_logins` VALUES ('admin', 'qKhp0h1DvUdaHFuui+Qu8Q==', 'V6CTS2jcsUwf+gjYqjvFkg==', '2021-03-24 22:05:38');
-INSERT INTO `persistent_logins` VALUES ('admin', 'rgzyA+mFAxLFs4Zhos15qA==', 'SFdEBbIIi4ahrE6gbo0iDQ==', '2021-03-24 22:05:46');
-INSERT INTO `persistent_logins` VALUES ('admin', 'vMtAYjtNAqkljtnsOGynrQ==', 'zVl1J/kLIPV+Y9/b7FtC9w==', '2021-03-24 19:21:18');
-INSERT INTO `persistent_logins` VALUES ('admin', 'WtNIt5yHfZp8nQexilkHWg==', 'W40EpzEOOJCgUK4dUwEGoA==', '2021-03-24 16:59:22');
-INSERT INTO `persistent_logins` VALUES ('admin', 'Z+oC5zZpAd7n+8upU2IfIQ==', 'ZZqTlwWuURffHKkhMwpUFQ==', '2021-03-24 19:20:28');
+INSERT INTO `persistent_logins` VALUES ('往后余生', 'aKVmzxTSU+/8znMH13KhJQ==', 'nmxKgQ0ZSORAyneF2EhBmQ==', '2021-05-14 19:09:26');
+INSERT INTO `persistent_logins` VALUES ('admin', 'Ldbyx1E5nLnPYCcDcixefQ==', 'uS81i1VyBsV0PN7ArFgABQ==', '2021-05-15 11:11:03');
 
 -- ----------------------------
 -- Table structure for question
@@ -633,7 +731,7 @@ CREATE TABLE `question`  (
   `question_order` bigint(20) NULL DEFAULT NULL COMMENT '问题序号',
   `question_title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '问题名称',
   `question_description` varchar(9999) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '问题描述序号',
-  `question_type_id` int(8) NULL DEFAULT NULL COMMENT '问题类型id',
+  `question_type_id` bigint(20) NULL DEFAULT NULL COMMENT '问题类型id',
   `question_difficulty` varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '问题难度',
   `input_description` varchar(1280) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '输入参数描述',
   `output_description` varchar(1280) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '输出参数描述',
@@ -696,7 +794,7 @@ INSERT INTO `question` VALUES (1383813205175914497, 44, '字符串排序', '本�
 INSERT INTO `question` VALUES (1383813205192691713, 45, '输出学生成绩', '本题要求编写程序，根据输入学生的成绩，统计并输出学生的平均成绩、最高成绩和最低成绩。建议使用动态内存分配来实现。\n\n### 输入格式：\n\n输入第一行首先给出一个正整数N，表示学生的个数。接下来一行给出N个学生的成绩，数字间以空格分隔。\n\n### 输出格式：\n\n按照以下格式输出：\n```\naverage = 平均成绩\nmax = 最高成绩\nmin = 最低成绩\n```\n结果均保留两位小数。\n\n### 输入样例：\n```in\n3\n85 90 95\n```\n\n### 输出样例：\n```out\naverage = 90.00\nmax = 95.00\nmin = 85.00\n```', 1, '困难', '3\n85 90 95', 'average = 90.00\nmax = 95.00\nmin = 85.00', 400, 65536, '2021-04-19 00:02:33', '2021-04-19 00:02:33', 0, NULL);
 INSERT INTO `question` VALUES (1383813205209468929, 46, '判断回文字符串', '本题要求编写函数，判断给定的一串字符是否为“回文”。所谓“回文”是指顺读和倒读都一样的字符串。如“XYZYX”和“xyzzyx”都是回文。\n\n### 函数接口定义：\n```c++\nbool palindrome( char *s );\n```\n函数`palindrome`判断输入字符串`char *s`是否为回文。若是则返回`true`，否则返回`false`。\n\n### 裁判测试程序样例：\n```c++\n#include <stdio.h>\n#include <string.h>\n\n#define MAXN 20\ntypedef enum {false, true} bool;\n\nbool palindrome( char *s );\n\nint main()\n{\n    char s[MAXN];\n    \n    scanf(\"%s\", s);\n    if ( palindrome(s)==true )\n        printf(\"Yes\\n\");\n    else\n        printf(\"No\\n\");\n    printf(\"%s\\n\", s);\n\n    return 0;\n}\n\n/* 你的代码将被嵌在这里 */\n```\n\n### 输入样例1：\n```in\nthisistrueurtsisiht\n```\n\n### 输出样例1：\n```out\nYes\nthisistrueurtsisiht\n```\n\n### 输入样例2：\n```\nthisisnottrue\n```\n\n### 输出样例2：\n```\nNo\nthisisnottrue\n```', 1, '困难', 'thisistrueurtsisiht', 'No\nthisisnottrue', 400, 65536, '2021-04-19 00:02:33', '2021-04-19 00:02:33', 0, NULL);
 INSERT INTO `question` VALUES (1383813205226246146, 47, '分类统计各类字符个数', '本题要求实现一个函数，统计给定字符串中的大写字母、小写字母、空格、数字以及其它字符各有多少。\n\n### 函数接口定义：\n```c++\nvoid StringCount( char *s );\n```\n其中 `char *s` 是用户传入的字符串。函数`StringCount`须在一行内按照\n```\n大写字母个数 小写字母个数 空格个数 数字个数 其它字符个数\n```\n的格式输出。\n\n### 裁判测试程序样例：\n```c++\n#include <stdio.h>\n#define MAXS 15\n\nvoid StringCount( char *s );\nvoid ReadString( char *s ); /* 由裁判实现，略去不表 */\n\nint main()\n{\n    char s[MAXS];\n\n    ReadString(s);\n    StringCount(s);\n\n    return 0;\n}\n\n/* Your function will be put here */\n```\n\n### 输入样例：\n```in\naZ&*?\n093 Az\n```\n\n### 输出样例：\n```out\n2 2 1 3 4\n```', 1, '中等', 'aZ&*?\n093 Az', '2 2 1 3 4', 400, 65536, '2021-04-19 00:02:33', '2021-04-19 00:02:33', 0, NULL);
-INSERT INTO `question` VALUES (1383813205243023361, 48, '时间换算', '本题要求编写程序，以`hh:mm:ss`的格式输出某给定时间再过`n`秒后的时间值（超过23:59:59就从0点开始计时）。\n\n### 输入格式：\n\n输入在第一行中以`hh:mm:ss`的格式给出起始时间，第二行给出整秒数`n`（$$<$$60）。\n\n### 输出格式：\n\n输出在一行中给出`hh:mm:ss`格式的结果时间。\n\n### 输入样例：\n```in\n11:59:40\n30\n```\n\n### 输出样例：\n```out\n12:00:10\n```', 1, '中等', '11:59:40\n30', '12:00:10', 400, 65536, '2021-04-19 00:02:33', '2021-04-19 00:02:33', 0, NULL);
+INSERT INTO `question` VALUES (1383813205243023361, 48, '时间换算', '本题要求编写程序，以`hh:mm:ss`的格式输出某给定时间再过`n`秒后的时间值（超过23:59:59就从0点开始计时）。\n\n### 输入格式：\n\n输入在第一行中以`hh:mm:ss`的格式给出起始时间，第二行给出整秒数`n`（$$<$$60）。\n\n### 输出格式：\n\n输出在一行中给出`hh:mm:ss`格式的结果时间。\n\n### 输入样例：\n```in\n11:59:40\n30\n```\n\n### 输出样例：\n```out\n12:00:10\n```', 1, '中等', '11:59:40\n30', '12:00:10', 400, 65536, '2021-04-19 00:02:33', '2021-04-19 00:02:33', 1, NULL);
 INSERT INTO `question` VALUES (1383813205251411970, 49, '平面向量加法', '本题要求编写程序，计算两个二维平面向量的和向量。\n\n### 输入格式:\n\n输入在一行中按照“$$x_1$$ $$y_1$$ $$x_2$$ $$y_2$$”的格式给出两个二维平面向量$$v_1=(x_1, y_1)$$和$$v_2=(x_2, y_2)$$的分量。\n\n### 输出格式:\n\n在一行中按照`(x, y)`的格式输出和向量，坐标输出小数点后一位（注意不能输出$$-0.0$$）。\n\n### 输入样例:\n```in\n3.5 -2.7 -13.9 8.7\n```\n\n### 输出样例:\n```out\n(-10.4, 6.0)\n```', 1, '中等', '3.5 -2.7 -13.9 8.7', '(-10.4, 6.0)', 400, 65536, '2021-04-19 00:02:33', '2021-04-19 00:02:33', 0, NULL);
 INSERT INTO `question` VALUES (1383813205268189186, 50, '查找书籍', '给定n本书的名称和定价，本题要求编写程序，查找并输出其中定价最高和最低的书的名称和定价。\n\n### 输入格式:\n\n输入第一行给出正整数n（$$<$$10），随后给出n本书的信息。每本书在一行中给出书名，即长度不超过30的字符串，随后一行中给出正实数价格。题目保证没有同样价格的书。\n\n### 输出格式:\n\n在一行中按照“价格, 书名”的格式先后输出价格最高和最低的书。价格保留2位小数。\n\n### 输入样例:\n```in\n3\nProgramming in C\n21.5\nProgramming in VB\n18.5\nProgramming in Delphi\n25.0\n```\n\n### 输出样例:\n```out\n25.00, Programming in Delphi\n18.50, Programming in VB\n```', 1, '困难', '3\nProgramming in C\n21.5\nProgramming in VB\n18.5\nProgramming in Delphi\n25.0', '25.00, Programming in Delphi\n18.50, Programming in VB', 400, 65536, '2021-04-19 00:02:33', '2021-04-19 00:02:33', 0, NULL);
 INSERT INTO `question` VALUES (1383813205284966401, 51, '通讯录排序', '输入n个朋友的信息，包括姓名、生日、电话号码，本题要求编写程序，按照年龄从大到小的顺序依次输出通讯录。题目保证所有人的生日均不相同。\n\n### 输入格式:\n\n输入第一行给出正整数n（$$<$$10）。随后n行，每行按照“姓名 生日 电话号码”的格式给出一位朋友的信息，其中“姓名”是长度不超过10的英文字母组成的字符串，“生日”是`yyyymmdd`格式的日期，“电话号码”是不超过17位的数字及`+`、`-`组成的字符串。\n\n### 输出格式:\n\n按照年龄从大到小输出朋友的信息，格式同输出。\n\n### 输入样例:\n```in\n3\nzhang 19850403 13912345678\nwang 19821020 +86-0571-88018448\nqian 19840619 13609876543\n```\n\n### 输出样例:\n```out\nwang 19821020 +86-0571-88018448\nqian 19840619 13609876543\nzhang 19850403 13912345678\n```', 1, '困难', '3\nzhang 19850403 13912345678\nwang 19821020 +86-0571-88018448\nqian 19840619 13609876543', 'wang 19821020 +86-0571-88018448\nqian 19840619 13609876543\nzhang 19850403 13912345678', 400, 65536, '2021-04-19 00:02:33', '2021-04-19 00:02:33', 0, NULL);
@@ -897,15 +995,288 @@ INSERT INTO `question` VALUES (1383829927605948417, 245, '危险品装箱', '集
 INSERT INTO `question` VALUES (1383829927639502849, 246, 'N-自守数', '如果某个数 $$K$$ 的平方乘以 $$N$$ 以后，结果的末尾几位数等于 $$K$$，那么就称这个数为“$$N$$-自守数”。例如 $$3\\times 92^2 = 25 392$$，而 $$25 392$$ 的末尾两位正好是 $$92$$，所以 $$92$$ 是一个 $$3$$-自守数。\n\n本题就请你编写程序判断一个给定的数字是否关于某个 $$N$$ 是 $$N$$-自守数。\n\n### 输入格式：\n\n输入在第一行中给出正整数 $$M$$（$$\\le 20$$），随后一行给出 $$M$$ 个待检测的、不超过 1000 的正整数。\n\n### 输出格式：\n\n对每个需要检测的数字，如果它是 $$N$$-自守数就在一行中输出最小的 $$N$$ 和 $$NK^2$$ 的值，以一个空格隔开；否则输出 `No`。注意题目保证 $$N < 10$$。\n\n### 输入样例：\n```in\n3\n92 5 233\n```\n\n### 输出样例：\n```out\n3 25392\n1 25\nNo\n```\n', 3, '中等', '输入在第一行中给出正整数 $$M$$（$$\\le 20$$），随后一行给出 $$M$$ 个待检测的、不超过 1000 的正整数。', '对每个需要检测的数字，如果它是 $$N$$-自守数就在一行中输出最小的 $$N$$ 和 $$NK^2$$ 的值，以一个空格隔开；否则输出 `No`。注意题目保证 $$N < 10$$。', 400, 65536, '2021-04-19 01:09:00', '2021-04-19 01:09:00', 0, NULL);
 INSERT INTO `question` VALUES (1383829927673057281, 247, '最好吃的月饼', '月饼是久负盛名的中国传统糕点之一，自唐朝以来，已经发展出几百品种。\n\n![mk.jpg](~/fcb325a0-7090-4bf4-acb0-d4d7ea832f27.jpg)\n\n\n若想评比出一种“最好吃”的月饼，那势必在吃货界引发一场腥风血雨…… 在这里我们用数字说话，给出全国各地各种月饼的销量，要求你从中找出销量冠军，认定为最好吃的月饼。\n\n### 输入格式：\n\n输入首先给出两个正整数 $$N$$（$$\\le 1000$$）和 $$M$$（$$\\le 100$$），分别为月饼的种类数（于是默认月饼种类从 1 到 $$N$$ 编号）和参与统计的城市数量。\n\n接下来 $$M$$ 行，每行给出 $$N$$ 个非负整数（均不超过 1 百万），其中第 $$i$$ 个整数为第 $$i$$ 种月饼的销量（块）。数字间以空格分隔。\n\n### 输出格式：\n\n在第一行中输出最大销量，第二行输出销量最大的月饼的种类编号。如果冠军不唯一，则按编号递增顺序输出并列冠军。数字间以 1 个空格分隔，行首尾不得有多余空格。\n\n### 输入样例：\n```in\n5 3\n1001 992 0 233 6\n8 0 2018 0 2008\n36 18 0 1024 4\n```\n\n### 输出样例：\n```out\n2018\n3 5\n```\n', 3, '困难', '输入首先给出两个正整数 $$N$$（$$\\le 1000$$）和 $$M$$（$$\\le 100$$），分别为月饼的种类数（于是默认月饼种类从 1 到 $$N$$ 编号）和参与统计的城市数量。\n\n接下来 $$M$$ 行，每行给出 $$N$$ 个非负整数（均不超过 1 百万），其中第 $$i$$ 个整数为第 $$i$$ 种月饼的销量（块）。数字间以空格分隔。', '在第一行中输出最大销量，第二行输出销量最大的月饼的种类编号。如果冠军不唯一，则按编号递增顺序输出并列冠军。数字间以 1 个空格分隔，行首尾不得有多余空格。', 200, 65536, '2021-04-19 01:09:00', '2021-04-19 01:09:00', 0, NULL);
 INSERT INTO `question` VALUES (1383829927706611713, 248, '字符串A+B', '给定两个字符串 $$A$$ 和 $$B$$，本题要求你输出 $$A+B$$，即两个字符串的并集。要求先输出 $$A$$，再输出 $$B$$，但**重复的字符必须被剔除**。\n\n### 输入格式：\n\n输入在两行中分别给出 $$A$$ 和 $$B$$，均为长度不超过 $$10^6$$的、由可见 ASCII 字符 (即码值为32~126)和空格组成的、由回车标识结束的非空字符串。\n\n### 输出格式：\n\n在一行中输出题面要求的 $$A$$ 和 $$B$$ 的和。\n\n### 输入样例：\n```in\nThis is a sample test\nto show you_How it works\n```\n\n### 输出样例：\n```out\nThis ampletowyu_Hrk\n```\n', 3, '困难', '输入在两行中分别给出 $$A$$ 和 $$B$$，均为长度不超过 $$10^6$$的、由可见 ASCII 字符 (即码值为32~126)和空格组成的、由回车标识结束的非空字符串。', '在一行中输出题面要求的 $$A$$ 和 $$B$$ 的和。', 400, 65536, '2021-04-19 01:09:00', '2021-04-19 01:09:00', 0, NULL);
-INSERT INTO `question` VALUES (1383829927740166145, 249, '谷歌的招聘', '', 3, '困难', NULL, NULL, 200, 65536, '2021-04-19 01:09:00', '2021-04-19 01:09:00', 0, NULL);
 INSERT INTO `question` VALUES (1383829927752749057, 250, '解码PAT准考证', 'PAT 准考证号由 4 部分组成：\n\n- 第 1 位是级别，即 `T` 代表顶级；`A` 代表甲级；`B` 代表乙级；\n- 第 2~4 位是考场编号，范围从 101 到 999；\n- 第 5~10 位是考试日期，格式为年、月、日顺次各占 2 位；\n- 最后 11~13 位是考生编号，范围从 000 到 999。\n\n现给定一系列考生的准考证号和他们的成绩，请你按照要求输出各种统计信息。\n\n### 输入格式：\n\n输入首先在一行中给出两个正整数 $$N$$（$$\\le 10^4$$）和 $$M$$（$$\\le 100$$），分别为考生人数和统计要求的个数。\n\n接下来 $$N$$ 行，每行给出一个考生的准考证号和其分数（在区间 $$[0, 100]$$ 内的整数），其间以空格分隔。\n\n考生信息之后，再给出 $$M$$ 行，每行给出一个统计要求，格式为：`类型 指令`，其中\n\n- `类型` 为 1 表示要求按分数非升序输出某个指定级别的考生的成绩，对应的 `指令` 则给出代表指定级别的字母；\n- `类型` 为 2 表示要求将某指定考场的考生人数和总分统计输出，对应的 `指令` 则给出指定考场的编号；\n- `类型` 为 3 表示要求将某指定日期的考生人数分考场统计输出，对应的 `指令` 则给出指定日期，格式与准考证上日期相同。\n\n### 输出格式：\n\n对每项统计要求，首先在一行中输出 `Case #: 要求`，其中 `#` 是该项要求的编号，从 1 开始；`要求` 即复制输入给出的要求。随后输出相应的统计结果：\n\n- `类型` 为 1 的指令，输出格式与输入的考生信息格式相同，即 `准考证号 成绩`。对于分数并列的考生，按其准考证号的字典序递增输出（题目保证无重复准考证号）；\n- `类型` 为 2 的指令，按 `人数 总分` 的格式输出；\n- `类型` 为 3 的指令，输出按人数非递增顺序，格式为 `考场编号 总人数`。若人数并列则按考场编号递增顺序输出。\n\n如果查询结果为空，则输出 `NA`。\n\n### 输入样例：\n```in\n8 4\nB123180908127 99\nB102180908003 86\nA112180318002 98\nT107150310127 62\nA107180908108 100\nT123180908010 78\nB112160918035 88\nA107180908021 98\n1 A\n2 107\n3 180908\n2 999\n```\n\n### 输出样例：\n```out\nCase 1: 1 A\nA107180908108 100\nA107180908021 98\nA112180318002 98\nCase 2: 2 107\n3 260\nCase 3: 3 180908\n107 2\n123 2\n102 1\nCase 4: 2 999\nNA\n```\n', 3, '困难', '输入首先在一行中给出两个正整数 $$N$$（$$\\le 10^4$$）和 $$M$$（$$\\le 100$$），分别为考生人数和统计要求的个数。\n\n接下来 $$N$$ 行，每行给出一个考生的准考证号和其分数（在区间 $$[0, 100]$$ 内的整数），其间以空格分隔。\n\n考生信息之后，再给出 $$M$$ 行，每行给出一个统计要求，格式为：`类型 指令`，其中\n\n- `类型` 为 1 表示要求按分数非升序输出某个指定级别的考生的成绩，对应的 `指令` 则给出代表指定级别的字母；\n- `类型` 为 2 表示要求将某指定考场的考生人数和总分统计输出，对应的 `指令` 则给出指定考场的编号；\n- `类型` 为 3 表示要求将某指定日期的考生人数分考场统计输出，对应的 `指令` 则给出指定日期，格式与准考证上日期相同。', '对每项统计要求，首先在一行中输出 `Case #: 要求`，其中 `#` 是该项要求的编号，从 1 开始；`要求` 即复制输入给出的要求。随后输出相应的统计结果：\n\n- `类型` 为 1 的指令，输出格式与输入的考生信息格式相同，即 `准考证号 成绩`。对于分数并列的考生，按其准考证号的字典序递增输出（题目保证无重复准考证号）；\n- `类型` 为 2 的指令，按 `人数 总分` 的格式输出；\n- `类型` 为 3 的指令，输出按人数非递增顺序，格式为 `考场编号 总人数`。若人数并列则按考场编号递增顺序输出。\n\n如果查询结果为空，则输出 `NA`。', 200, 65536, '2021-04-19 01:09:00', '2021-04-19 01:09:00', 0, NULL);
+
+-- ----------------------------
+-- Table structure for question_status
+-- ----------------------------
+DROP TABLE IF EXISTS `question_status`;
+CREATE TABLE `question_status`  (
+  `question_status_id` bigint(20) NOT NULL COMMENT '注解',
+  `question_id` bigint(20) NULL DEFAULT NULL COMMENT '问题id',
+  `question_order` bigint(20) NULL DEFAULT NULL COMMENT '问题序号',
+  `question_title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '问题名称',
+  `question_type_id` int(8) NULL DEFAULT NULL COMMENT '问题类型id',
+  `question_difficulty` varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '问题难度',
+  `question_submit` int(10) NULL DEFAULT NULL COMMENT '题目上传数',
+  `question_success` int(10) NULL DEFAULT NULL COMMENT '问题成功执行数',
+  `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '修改时间',
+  `is_delete` tinyint(1) NULL DEFAULT 0 COMMENT '是否删除，0为未删除，1为删除',
+  `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
+  PRIMARY KEY (`question_status_id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of question_status
+-- ----------------------------
+INSERT INTO `question_status` VALUES (1390899552663425026, 1383271604087263234, 1, '找两个数中最大者', 1, '简单', 11, 7, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899552738922498, 1383813203741462530, 2, '求m到n之和', 1, '简单', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899552747311106, 1383813204123144194, 3, '找两个数中最大者', 1, '简单', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899552776671233, 1383813204148310018, 4, '数字金字塔', 1, '中等', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899552793448450, 1383813204173475842, 5, '符号函数', 1, '简单', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899552810225666, 1383813204198641665, 6, '使用函数求奇数和', 1, '中等', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899552827002881, 1383813204223807490, 7, '使用函数计算两点间的距离', 1, '简单', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899552843780097, 1383813204257361921, 8, '使用函数求素数和', 1, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899552873140226, 1383813204282527745, 9, '使用函数统计指定数字的个数', 1, '中等', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899552889917441, 1383813204316082178, 10, '使用函数输出水仙花数', 1, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899552898306050, 1383813204341248002, 11, '使用函数求余弦函数的近似值', 1, '中等', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899552915083266, 1383813204366413826, 12, '分类统计字符个数', 1, '中等', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899552931860481, 1383813204391579650, 13, '使用函数求特殊a串数列和', 1, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899552948637697, 1383813204429328385, 14, '使用函数输出指定范围内的完数', 1, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899552965414913, 1383813204454494210, 15, '使用函数输出指定范围内的Fibonacci数', 1, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899552990580737, 1383813204479660034, 16, '使用函数验证哥德巴赫猜想', 1, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899553011552258, 1383813204529991681, 17, '使用函数输出一个整数的逆序数', 1, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899553032523777, 1383813204588711938, 18, '简单计算器', 1, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899553040912385, 1383813204609683458, 19, '统计一行文本的单词个数', 1, '中等', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899553057689601, 1383813204634849282, 20, '求最大值及其下标', 1, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899553078661121, 1383813204660015106, 21, '将数组中的数逆序存放', 1, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899553095438337, 1383813204680986625, 22, '找出不是两个数组共有的元素', 1, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899553103826945, 1383813204706152450, 23, '矩阵运算', 1, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899553120604161, 1383813204722929666, 24, '方阵循环右移', 1, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899553137381378, 1383813204756484098, 25, '计算天数', 1, '中等', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899553154158594, 1383813204773261314, 26, '查找指定字符', 1, '中等', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899553170935809, 1383813204798427138, 27, '字符串逆序', 1, '中等', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899553191907330, 1383813204819398658, 28, '选择法排序', 1, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899553200295938, 1383813204848758786, 29, '求一批整数中出现最多的个位数字', 1, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899553217073153, 1383813204865536002, 30, '判断上三角矩阵', 1, '中等', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899553233850370, 1383813204899090434, 31, '求矩阵各行元素之和', 1, '中等', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899553242238977, 1383813204915867650, 32, '找鞍点', 1, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899553259016193, 1383813204932644865, 33, '统计大写辅音字母', 1, '中等', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899553267404802, 1383813204957810689, 34, '字符串替换', 1, '中等', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899553284182017, 1383813204974587906, 35, '字符串转换成十进制整数', 1, '中等', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899553292570625, 1383813204999753730, 36, '计算两数的和与差', 1, '简单', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899553309347841, 1383813205020725249, 37, '移动字母', 1, '简单', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899553317736450, 1383813205037502466, 38, '拆分实数的整数与小数部分', 1, '中等', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899553334513666, 1383813205062668290, 39, '在数组中查找指定元素', 1, '中等', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899553342902274, 1383813205087834114, 40, '数组循环右移', 1, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899553351290881, 1383813205112999938, 41, '报数', 1, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899553368068098, 1383813205138165761, 42, '使用函数实现字符串部分复制', 1, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899553376456706, 1383813205167525889, 43, '删除字符', 1, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899553389039618, 1383813205175914497, 44, '字符串排序', 1, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899553405816834, 1383813205192691713, 45, '输出学生成绩', 1, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899553414205442, 1383813205209468929, 46, '判断回文字符串', 1, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899553430982657, 1383813205226246146, 47, '分类统计各类字符个数', 1, '中等', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899553451954177, 1383813205243023361, 48, '时间换算', 1, '中等', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 1, NULL);
+INSERT INTO `question_status` VALUES (1390899553468731394, 1383813205251411970, 49, '平面向量加法', 1, '中等', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899553477120001, 1383813205268189186, 50, '查找书籍', 1, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899553493897217, 1383813205284966401, 51, '通讯录排序', 1, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899553502285826, 1383813205301743618, 52, '计算两个复数之积', 1, '中等', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899553519063041, 1383813205310132226, 53, '按等级统计学生成绩', 1, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899553569394690, 1383813205326909441, 54, '使用递归函数计算1到n之和', 1, '简单', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899553586171906, 1383813205343686658, 55, '判断满足条件的三位数', 1, '中等', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899553594560513, 1383813205356269570, 56, '递归求阶乘和', 1, '中等', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899553611337730, 1383813205373046785, 57, '递归实现指数函数', 1, '中等', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899553619726337, 1383813205394018305, 58, '递归求简单交错幂级数的部分和', 1, '中等', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899553636503554, 1383813205410795522, 59, '递归计算Ackermenn函数', 1, '中等', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899553644892161, 1383813205427572737, 60, '递归求Fabonacci数列', 1, '简单', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899553661669377, 1383813205435961346, 61, '十进制转换二进制', 1, '中等', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899553670057986, 1383813205452738561, 62, '递归实现顺序输出整数', 1, '中等', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899553686835201, 1383813205469515777, 63, '输出月份英文名', 1, '中等', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899553695223810, 1383813205486292994, 64, '查找星期', 1, '中等', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899553720389633, 1383813205511458818, 65, '计算最长的字符串长度', 1, '中等', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899553728778241, 1383813205528236033, 66, '字符串的连接', 1, '中等', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899553737166849, 1383813205545013250, 67, '指定位置输出字符串', 1, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899553753944065, 1383813205561790466, 68, '查找子串', 1, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899553762332673, 1383813205578567682, 69, '奇数值结点链表', 1, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899553787498498, 1383821508266242050, 70, 'Programming in C is fun!', 1, '简单', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899553795887106, 1383821508564037634, 71, '输出倒三角图案', 1, '简单', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899553812664322, 1383821508589203457, 72, '温度转换', 1, '简单', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899553837830145, 1383821508605980674, 73, '计算物体自由下落的距离', 1, '简单', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899553854607362, 1383821508631146498, 74, '计算摄氏温度', 1, '简单', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899553871384578, 1383821508698255362, 75, '整数四则运算', 1, '简单', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899553883967489, 1383821508748587010, 76, '计算分段函数[1]', 1, '简单', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899553892356098, 1383821508794724354, 77, '计算分段函数[2]', 1, '简单', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899553900744705, 1383821508857638914, 78, '输出华氏-摄氏温度转换表', 1, '中等', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899553917521922, 1383821508899581953, 79, '求N分之一序列前N项和', 1, '中等', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899553925910530, 1383821508949913601, 80, '求奇数分之一序列前N项和', 1, '中等', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899553942687746, 1383821508991856642, 81, '求简单交错序列前N项和', 1, '中等', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899553951076353, 1383821509042188289, 82, '生成3的乘方表', 1, '中等', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899553963659266, 1383821509100908545, 83, '求组合数', 1, '中等', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899553972047874, 1383821509151240193, 84, '求整数均值', 1, '简单', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899553988825089, 1383821509201571841, 85, '阶梯电价', 1, '中等', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899553997213698, 1383821509251903489, 86, '求平方与倒数序列的部分和', 1, '中等', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899554005602305, 1383821509285457922, 87, '求交错序列前N项和', 1, '中等', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899554022379522, 1383821509331595266, 88, '求平方根序列前N项和', 1, '中等', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899554030768130, 1383821509373538305, 89, '求阶乘序列前N项和', 1, '中等', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899554039156737, 1383821509444841474, 90, '计算符号函数的值', 1, '简单', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899554047545345, 1383821509486784513, 91, '统计学生平均成绩与及格人数', 1, '中等', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899554055933954, 1383821509524533249, 92, '统计字符', 1, '中等', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899554068516866, 1383821509566476290, 93, '成绩转换', 1, '中等', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899554076905473, 1383821509608419330, 94, '查询水果价格', 1, '中等', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899554085294081, 1383821509641973761, 95, '输出闰年', 1, '中等', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899554102071298, 1383821509675528194, 96, '比较大小', 1, '简单', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899554110459906, 1383821509704888321, 97, '高速公路超速处罚', 1, '中等', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899554127237121, 1383821509738442753, 98, '出租车计价', 1, '中等', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899554131431425, 1383821509771997185, 99, '统计学生成绩', 1, '中等', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899554148208641, 1383821509801357313, 100, '三角形判断', 1, '中等', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899554156597249, 1383821509860077570, 101, '求给定精度的简单交错序列部分和', 1, '中等', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899554164985857, 1383821509897826306, 102, '猜数字游戏', 1, '中等', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899554173374466, 1383821509935575042, 103, '求e的近似值', 1, '中等', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899554181763074, 1383821509977518082, 104, '找出最小值', 1, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899554198540289, 1383821510019461121, 105, '统计素数并求和', 1, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899554206928898, 1383821510057209857, 106, '求奇数和', 1, '中等', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899554215317506, 1383821510099152898, 107, '求幂级数展开的部分和', 1, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899554223706114, 1383821510132707330, 108, '求分数序列前N项和', 1, '中等', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899554265649154, 1383821510178844674, 109, '特殊a串数列求和', 1, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899554274037761, 1383821510220787714, 110, '换硬币', 1, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899554290814978, 1383821510254342146, 111, '水仙花数', 1, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899554303397889, 1383821510292090881, 112, '最大公约数和最小公倍数', 1, '中等', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899554311786498, 1383821510329839618, 113, '高空坠球', 1, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899554320175105, 1383821510363394050, 114, '打印菱形图案', 1, '中等', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899554332758018, 1383821510401142786, 115, '猴子吃桃问题', 1, '中等', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899554353729537, 1383821510438891522, 116, '兔子繁衍问题', 1, '中等', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899554362118145, 1383824455997886465, 117, '二分查找', 2, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899554370506754, 1383824456366985218, 118, '有序数组的插入', 2, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899554378895362, 1383824456408928257, 119, '递增的整数序列链表的插入', 2, '中等', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899554395672577, 1383824456434094081, 120, '两个有序链表序列的合并', 2, '中等', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899554408255490, 1383824456459259906, 121, '递归求简单交错幂级数的部分和', 2, '中等', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899554416644098, 1383824456492814338, 122, '弹球距离', 2, '中等', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899554425032705, 1383824456517980162, 123, '线性表元素的区间删除', 2, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899554433421314, 1383824456543145986, 124, '求链表的倒数第m个元素', 2, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899554441809922, 1383824456568311809, 125, '另类循环队列', 2, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899554450198529, 1383824456585089026, 126, '双端队列', 2, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899554458587138, 1383824456610254849, 127, '另类堆栈', 2, '中等', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899554475364353, 1383824456627032066, 128, '是否二叉搜索树', 2, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899554483752961, 1383824456652197890, 129, '线性探测法的查找函数', 2, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899554500530178, 1383824456677363714, 130, '分离链接法的删除操作函数', 2, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899554508918785, 1383824456702529537, 131, '邻接矩阵存储图的深度优先遍历', 2, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899554517307394, 1383824456727695362, 132, '邻接表存储图的广度优先遍历', 2, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899554534084610, 1383829169074429953, 133, '最大子列和问题', 2, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899554546667521, 1383829169451917313, 134, '简单计算器', 2, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899554555056129, 1383829169510637569, 135, '数组循环左移', 2, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899554571833346, 1383829169573552130, 136, '数列求和-加强版', 2, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899554580221953, 1383829169611300865, 137, '输出全排列', 2, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899554588610562, 1383829169670021122, 138, '最长连续递增子序列', 2, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899554601193473, 1383829169724547073, 139, '一元多项式的乘法与加法运算', 2, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899554609582082, 1383829169770684417, 140, '符号配对', 2, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899554617970690, 1383829169829404673, 141, '堆栈操作合法性', 2, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899554634747906, 1383829169888124930, 142, '汉诺塔的非递归实现', 2, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899554647330818, 1383829169942650881, 143, '表达式转换', 2, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899554655719425, 1383829170005565441, 144, '根据后序和中序遍历输出先序遍历', 2, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899554664108033, 1383829170060091393, 145, '平衡二叉树的根', 2, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899554672496642, 1383829170106228738, 146, '堆中的路径', 2, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899554680885250, 1383829170177531906, 147, '顺序存储的二叉树的最近的公共祖先问题', 2, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899554689273857, 1383829170232057858, 148, '词频统计', 2, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899554701856769, 1383829170311749634, 149, '六度空间', 2, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899554710245377, 1383829170362081282, 150, '排序', 2, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899554718633985, 1383829170408218626, 151, '银行排队问题之单队列多窗口服务', 2, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899554735411202, 1383829170458550273, 152, '银行排队问题之单队列多窗口加VIP服务', 2, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899554743799810, 1383829170508881921, 153, '银行排队问题之单窗口“夹塞”版', 2, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899554760577026, 1383829170550824962, 154, '畅通工程之最低成本建设问题', 2, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899554768965634, 1383829170592768001, 155, '畅通工程之局部最小花费问题', 2, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899554777354241, 1383829923692662786, 156, '害死人不偿命的(3n+1)猜想', 3, '中等', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899554785742849, 1383829924032401409, 157, '写出这个数', 3, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899554798325761, 1383829924082733058, 158, '我要通过！', 3, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899554810908674, 1383829924137259009, 159, '成绩排名', 3, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899554823491586, 1383829924179202049, 160, '继续(3n+1)猜想', 3, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899554831880193, 1383829924229533698, 161, '换个格式输出整数', 3, '中等', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899554840268801, 1383829924288253954, 162, '素数对猜想', 3, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899554848657409, 1383829924321808385, 163, '数组元素循环右移问题', 3, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899554857046018, 1383829924384722945, 164, '说反话', 3, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899554869628929, 1383829924426665985, 165, '一元多项式求导', 3, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899554878017537, 1383829924481191937, 166, 'A+B 和 C', 3, '中等', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899554886406146, 1383829924531523586, 167, '数字分类', 3, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899554903183362, 1383829924590243842, 168, '数素数', 3, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899554911571969, 1383829924636381185, 169, '福尔摩斯的约会', 3, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899554919960578, 1383829924690907138, 170, '德才论', 3, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899554928349185, 1383829924732850177, 171, '部分A+B', 3, '中等', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899554945126402, 1383829924795764737, 172, 'A除以B', 3, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899554953515009, 1383829924846096385, 173, '锤子剪刀布', 3, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899554966097922, 1383829924888039425, 174, '数字黑洞', 3, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899554982875138, 1383829924929982465, 175, '月饼', 3, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899554999652354, 1383829924967731201, 176, '个位数统计', 3, '中等', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899555008040962, 1383829925009674242, 177, 'D进制的A+B', 3, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899555016429570, 1383829925043228674, 178, '组个最小数', 3, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899555033206785, 1383829925068394498, 179, '科学计数法', 3, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899555045789697, 1383829925106143233, 180, '反转链表', 3, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899555054178306, 1383829925139697665, 181, '程序运行时间', 3, '中等', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899555062566913, 1383829925177446401, 182, '打印沙漏', 3, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899555079344129, 1383829925219389441, 183, '人口普查', 3, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899555083538433, 1383829925252943874, 184, '旧键盘', 3, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899555100315650, 1383829925328441346, 185, '完美数列', 3, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899555112898562, 1383829925361995777, 186, '查验身份证', 3, '中等', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899555121287170, 1383829925399744513, 187, '挖掘机技术哪家强', 3, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899555129675778, 1383829925441687554, 188, '旧键盘打字', 3, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899555146452994, 1383829925475241986, 189, '有理数四则运算', 3, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899555154841601, 1383829925508796417, 190, '插入与归并', 3, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899555180007426, 1383829925542350849, 191, '跟奥巴马一起编程', 3, '中等', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899555205173249, 1383829925580099586, 192, '在霍格沃茨找零钱', 3, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899555221950466, 1383829925617848321, 193, '统计同成绩学生', 3, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899555230339073, 1383829925655597057, 194, '到底买不买', 3, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899555247116289, 1383829925697540097, 195, '有几个PAT', 3, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899555255504897, 1383829925726900225, 196, '考试座位号', 3, '中等', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899555263893506, 1383829925768843266, 197, '字符统计', 3, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899555280670722, 1383829925806592002, 198, '输出PATest', 3, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899555284865026, 1383829925844340737, 199, '火星数字', 3, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:29', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899555297447938, 1383829925882089474, 200, '快速排序', 3, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:30', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899555314225153, 1383829925915643906, 201, '划拳', 3, '中等', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:30', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899555322613762, 1383829925949198338, 202, '编程团体赛', 3, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:30', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899555331002370, 1383829925982752769, 203, '数字加密', 3, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:30', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899555343585281, 1383829926012112898, 204, '数列的片段和', 3, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:30', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899555351973889, 1383829926041473025, 205, '螺旋矩阵', 3, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:30', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899555368751106, 1383829926079221761, 206, '复数乘法', 3, '中等', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:30', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899555377139714, 1383829926112776194, 207, '卖个萌', 3, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:30', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899555385528322, 1383829926146330626, 208, '住房空置率', 3, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:30', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899555398111234, 1383829926188273666, 209, '求平均值', 3, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:30', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899555414888450, 1383829926226022402, 210, '集体照', 3, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:30', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899555423277058, 1383829926259576834, 211, '组合数的和', 3, '中等', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:30', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899555431665666, 1383829926305714178, 212, '数零壹', 3, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:30', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899555444248578, 1383829926347657217, 213, '选择题', 3, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:30', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899555452637185, 1383829926389600258, 214, 'C语言竞赛', 3, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:30', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899555461025793, 1383829926427348993, 215, '爱丁顿数', 3, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:30', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899555469414401, 1383829926473486337, 216, '判断题', 3, '中等', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:30', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899555477803009, 1383829926515429377, 217, '最简分数', 3, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:30', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899555486191618, 1383829926561566721, 218, '计算谱半径', 3, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:30', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899555502968834, 1383829926599315457, 219, '朋友数', 3, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:30', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899555511357442, 1383829926641258498, 220, '单身狗', 3, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:30', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899555523940353, 1383829926679007234, 221, '图像过滤', 3, '中等', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:30', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899555532328962, 1383829926716755970, 222, '试密码', 3, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:30', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899555540717570, 1383829926754504705, 223, '万绿丛中一点红', 3, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:30', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899555557494785, 1383829926783864834, 224, '微博转发抽奖', 3, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:30', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899555565883393, 1383829926821613570, 225, '结绳', 3, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:30', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899555574272001, 1383829926855168002, 226, '小赌怡情', 3, '中等', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:30', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899555582660609, 1383829926892916737, 227, '开学寄语', 3, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:30', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899555595243521, 1383829926930665473, 228, '多选题常见计分法', 3, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:30', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899555603632130, 1383829926960025601, 229, '宇宙无敌加法器', 3, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:30', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899555616215042, 1383829926997774337, 230, '链表元素分类', 3, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:30', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899555624603649, 1383829927031328769, 231, 'Wifi密码', 3, '中等', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:30', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899555641380866, 1383829927069077506, 232, '互评成绩计算', 3, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:30', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899555649769473, 1383829927106826242, 233, '字符串压缩与解压', 3, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:30', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899555658158081, 1383829927152963585, 234, '延迟的回文数', 3, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:30', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899555670740994, 1383829927194906626, 235, 'MOOC期终成绩', 3, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:30', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899555679129602, 1383829927232655361, 236, '检查密码', 3, '中等', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:30', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899555687518210, 1383829927282987010, 237, '射击比赛', 3, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:30', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899555695906818, 1383829927316541442, 238, '是否存在相等的差', 3, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:30', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899555704295426, 1383829927362678786, 239, '外观数列', 3, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:30', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899555712684034, 1383829927408816129, 240, 'PAT单位排行', 3, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:30', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899555721072641, 1383829927459147778, 241, '就不告诉你', 3, '中等', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:30', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899555733655554, 1383829927505285121, 242, '有多少不同的值', 3, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:30', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899555742044161, 1383829927543033858, 243, '三人行', 3, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:30', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899555750432769, 1383829927576588290, 244, '狼人杀-简单版', 3, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:30', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899555792375810, 1383829927605948417, 245, '危险品装箱', 3, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:30', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899555800764418, 1383829927639502849, 246, 'N-自守数', 3, '中等', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:30', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899555809153025, 1383829927673057281, 247, '最好吃的月饼', 3, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:30', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899555817541634, 1383829927706611713, 248, '字符串A+B', 3, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:30', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899555825930241, 1383829927740166145, 249, '谷歌的招聘', 3, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:30', 0, NULL);
+INSERT INTO `question_status` VALUES (1390899555842707457, 1383829927752749057, 250, '解码PAT准考证', 3, '困难', 0, 0, '2021-05-08 13:21:10', '2021-05-08 14:42:30', 0, NULL);
 
 -- ----------------------------
 -- Table structure for question_type
 -- ----------------------------
 DROP TABLE IF EXISTS `question_type`;
 CREATE TABLE `question_type`  (
-  `question_type_id` int(2) NOT NULL COMMENT '主键',
+  `question_type_id` bigint(20) NOT NULL COMMENT '主键',
   `question_type` varchar(8) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '问题类型',
   `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '修改时间',
@@ -920,7 +1291,7 @@ CREATE TABLE `question_type`  (
 INSERT INTO `question_type` VALUES (1, '基础训练', NULL, NULL, 0, NULL);
 INSERT INTO `question_type` VALUES (2, '数据结构', NULL, NULL, 0, NULL);
 INSERT INTO `question_type` VALUES (3, '算法训练', NULL, NULL, 0, NULL);
-INSERT INTO `question_type` VALUES (4, '面试笔试真题', NULL, NULL, 0, NULL);
+INSERT INTO `question_type` VALUES (1392694071260102658, '测试修改', '2021-05-13 12:11:56', '2021-05-13 12:11:56', 1, NULL);
 
 -- ----------------------------
 -- Table structure for role_authority
@@ -941,6 +1312,28 @@ CREATE TABLE `role_authority`  (
 -- ----------------------------
 -- Records of role_authority
 -- ----------------------------
+
+-- ----------------------------
+-- Table structure for status
+-- ----------------------------
+DROP TABLE IF EXISTS `status`;
+CREATE TABLE `status`  (
+  `status_id` bigint(20) NOT NULL COMMENT '主键',
+  `status_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '状态名',
+  PRIMARY KEY (`status_id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of status
+-- ----------------------------
+INSERT INTO `status` VALUES (0, '通过！');
+INSERT INTO `status` VALUES (1, '错误答案！');
+INSERT INTO `status` VALUES (2, '输出格式错误');
+INSERT INTO `status` VALUES (3, '超出了题目的内存限制');
+INSERT INTO `status` VALUES (4, '超出了题目的时间限制');
+INSERT INTO `status` VALUES (5, '运行时错误');
+INSERT INTO `status` VALUES (6, '编译错误');
+INSERT INTO `status` VALUES (7, '使用了不安全的函数');
 
 -- ----------------------------
 -- Table structure for sys_authority
@@ -991,29 +1384,56 @@ CREATE TABLE `sys_user`  (
   `update_time` datetime(0) NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '修改时间',
   `is_delete` tinyint(1) NULL DEFAULT 0 COMMENT '是否删除，0为未删除，1为删除',
   `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
+  `user_type` tinyint(1) NULL DEFAULT NULL COMMENT '用户类型',
   PRIMARY KEY (`user_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES (1375000903416844289, 'admin', 'admin@qq.com', '$2a$10$viCtKAuhzM98XFpFUBVCCOmCwuLmd1euKuff5rjCLW5.xO9QuIybK', '2021-03-25 16:25:36', '2021-03-25 16:25:36', 0, NULL);
-INSERT INTO `sys_user` VALUES (1375097759765426177, 'default233', '1149863397@qq.com', '$2a$10$uL4PeR/bzHGYGmkHF4zeiu52yF2eByTkGl6RVceABym/U/gmYbam.', '2021-03-25 22:50:29', '2021-03-25 22:50:29', 0, NULL);
-INSERT INTO `sys_user` VALUES (1375342999239659522, 'test', 'test@qq.com', '$2a$10$gcBWUZbFZAt1vpDHS3ttPuqkczNR8U.xSWClLn5UMe94609HrPjK6', '2021-03-26 15:04:58', '2021-03-26 15:04:58', 0, NULL);
-INSERT INTO `sys_user` VALUES (1384815373706178562, '往后余生', '15138081615@163.com', '$2a$10$EESzrVsh1usiWOoNxE.lGOXHJNU5aSYd99T/.NpJaeU1zNs4LybPa', '2021-04-21 18:24:48', '2021-04-21 18:24:48', 0, NULL);
+INSERT INTO `sys_user` VALUES (1391966614093590529, 'admin', '15138081615@163.com', '$2a$10$HR4XaDK13drMqIiqOhdoweJDdFAR6rJdRzdJsArfgWYXIt48G/7f6', '2021-05-11 12:01:17', '2021-05-11 12:01:17', 0, NULL, 1);
+INSERT INTO `sys_user` VALUES (1392810435593379842, '往后余生', '1149863397@qq.com', '$2a$10$jMP4HEykLkhg2BAsYSmtWebI1ATbuxirrvDQiBQYh5yWFtynu/Bvq', '2021-05-13 19:54:20', '2021-05-13 19:54:20', 0, NULL, 0);
+
+-- ----------------------------
+-- Table structure for user_class
+-- ----------------------------
+DROP TABLE IF EXISTS `user_class`;
+CREATE TABLE `user_class`  (
+  `user_class_id` bigint(20) NOT NULL COMMENT '主键',
+  `user_id` bigint(20) NULL DEFAULT NULL COMMENT '用户id',
+  `real_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '学生姓名',
+  `student_id` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '学生学号',
+  `class_id` bigint(20) NULL DEFAULT NULL COMMENT '班级id',
+  `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '修改时间',
+  `is_delete` tinyint(1) NULL DEFAULT 0 COMMENT '是否删除，0为未删除，1为删除',
+  `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
+  PRIMARY KEY (`user_class_id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of user_class
+-- ----------------------------
+INSERT INTO `user_class` VALUES (1392832771428192257, 1392810435593379842, '靳辰辰', '2017111538', 1392781599531102210, '2021-05-13 21:23:05', '2021-05-13 21:23:05', 1, NULL);
+INSERT INTO `user_class` VALUES (1392843181552373762, 1392810435593379842, '靳辰辰', '2017111538', 1392842152685355010, '2021-05-13 22:04:27', '2021-05-13 22:04:27', 1, NULL);
+INSERT INTO `user_class` VALUES (1393111210626396162, 1392810435593379842, '靳辰辰', '2017111149', 1392842152685355010, '2021-05-14 15:49:30', '2021-05-14 16:07:36', 0, NULL);
 
 -- ----------------------------
 -- Table structure for user_info
 -- ----------------------------
 DROP TABLE IF EXISTS `user_info`;
 CREATE TABLE `user_info`  (
-  `user_info_id` bigint(20) NOT NULL,
-  `user_id` bigint(20) NULL DEFAULT NULL,
-  `username` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `sex` varchar(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `img` varchar(2048) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `birthday` datetime(0) NULL DEFAULT NULL,
+  `user_info_id` bigint(20) NOT NULL COMMENT '主键',
+  `user_id` bigint(20) NULL DEFAULT NULL COMMENT '用户id',
+  `username` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '用户名',
+  `sex` varchar(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '性别',
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '邮箱',
+  `img` varchar(2048) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '头像图片路径',
+  `birthday` datetime(0) NULL DEFAULT NULL COMMENT '生日',
+  `problem_submit` int(10) NULL DEFAULT NULL COMMENT '题目提交数',
+  `problem_success` int(10) NULL DEFAULT NULL COMMENT '题目成功数',
+  `user_type` tinyint(1) NULL DEFAULT 0 COMMENT '用户类型',
+  `is_authenticate` tinyint(1) NULL DEFAULT 0 COMMENT '是否认证',
   `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
   `update_time` datetime(0) NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '修改时间',
   `is_delete` tinyint(1) NULL DEFAULT 0 COMMENT '是否删除，0为未删除，1为删除',
@@ -1024,7 +1444,49 @@ CREATE TABLE `user_info`  (
 -- ----------------------------
 -- Records of user_info
 -- ----------------------------
-INSERT INTO `user_info` VALUES (1384815373777481729, 1384815373706178562, '往后余生', '男', '15138081615@163.com', '263f2a48-0a24-463c-8f94-4ccee7630520test2.jpg', '1998-09-22 00:00:00', '2021-04-21 18:24:48', '2021-04-21 22:48:00', 0, NULL);
+INSERT INTO `user_info` VALUES (1391966614714347521, 1391966614093590529, 'admin', '男', '15138081615@163.com', '4cff3fb5-eb6d-4e14-ad1c-45c5478adc99test.jpg', '2015-05-11 00:00:00', 0, 0, 1, 0, '2021-05-11 12:01:17', '2021-05-11 12:47:31', 0, NULL);
+INSERT INTO `user_info` VALUES (1392810435664683009, 1392810435593379842, '往后余生', '男', '1149863397@qq.com', 'default.jpg', '2021-05-13 00:00:00', 11, 7, 0, 1, '2021-05-13 19:54:20', '2021-05-14 19:14:02', 0, NULL);
+
+-- ----------------------------
+-- Table structure for user_pass
+-- ----------------------------
+DROP TABLE IF EXISTS `user_pass`;
+CREATE TABLE `user_pass`  (
+  `user_pass_id` bigint(20) NOT NULL COMMENT '主键',
+  `user_id` bigint(20) NULL DEFAULT NULL COMMENT '用户id',
+  `question_id` bigint(20) NULL DEFAULT NULL COMMENT '问题id',
+  `is_passed` tinyint(1) NULL DEFAULT NULL COMMENT '是否通过',
+  `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '修改时间',
+  `is_delete` tinyint(1) NULL DEFAULT 0 COMMENT '是否删除，0为未删除，1为删除',
+  `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
+  PRIMARY KEY (`user_pass_id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of user_pass
+-- ----------------------------
+INSERT INTO `user_pass` VALUES (1393159791886471169, 1392810435593379842, 1383271604087263234, 1, '2021-05-14 19:02:33', '2021-05-14 19:14:03', 0, NULL);
+
+-- ----------------------------
+-- Table structure for user_pass_rate
+-- ----------------------------
+DROP TABLE IF EXISTS `user_pass_rate`;
+CREATE TABLE `user_pass_rate`  (
+  `user_pass_rate_id` bigint(20) NOT NULL COMMENT '主键',
+  `user_id` bigint(20) NULL DEFAULT NULL COMMENT '用户id',
+  `user_pass_rate` decimal(10, 0) NULL DEFAULT NULL COMMENT '通过率',
+  `user_pass_num` int(11) NULL DEFAULT NULL COMMENT '通过数量',
+  `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '修改时间',
+  `is_delete` tinyint(1) NULL DEFAULT 0 COMMENT '是否删除，0为未删除，1为删除',
+  `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
+  PRIMARY KEY (`user_pass_rate_id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of user_pass_rate
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for user_role
